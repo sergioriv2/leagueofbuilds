@@ -1,7 +1,18 @@
 #include <SFML/Graphics.hpp>
+#include <iostream>
+#include <cstdio>
+#include <string>
 
 using namespace sf;
+using namespace std;
+
 #include "clases.h"
+
+///-------------------
+//	METODOS MENU
+///------------------
+
+// PARTE GRAFICA CON SFML
 
 Menu::Menu(int _resAlto, int _resAncho)
 {
@@ -64,4 +75,108 @@ void Menu::setOffsetTitulo(float x, float y, int chSize)
 Menu::~Menu()
 {
 	delete(ventana);
+}
+
+/// -----------------
+///	METODOS ARCHIVO
+/// -----------------
+
+
+//TODO: Faltan definiciones de metodos
+
+
+
+/// -----------------
+///	METODOS STATS
+/// -----------------
+
+void Stat::setAtaque() 
+{ 
+	cout << "Ataque: ";
+	cin >> ataque; 
+}
+void Stat::setVel_ataque() 
+{ 
+	cout << "Velocidad de ataque: ";
+	cin >> vel_ataque;
+}
+void Stat::setPoder_habilidad()
+{
+	cout << "Poder de habilidad: ";
+	cin >> poder_habilidad;
+}
+void Stat::setVida() {
+	cout << "Vida: ";
+	cin >> vida; 
+}
+void Stat::setArmor() {
+	cout << "Armor: ";
+	cin >> armor; 
+}
+void Stat::setResistenciamagica() {
+	cout << "Resistencia magica: ";
+	cin >> resistencia_magica; 
+}
+
+
+/// -----------------
+///	METODOS CAMPEON
+/// -----------------
+
+
+
+void Campeon::setUbicacionArchivo()
+{
+	archivo_dat.setUbicacion("resources/campeones.dat");
+}
+
+void Campeon::setNombre()
+{
+	cout << "Nombre: ";
+	cin.ignore();
+	cin.getline(nombre, 15);
+
+}
+void Campeon::setEstilo()
+{
+	cout << "Estilo: ";
+	//cin.ignore();
+	cin.getline(estilo, 20);
+
+}
+void Campeon::setDmg()
+{
+	cout << "Tipo de danio: ";
+	//cin.ignore();
+	cin.getline(dmg_type, 15);
+}
+
+void Campeon::setStats()
+{
+	stats_champ.setAtaque();
+	stats_champ.setVel_ataque();
+	stats_champ.setPoder_habilidad();
+	stats_champ.setVida();
+	stats_champ.setArmor();
+	stats_champ.setResistenciamagica();
+}
+
+char* Campeon::getNombre() { return nombre; }
+char* Campeon:: getEstilo() { return estilo; }
+char* Campeon::getDmg() { return dmg_type; }
+
+/// -----------------
+///	METODOS ITEMS
+/// -----------------
+
+Items::Items()
+{
+	rectangulo.setSize(Vector2f(64.0f, 64.0f));
+	textura.loadFromFile("resources/items_iniciales.png");
+	sizeTex = textura.getSize();
+	sizeTex.x /= 4;
+	sizeTex.y /= 1;
+
+	rectangulo.setTexture(&textura);
+	rectangulo.setTextureRect(IntRect(sizeTex.x * 3, sizeTex.y * 0, sizeTex.x, sizeTex.y));
 }
