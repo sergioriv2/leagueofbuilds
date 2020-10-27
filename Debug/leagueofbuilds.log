@@ -1,0 +1,4 @@
+﻿  clases.cpp
+  main.cpp
+  Generando código...
+sfml-graphics.lib(sfml-graphics-2.dll) : fatal error LNK1112: tipo de equipo del módulo 'x64' en conflicto con tipo de equipo de destino 'x86'
