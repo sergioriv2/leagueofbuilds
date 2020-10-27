@@ -34,46 +34,50 @@ public:
 	{
 		ataque = vel_ataque = poder_habilidad = vida = armor = resistencia_magica = 0;
 	}
+	//sets
 	void setAtaque();
 	void setVel_ataque();
 	void setPoder_habilidad();
 	void setVida();
 	void setArmor();
-	void setResistenciamagica();
-	//sets
+	void setResistencia_magica();
+	
 	//gets
+	float getAtaque();
+	float getVel_ataque();
+	float getPoder_habilidad();
+	float getVida();
+	float getArmor();
+	float getResistencia_magica();
 };
 
-class Campeon
+class Campeon : public Stat
 {
 private:
 	// Cambie de string a char, pense que iba a ser mas facil copiar strings pero nop
-	char nombre[15];
-	Stat stats_champ;
-	Archivo archivo_dat;
-	//Vector2i cordImg;
-	char estilo[20];
-	char dmg_type[15];
+	char nombre[15]={};
+	Archivo archivo_dat = {};
+	Vector2i cordImg = {};
+	char estilo[20] = {};
+	char dmg_type[15]={};
 public:
+	Campeon();
 	//metodos
 	// TODO: Falta definicion de guardarCampeon()
 	bool guardarCampeon();
 	//sets
+	void setStats();
 	void setUbicacionArchivo();
 	void setNombre();
 	void setEstilo();
 	void setDmg();
-	void setStats();
 	//gets
 	char* getNombre();
 	char* getEstilo();
 	char* getDmg();
-
-
-	//gets
 };
 
-class Items
+class Items : public Stat
 {
 private:
 	RectangleShape rectangulo;
@@ -88,6 +92,17 @@ public:
 	}
 };
 
+class Conjunto
+{
+private:
+	Campeon champ_conj;
+	Items item_conj;
+	int costo_total;
+
+public:
+	
+	
+};
 
 class Menu
 {

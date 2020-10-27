@@ -11,4 +11,5 @@ public:
 	void menuCampeones();
 	//Agregar campeones
 	void agregarCampeones();
+
 };

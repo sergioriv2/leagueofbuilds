@@ -113,16 +113,26 @@ void Stat::setArmor() {
 	cout << "Armor: ";
 	cin >> armor; 
 }
-void Stat::setResistenciamagica() {
+void Stat::setResistencia_magica() {
 	cout << "Resistencia magica: ";
 	cin >> resistencia_magica; 
 }
 
+float Stat::getAtaque() { return ataque; };
+float Stat::getVel_ataque() { return vel_ataque; }
+float Stat::getPoder_habilidad() { return poder_habilidad; }
+float Stat::getVida(){return vida;}
+float Stat::getArmor(){return armor;}
+float Stat::getResistencia_magica(){return resistencia_magica;}
 
 /// -----------------
 ///	METODOS CAMPEON
 /// -----------------
 
+Campeon::Campeon() {
+	Stat();
+
+}
 
 
 void Campeon::setUbicacionArchivo()
@@ -153,17 +163,18 @@ void Campeon::setDmg()
 
 void Campeon::setStats()
 {
-	stats_champ.setAtaque();
-	stats_champ.setVel_ataque();
-	stats_champ.setPoder_habilidad();
-	stats_champ.setVida();
-	stats_champ.setArmor();
-	stats_champ.setResistenciamagica();
+	setAtaque();
+	setVel_ataque();
+	setPoder_habilidad();
+	setVida();
+	setArmor();
+	setResistencia_magica();
 }
 
 char* Campeon::getNombre() { return nombre; }
 char* Campeon:: getEstilo() { return estilo; }
 char* Campeon::getDmg() { return dmg_type; }
+
 
 /// -----------------
 ///	METODOS ITEMS

@@ -58,6 +58,11 @@ void Menu_Desarrollador::menuCampeones()
 		break;
 	case 2:
 		break;
+	case 3:
+		break;
+	case 4:
+		
+		break;
 	case 0:
 		return;
 		break;
@@ -67,16 +72,19 @@ void Menu_Desarrollador::menuCampeones()
 
 void Menu_Desarrollador::agregarCampeones()
 {
-	Campeon* champ;
-	champ = new Campeon;
+	Campeon champ;
+	champ.setNombre();
+	champ.setStats();
+	champ.setEstilo();
+	champ.setDmg();
 
-	champ->setNombre();
-	champ->setEstilo();
-	champ->setDmg();
-	champ->setStats();
-
+	cout << champ.getNombre() << endl;
+	cout << champ.getAtaque() << endl;
+	cout << champ.getArmor() << endl;
+	
 	
 	// TODO: Ver alguna forma de como guardar obj champ con la clase archivo
 	return;
-	delete(champ);
+	
 }
+
