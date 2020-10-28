@@ -11,5 +11,8 @@ public:
 	void menuCampeones();
 	//Agregar campeones
 	void agregarCampeones();
-
+	bool grabarCampeon(Campeon reg);
+	Campeon leerCampeon();
+	void mostrarCampeon(Campeon reg);
+	
 };
