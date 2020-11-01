@@ -151,11 +151,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="clases.cpp" />
+    <ClCompile Include="Campeon.cpp" />
+    <ClCompile Include="GUI.cpp" />
+    <ClCompile Include="Conjunto_cabecera.cpp" />
+    <ClCompile Include="Conjunto_detalle.cpp" />
+    <ClCompile Include="Item.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="devmenu.cpp" />
+    <ClCompile Include="Stat.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="clases.h" />
+    <ClInclude Include="Campeon.h" />
+    <ClInclude Include="GUI.h" />
+    <ClInclude Include="Conjunto_cabecera.h" />
+    <ClInclude Include="Conjunto_detalle.h" />
+    <ClInclude Include="devmenu.h" />
+    <ClInclude Include="Item.h" />
+    <ClInclude Include="Stat.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
