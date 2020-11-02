@@ -60,20 +60,6 @@ void Campeon::setdmgType()
 
 }
 
-void Campeon::setStats()
-{
-	setNombre();
-	setAtaque();
-	setVel_ataque();
-	setPoder_habilidad();
-	setVida();
-	setArmor();
-	setResistencia_magica();
-	setCrit_chance();
-	setMana();
-	
-}
-
 // Operaciones archivos
 
 int Campeon::contar_reg() // Fixed
@@ -141,19 +127,6 @@ void Campeon::mostrarCampeones()
 	}
 	fclose(pf);
 
-}
-
-void Campeon::getStats()
-{
-	cout << "Nombre: " << nombre << endl;
-	cout << "Ataque: " << ataque << endl;
-	cout << "Velocidad de ataque: " << vel_ataque << endl;
-	cout << "Poder de habilidad: " << poder_habilidad << endl;
-	cout << "Vida: " << vida << endl;
-	cout << "Armadura: " << armor << endl;
-	cout << "Resistencia magica: " << resistencia_magica << endl;
-	cout << "Probablidad de critico: " << crit_chance << endl;
-	cout << "Mana " << mana << endl;
 }
 
 int Campeon::searchPos(int ID) {
