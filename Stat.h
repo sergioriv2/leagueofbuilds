@@ -4,7 +4,7 @@
 class Stat
 {
 protected:
-	char nombre[15];
+	char nombre[30];
 	float ataque;
 	float vel_ataque;
 	float poder_habilidad;
@@ -20,6 +20,7 @@ public:
 	Stat(const char* _nombre = "None");
 	~Stat();
 	//sets
+	void setStats();
 	void setNombre();
 	void setAtaque();
 	void setVel_ataque();
@@ -30,7 +31,8 @@ public:
 	void setCrit_chance();
 	void setMana();
 	//gets
-	const char* getNombre();
+	void getStats();
+	const char* getNombre() { return nombre; }
 	float getAtaque();
 	float getVel_ataque();
 	float getPoder_habilidad();

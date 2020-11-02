@@ -9,12 +9,40 @@ using namespace std;
 Stat::Stat(const char* _nombre)
 {
 	strcpy(nombre, _nombre);
-	ataque = vel_ataque = poder_habilidad = vida = armor = resistencia_magica = mana = crit_chance =0;
+	ataque = vel_ataque = poder_habilidad = vida = armor = resistencia_magica = crit_chance =  mana = 0;
 }
 
 Stat::~Stat()
 {
+	const char* _nombre = "None";
+	strcpy(nombre, nombre);
+	ataque = vel_ataque = poder_habilidad = vida = armor = resistencia_magica = crit_chance = mana = 0;
+}
 
+void Stat::setStats()
+{
+	setNombre();
+	setAtaque();
+	setVel_ataque();
+	setPoder_habilidad();
+	setVida();
+	setArmor();
+	setResistencia_magica();
+	setCrit_chance();
+	setMana();
+}
+
+void Stat::getStats()
+{
+	cout << "Nombre: " << nombre << endl;
+	cout << "Ataque: " << ataque << endl;
+	cout << "Velocidad de ataque: " << vel_ataque << endl;
+	cout << "Poder de habilidad: " << poder_habilidad << endl;
+	cout << "Vida: " << vida << endl;
+	cout << "Armadura: " << armor << endl;
+	cout << "Resistencia magica: " << resistencia_magica << endl;
+	cout << "Crit chance: " << crit_chance << endl;
+	cout << "Mana: " << mana << endl;
 }
 
 void Stat::setNombre()
@@ -41,26 +69,29 @@ void Stat::setPoder_habilidad()
 	cin >> poder_habilidad;
 }
 void Stat::setVida() {
-	cout << "Vida: " << endl;;
+	cout << "Vida: " << endl;
 	cin >> vida;
 }
 void Stat::setArmor() {
-	cout << "Armor: " << endl;;
+	cout << "Armor: " << endl;
 	cin >> armor;
 }
 void Stat::setResistencia_magica() {
-	cout << "Resistencia magica: " << endl;;
+	cout << "Resistencia magica: " << endl;
 	cin >> resistencia_magica;
 }
-void Stat::setCrit_chance() {
-	crit_chance = 0.00;
+
+void Stat::setCrit_chance()
+{
+	cout << "Crit chance: " << endl;
+	cin >> crit_chance;
 }
-void Stat::setMana() {
-	cout << "Mana : " << endl;;
+void Stat::setMana()
+{
+	cout << "Mana: " << endl;
 	cin >> mana;
 }
 
-const char* Stat::getNombre() { return nombre; } 
 float Stat::getAtaque() { return ataque; };
 float Stat::getVel_ataque() { return vel_ataque; }
 float Stat::getPoder_habilidad() { return poder_habilidad; }
