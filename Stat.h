@@ -11,6 +11,8 @@ protected:
 	float vida;
 	float armor;
 	float resistencia_magica;
+	float crit_chance;
+	float mana;
 	//RectangleShape icono;
 	//Vector2i cord_img;
 	//Texture textura;
@@ -25,13 +27,17 @@ public:
 	void setVida();
 	void setArmor();
 	void setResistencia_magica();
+	void setCrit_chance();
+	void setMana();
 	//gets
-	const char* getNombre() { return nombre; }
+	const char* getNombre();
 	float getAtaque();
 	float getVel_ataque();
 	float getPoder_habilidad();
 	float getVida();
 	float getArmor();
 	float getResistencia_magica();
+	float getCrit_chance();
+	float getMana();
 };
 

@@ -9,7 +9,9 @@ public:
 	int menuPrincipal();
 	void menuOpciones();
 	void menuCampeones();
-	//Agregar campeones
+	
 	void agregarCampeones();
 	void mostrarCampeones();
+	void modificarCampeon();
+	void eliminarCampeon();
 };

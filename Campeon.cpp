@@ -26,6 +26,10 @@ void Campeon::setEstilo() {
 	cin.getline(estilo, 20);
 }
 
+void Campeon::setEstadoFalse() {
+	estado = false;
+}
+
 void Campeon::cargarCampeon()
 {
 	setStats();
@@ -39,11 +43,12 @@ void Campeon::cargarCampeon()
 void Campeon::mostrarCampeon()
 {
 	system("cls");
-
+	if(getEstado() == true){
 	getStats();
 	cout << "Tipo de danio: " << dmg_type << endl;
 	cout << "Rol: " << estilo << endl << endl;
 	cout << "---------------------------------------" << endl;
+	}
 }
 
 
@@ -64,12 +69,16 @@ void Campeon::setStats()
 	setVida();
 	setArmor();
 	setResistencia_magica();
+	setCrit_chance();
+	setMana();
+	
 }
 
 // Operaciones archivos
 
-int Campeon::contar_reg()
+int Campeon::contar_reg() // Fixed
 {
+	Campeon pchamp;
 	FILE* pf;
 	int c = 0;
 	pf = fopen("resources/campeones/champsdata.dat", "rb");
@@ -78,7 +87,7 @@ int Campeon::contar_reg()
 		return 0;
 		cout << "clase campeon : contar_reg";
 	}
-	while (fread(this, sizeof * this, 1, pf) == 1) c++;
+	while (fread(&pchamp, sizeof pchamp, 1, pf) == 1) c++;
 	fclose(pf);
 	return c;
 }
@@ -122,7 +131,7 @@ void Campeon::mostrarCampeones()
 		cout << "leerCampeon" << endl;
 		return;
 	}
-	while (fread(this, sizeof * this, 1, pf))
+	while (fread(this, sizeof * this, 1, pf)&&getEstado()==true)
 	{
 		getStats();
 		cout << "Estilo: " << getEstilo() << endl;
@@ -143,4 +152,84 @@ void Campeon::getStats()
 	cout << "Vida: " << vida << endl;
 	cout << "Armadura: " << armor << endl;
 	cout << "Resistencia magica: " << resistencia_magica << endl;
+	cout << "Probablidad de critico: " << crit_chance << endl;
+	cout << "Mana " << mana << endl;
+}
+
+int Campeon::searchPos(int ID) {
+	FILE* p;
+	int pos = 0;
+	p = fopen("resources/campeones/champsdata.dat", "rb");
+	if (p == NULL) {
+		cout << "Error abriendo champsdata.data" << endl;
+		return -1;
+	}
+	while (fread(this, sizeof(*this), 1, p)) {
+		if (Campeon::getID() == ID) {
+			fclose(p);
+			return pos;
+		}
+		pos++;
+	}
+	return -1;
+}
+
+bool Campeon::modify(int POS, int OPC) {
+	FILE* p;	
+	
+	p=fopen("resources/campeones/champsdata.dat", "rb+");
+	if (p == NULL) {
+		cout << "Error abriendo champsdata.dat " << endl;
+		return false;
+	}
+	fseek(p, sizeof(Campeon) * POS, 0);
+	//fwrite
+	//Modifico dependiendo lo que me hayan pedido
+	switch (OPC) {
+		case 1:
+			setNombre();
+			break;
+		case 2:
+			setAtaque();
+			break;
+		case 3:
+			setVel_ataque();
+			break;
+		case 4:
+			setPoder_habilidad();
+			break;
+		case 5:
+			setVida();
+			break;
+		case 6:
+			setArmor();
+			break;
+		case 7:
+			setResistencia_magica();
+			break;
+		case 8:
+			setCrit_chance();
+			break;
+		case 9:
+			setMana();
+			break;
+		
+	}
+	fwrite(this, sizeof(*this), 1, p);
+	fclose(p);
+	return true;
+}
+
+bool Campeon::leerCampeon(int POS) {
+	FILE* p;
+	p = fopen("resources/campeones/champsdata.dat", "rb");
+	if (p == NULL) {
+		cout << "Error abriendo champsdata.dat " << endl;
+		return false;
+	}
+	fseek(p, sizeof(Campeon) * POS, 0);
+	fread(this, sizeof(*this), 1, p);
+	fclose(p);
+	return true;
+
 }
