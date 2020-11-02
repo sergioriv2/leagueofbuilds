@@ -9,6 +9,7 @@ using namespace std;
 #include "devmenu.h"
 #include "Stat.h"
 #include "Campeon.h"
+#include "Item.h"
 
 int Menu_Desarrollador::menuPrincipal()
 {
@@ -31,8 +32,9 @@ int Menu_Desarrollador::menuPrincipal()
 		break;
 	case 1: menuCampeones();
 		break;
-	case 2:
+	case 2: menuItems();
 		break;
+	case 3:// menuConjuntos();
 	}
 	return opc;
 }
@@ -178,4 +180,89 @@ void Menu_Desarrollador::eliminarCampeon() {
 	else if (opc == 'n' || opc == 'N') {
 		return;
 	}
+}
+
+void Menu_Desarrollador::menuItems()
+{
+	system("cls");
+	cout << "--------------------------------" << endl;
+	cout << "MENU DE ITEMS" << endl;
+	cout << "--------------------------------" << endl;
+	cout << "1. Agregar items" << endl;
+	cout << "2. Borrar items " << endl;
+	cout << "3. Editar items" << endl;
+	cout << "4. Mostrar items" << endl;
+	cout << "0. Volver" << endl;
+	cout << "-------------------------------" << endl;
+	cout << "Elegir una opcion: ";
+	cin >> opc2;
+	system("cls");
+	switch (opc2)
+	{
+	case 1:
+		agregarItems();
+		break;
+	case 2:
+		bajaItems();
+		break;
+	case 3:
+		editarItems();
+		break;
+	case 4:
+		mostrarItems();
+		break;
+	case 0:
+		return;
+		break;
+	}
+}
+
+void Menu_Desarrollador::agregarItems()
+{
+	Item obj;
+
+	obj.cargarItem();
+	if (obj.guardar())
+	{
+		cout << "Se guardo sin errores" << endl;
+	}
+	else
+	{
+		cout << "Error al guardar" << endl;
+	}
+	system("pause");
+	return;
+}
+
+void Menu_Desarrollador::bajaItems()
+{
+	Item obj;
+
+	if (obj.baja())
+	{
+		cout << "Se dio de baja correctamente" << endl;
+	}
+	else
+	{
+		cout << "Error al dar de baja " << endl;
+	}
+
+	system("pause");
+}
+
+void Menu_Desarrollador::editarItems()
+{
+	Item obj;
+	
+	obj.editar();
+	system("pause");
+}
+
+void Menu_Desarrollador::mostrarItems()
+{
+	Item obj;
+
+	obj.mostrar_registros();
+	system("pause");
+	return;
 }
