@@ -43,11 +43,11 @@ void Campeon::cargarCampeon()
 void Campeon::mostrarCampeon()
 {
 	system("cls");
-	if(getEstado() == true){
-	getStats();
-	cout << "Tipo de danio: " << dmg_type << endl;
-	cout << "Rol: " << estilo << endl << endl;
-	cout << "---------------------------------------" << endl;
+	if (getEstado() == true) {
+		getStats();
+		cout << "Tipo de danio: " << dmg_type << endl;
+		cout << "Rol: " << estilo << endl << endl;
+		cout << "---------------------------------------" << endl;
 	}
 }
 
@@ -117,7 +117,7 @@ void Campeon::mostrarCampeones()
 		cout << "leerCampeon" << endl;
 		return;
 	}
-	while (fread(this, sizeof * this, 1, pf)&&getEstado()==true)
+	while (fread(this, sizeof * this, 1, pf) && getEstado() == true)
 	{
 		getStats();
 		cout << "Estilo: " << getEstilo() << endl;
@@ -148,9 +148,9 @@ int Campeon::searchPos(int ID) {
 }
 
 bool Campeon::modify(int POS, int OPC) {
-	FILE* p;	
-	
-	p=fopen("resources/campeones/champsdata.dat", "rb+");
+	FILE* p;
+
+	p = fopen("resources/campeones/champsdata.dat", "rb+");
 	if (p == NULL) {
 		cout << "Error abriendo champsdata.dat " << endl;
 		return false;
@@ -159,34 +159,34 @@ bool Campeon::modify(int POS, int OPC) {
 	//fwrite
 	//Modifico dependiendo lo que me hayan pedido
 	switch (OPC) {
-		case 1:
-			setNombre();
-			break;
-		case 2:
-			setAtaque();
-			break;
-		case 3:
-			setVel_ataque();
-			break;
-		case 4:
-			setPoder_habilidad();
-			break;
-		case 5:
-			setVida();
-			break;
-		case 6:
-			setArmor();
-			break;
-		case 7:
-			setResistencia_magica();
-			break;
-		case 8:
-			setCrit_chance();
-			break;
-		case 9:
-			setMana();
-			break;
-		
+	case 1:
+		setNombre();
+		break;
+	case 2:
+		setAtaque();
+		break;
+	case 3:
+		setVel_ataque();
+		break;
+	case 4:
+		setPoder_habilidad();
+		break;
+	case 5:
+		setVida();
+		break;
+	case 6:
+		setArmor();
+		break;
+	case 7:
+		setResistencia_magica();
+		break;
+	case 8:
+		setCrit_chance();
+		break;
+	case 9:
+		setMana();
+		break;
+
 	}
 	fwrite(this, sizeof(*this), 1, p);
 	fclose(p);

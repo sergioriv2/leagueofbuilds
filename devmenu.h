@@ -7,7 +7,6 @@ private:
 	int opc, opc2;
 public:
 	int menuPrincipal();
-	void menuOpciones();
 	void menuCampeones();
 	void menuItems();
 	void menuConjuntos();
@@ -21,4 +20,6 @@ public:
 	void bajaItems();
 	void mostrarItems();
 	void editarItems();
+	//Conjuntos
+	void agregarConjunto();
 };

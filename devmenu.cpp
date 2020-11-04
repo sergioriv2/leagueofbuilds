@@ -10,6 +10,8 @@ using namespace std;
 #include "Stat.h"
 #include "Campeon.h"
 #include "Item.h"
+#include "Conjunto_detalle.h"
+#include "Conjunto_cabecera.h"
 
 int Menu_Desarrollador::menuPrincipal()
 {
@@ -34,11 +36,13 @@ int Menu_Desarrollador::menuPrincipal()
 		break;
 	case 2: menuItems();
 		break;
-	case 3:// menuConjuntos();
+	case 3:	menuConjuntos();
 		break;
 	}
 	return opc;
 }
+
+//CAMPEONES
 
 void Menu_Desarrollador::menuCampeones()
 {
@@ -73,14 +77,14 @@ void Menu_Desarrollador::menuCampeones()
 		return;
 		break;
 	}
-	
+
 }
 
 void Menu_Desarrollador::agregarCampeones()
 {
 	Campeon champ;
 
-	
+
 	champ.cargarCampeon();
 
 	if (champ.guardarCampeon())
@@ -94,13 +98,13 @@ void Menu_Desarrollador::agregarCampeones()
 
 	system("pause");
 	return;
-	
+
 }
 
 void Menu_Desarrollador::mostrarCampeones()
 {
 	Campeon champ;
-	
+
 	champ.mostrarCampeones();
 
 	system("pause");
@@ -108,9 +112,9 @@ void Menu_Desarrollador::mostrarCampeones()
 }
 
 void Menu_Desarrollador::modificarCampeon() {
-	
+
 	Campeon champ;
-	int ID,POS,opc2;
+	int ID, POS, opc2;
 	char opc;
 	cout << "Ingresar ID del campeon que se desea modificar: " << endl;
 	cin >> ID;
@@ -119,7 +123,7 @@ void Menu_Desarrollador::modificarCampeon() {
 		cout << "No se ha encontrado un campeon con esa ID" << endl;// Si no existe me salgo
 		return;
 	}
-	if (champ.leerCampeon(POS)==false) {
+	if (champ.leerCampeon(POS) == false) {
 		cout << "No se pudo leer el registro" << endl;
 		return;
 	}
@@ -133,7 +137,7 @@ void Menu_Desarrollador::modificarCampeon() {
 
 		cout << "1 NOMBRE" << endl;
 		cout << "2 ATAQUE" << endl;
-		cout << "3 VELOCIDAD DE ATAQ"<< endl;
+		cout << "3 VELOCIDAD DE ATAQ" << endl;
 		cout << "4 PODER DE HABILIDAD" << endl;
 		cout << "5 VIDA" << endl;
 		cout << "6 ARMOR" << endl;
@@ -146,7 +150,7 @@ void Menu_Desarrollador::modificarCampeon() {
 	else if (opc == 'n' || opc == 'N') {
 		return;
 	}
-	
+
 }
 
 void Menu_Desarrollador::eliminarCampeon() {
@@ -174,7 +178,7 @@ void Menu_Desarrollador::eliminarCampeon() {
 			return;
 		}
 		fseek(p, sizeof(Campeon) * POS, 0);
-		champ.setEstadoFalse(); 
+		champ.setEstadoFalse();
 		fwrite(&champ, sizeof(Campeon), 1, p);
 		fclose(p);
 	}
@@ -182,6 +186,8 @@ void Menu_Desarrollador::eliminarCampeon() {
 		return;
 	}
 }
+
+//ITEMS
 
 void Menu_Desarrollador::menuItems()
 {
@@ -220,18 +226,27 @@ void Menu_Desarrollador::menuItems()
 
 void Menu_Desarrollador::agregarItems()
 {
-	Item obj;
+	bool w;
+	do
+	{
+		system("cls");
+		Item obj;
 
-	obj.cargarItem();
-	if (obj.guardar())
-	{
-		cout << "Se guardo sin errores" << endl;
-	}
-	else
-	{
-		cout << "Error al guardar" << endl;
-	}
-	system("pause");
+		w = obj.cargarItem();
+		if (w)
+		{
+			if (obj.guardar())
+			{
+				cout << "Se guardo sin errores" << endl;
+			}
+			else
+			{
+				cout << "Error al guardar" << endl;
+			}
+			system("pause");
+		}
+	} while (w);
+
 	return;
 }
 
@@ -254,7 +269,7 @@ void Menu_Desarrollador::bajaItems()
 void Menu_Desarrollador::editarItems()
 {
 	Item obj;
-	
+
 	obj.editar();
 	system("pause");
 }
@@ -263,7 +278,55 @@ void Menu_Desarrollador::mostrarItems()
 {
 	Item obj;
 
+	// PARA MOSTRAR SOLO EL NOMBRE, IR A LA DEFINICION DE ESTA FUNCION Y EN LA LINEA 92 PONE EN TRUE
 	obj.mostrar_registros();
 	system("pause");
 	return;
+}
+
+//CONJUNTOS
+
+void Menu_Desarrollador::menuConjuntos()
+{
+	system("cls");
+	cout << "--------------------------------" << endl;
+	cout << "MENU DE CONJUNTOS" << endl;
+	cout << "--------------------------------" << endl;
+	cout << "1. Agregar conjunto" << endl;
+	cout << "2.  " << endl;
+	cout << "3. " << endl;
+	cout << "4. " << endl;
+	cout << "0. Volver" << endl;
+	cout << "-------------------------------" << endl;
+	cout << "Elegir una opcion: ";
+	cin >> opc2;
+	system("cls");
+	switch (opc2)
+	{
+	case 1:
+		agregarConjunto();
+		break;
+	case 2:
+		//
+		break;
+	case 3:
+		//
+		break;
+	case 4:
+		//
+		break;
+	case 0:
+		return;
+		break;
+	}
+}
+
+void Menu_Desarrollador::agregarConjunto()
+{
+	Conjunto_cabecera c;
+
+	c.getDetalle();
+
+	system("pause");
+
 }

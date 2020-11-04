@@ -31,13 +31,13 @@ public:
     bool baja(); // Se da de baja un obj que se pide por teclado
     bool editar();
     bool modificar(int pos); // Modifico en la pos que me manden
-    void mostrar(); // Muestro un obj
+    void mostrar(bool); // Muestro un obj, true = solo muestra el nombre, false = detalles 
     int buscar_reg(int id); // Busco el obj que me manden segun el id
-    void mostrar_reg(int pos); // Muestro un obj en especifico
+    void mostrar_reg(int pos, bool mostrar_nombre); // Muestro un obj en especifico. true = solo muestra el nombre, false = detalles 
     void mostrar_registros(); // Muestro todos los reg
     int contar_reg(); // Contar todos los obj
     //metodos
-    void cargarItem();
+    bool cargarItem();
     //set
     void setEstado(bool);
     void setCosto();

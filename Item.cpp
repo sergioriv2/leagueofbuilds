@@ -35,12 +35,14 @@ void Item::setCosto()
 	
 }
 
-void Item::cargarItem()
+bool Item::cargarItem()
 {
 	setStats();
+	if (nombre[0] == '0') return false;
 	setCosto();
 	id = contar_reg();
 	estado = true;
+	return true;
 }
 
 //archivos
@@ -86,13 +88,15 @@ void Item::mostrar_registros()
 	}
 	while (fread(this, sizeof * this, 1, pf) == 1)
 	{
-		//if (estado) 
-			mostrar();
+		//if (estado)
+		//cout << "  > ";
+			mostrar(false);
+			
 	}
 	fclose(pf);
 }
 
-void Item::mostrar_reg(int pos)
+void Item::mostrar_reg(int pos, bool mostrar_nombre)
 {
 	FILE* pf;
 	pf = fopen(UBICACION_ITEMS, "rb");
@@ -104,17 +108,24 @@ void Item::mostrar_reg(int pos)
 	fseek(pf, (sizeof * this) * pos, 0);
 	fread(this, sizeof * this, 1, pf);
 
-	if (estado) mostrar();
+	if (estado) mostrar(mostrar_nombre);
 
 	fclose(pf);
 }
 
-void Item::mostrar()
-{
-	getStats();
-	cout << "Costo: " << costo << endl;
-	cout << "ID: " << id << endl;
-	cout << "-------------------------" << endl;
+void Item::mostrar(bool nombre)
+{	
+	// SOLO PARA MOSTRAR EL NOMBRE DEL ITEM 
+
+	if(nombre) cout << getNombre() << endl;
+	else
+	{
+		getStats();
+		cout << "Costo: " << costo << endl;
+		cout << "ID: " << id << endl;
+		cout << "-------------------------" << endl;
+	}
+	
 }
 
 int Item::contar_reg()
@@ -142,7 +153,7 @@ bool Item::baja()
 	system("cls");
 	cout << "Se encontro el siguiente registro: " << endl << endl;
 
-	mostrar_reg(pos);
+	mostrar_reg(pos, false);
 
 	cout << endl << "Darlo de baja? S/N" << endl;
 	cin >> opc;
@@ -201,9 +212,10 @@ bool Item::editar()
 	system("cls");
 	cout << "Se encontro el siguiente registro: " << endl << endl;
 
-	mostrar_reg(pos);
+	mostrar_reg(pos, false);
 
 	cout << endl;
+	cout << "0 SALIR" << endl;
 	cout << "1 NOMBRE" << endl;
 	cout << "2 ATAQUE" << endl;
 	cout << "3 VELOCIDAD DE ATAQ" << endl;
@@ -219,6 +231,7 @@ bool Item::editar()
 	system("cls");
 	switch (opc)
 	{
+	case 0: return false;
 	case 1:
 		opc_modif = MOD_ITEM::NOMBRE;
 		break;
