@@ -22,6 +22,7 @@ Stat::~Stat()
 void Stat::setStats()
 {
 	setNombre();
+	if (nombre[0] == '0') return;
 	setAtaque();
 	setVel_ataque();
 	setPoder_habilidad();
@@ -49,7 +50,15 @@ void Stat::setNombre()
 {
 	cin.ignore();
 	cout << "Nombre: " << endl;
-	cin.getline(nombre, 20);
+
+	int i;
+	fflush(stdin);
+	for (i = 0; i < 30; i++) {
+		nombre[i] = cin.get();
+		if (nombre[i] == '\n') break;
+	}
+	nombre[i] = '\0';
+	fflush(stdin);
 
 }
 
