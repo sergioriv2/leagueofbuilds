@@ -145,7 +145,7 @@ void Conjunto_detalle::setItemsLate() {
 
 int Conjunto_detalle::contarRegistros() {
 	{
-		Conjunto_detalle conj;
+		
 		FILE* pf;
 		int c = 0;
 		pf = fopen("resources/conjuntos/conjunto_detalle.dat", "rb");
@@ -153,7 +153,7 @@ int Conjunto_detalle::contarRegistros() {
 		{
 			return 0;
 		}
-		while (fread(&conj, sizeof conj, 1, pf) == 1) c++;
+		while (fread(this, sizeof(*this), 1, pf) == 1) c++;
 		fclose(pf);
 		return c;
 	}
