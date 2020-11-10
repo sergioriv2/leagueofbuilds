@@ -23,6 +23,9 @@ public:
 	void editarItems();
 	//Conjuntos
 	void agregarConjunto();
+	void mostrarConjunto();
+	void editarConjunto();
+	void bajaConjunto();
 	//Backup
 	bool backupFiles();
 };

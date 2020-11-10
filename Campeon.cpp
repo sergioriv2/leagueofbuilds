@@ -32,7 +32,7 @@ void Campeon::setEstadoFalse() {
 
 void Campeon::cargarCampeon()
 {
-	setStats();
+	setStats(1);
 	setEstilo();
 	setdmgType();
 	id = contar_reg();
@@ -44,7 +44,7 @@ void Campeon::mostrarCampeon()
 {
 	system("cls");
 	if (getEstado() == true) {
-		getStats();
+		getStats(1);
 		cout << "Tipo de danio: " << dmg_type << endl;
 		cout << "Rol: " << estilo << endl << endl;
 		cout << "---------------------------------------" << endl;
@@ -115,11 +115,12 @@ void Campeon::mostrarCampeones()
 	if (pf == NULL)
 	{
 		cout << "leerCampeon" << endl;
+		system("pause");
 		return;
 	}
-	while (fread(this, sizeof * this, 1, pf) && getEstado() == true)
+	while (fread(this, sizeof *this, 1, pf) && getEstado() == true)
 	{
-		getStats();
+		getStats(1);
 		cout << "Estilo: " << getEstilo() << endl;
 		cout << "Tipo de danio " << getDmg() << endl;
 		cout << "ID: " << id << endl;

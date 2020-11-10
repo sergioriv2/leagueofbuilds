@@ -17,11 +17,42 @@ Conjunto_detalle::Conjunto_detalle()
 	{
 		idLate[i] = -2;
 	}
-	setDetalle();
+	setDetalle(0);
+	estado = true;
 }
 
-void Conjunto_detalle::setDetalle() {
-	idDetalle = contarRegistros();
+bool Conjunto_detalle::guardarDetalle()
+{
+	FILE* pf;
+	pf = fopen("resources/conjuntos/conjunto_detalle.dat", "ab");
+	if (pf == NULL)
+	{
+		std::cout << "conjunto detalle : guardarDetalle";
+		return 0;
+	}
+	bool write = fwrite(this, sizeof * this, 1, pf);
+	fclose(pf);
+	return write;
+}
+
+void Conjunto_detalle::cargarDetalle(int id)
+{
+	FILE* pf;
+	pf = fopen("resources/conjuntos/conjunto_detalle.dat", "rb");
+	if (pf == NULL)
+	{
+		std::cout << "conjunto detalle : cargarDetalle";
+		return;
+	}
+	fseek(pf, (sizeof * this) * id, 0);
+	fread(this, sizeof * this, 1, pf);
+	imprimirDetalle();
+	fclose(pf);
+}
+
+void Conjunto_detalle::setDetalle(int n) {
+	idDetalle = n;
+	//idDetalle = contarRegistros();
 }
 
 void Conjunto_detalle::imprimirEarly()
@@ -95,11 +126,15 @@ void Conjunto_detalle::imprimirLate()
 
 void Conjunto_detalle::imprimirDetalle()
 {
+	std::cout << "Early:" <<std::endl;
 	imprimirEarly();
+	std::cout << std::endl;
+	std::cout << "Mid:" << std::endl;
 	imprimirMid();
+	std::cout << std::endl;
+	std::cout << "Late:" << std::endl;
 	imprimirLate();
 }
-
 
 void Conjunto_detalle::setItems()
 {
@@ -107,13 +142,6 @@ void Conjunto_detalle::setItems()
 	setItemsMid();
 	setItemsLate();
 }
-
-/*
-void Conjunto_detalle::setidConjunto(int idConjunto) {
-	this->idConjunto = idConjunto;
-}
-*/
-
 
 void Conjunto_detalle::setitemsEarly() {
 	std::cout << "Ingresar ID de items early game(-1 Para finalizar): " << std::endl;
@@ -124,20 +152,22 @@ void Conjunto_detalle::setitemsEarly() {
 		}
 	}
 }
+
 void Conjunto_detalle::setItemsMid() {
 	std::cout << "Ingresar ID de items mid game(-1 Para finalizar): " << std::endl;
 	for (int i = 0; i < 10; i++) {
 		std::cin >> idMid[i];
-		if (idEarly[i] == -1) {
+		if (idMid[i] == -1) {
 			return;
 		}
 	}
 }
+
 void Conjunto_detalle::setItemsLate() {
 	std::cout << "Ingresar ID de items late game(-1 Para finalizar): " << std::endl;
 	for (int i = 0; i < 6; i++) {
 		std::cin >> idLate[i];
-		if (idEarly[i] == -1) {
+		if (idLate[i] == -1) {
 			return;
 		}
 	}
@@ -158,3 +188,83 @@ int Conjunto_detalle::contarRegistros() {
 	
 }
 
+int Conjunto_detalle::getCostoEarly()
+{
+	Item it;
+	int i = 0, pos = 0, costo = 0;
+	FILE* pf;
+	pf = fopen("resources/items/itemsdata.dat", "rb");
+	if (pf == NULL)
+	{
+		std::cout << "conjunto detalle : getcostoEarly";
+		return 0;
+	}
+	while (fread(&it, sizeof it, 1, pf))
+	{
+		if (idEarly[i] != -1 && idEarly[i] != -2)
+		{
+			pos = it.buscar_reg(idEarly[i]);
+			costo += it.getCosto(pos);
+		}
+		i++;
+	}
+	fclose(pf);
+	return costo;
+}
+
+int Conjunto_detalle::getCostoMid()
+{
+	Item it;
+	int i = 0, pos = 0, costo = 0;
+	FILE* pf;
+	pf = fopen("resources/items/itemsdata.dat", "rb");
+	if (pf == NULL)
+	{
+		std::cout << "conjunto detalle : getcostoEarly";
+		return 0;
+	}
+	while (fread(&it, sizeof it, 1, pf))
+	{
+		if (idMid[i] != -1 && idMid[i] != -2)
+		{
+			pos = it.buscar_reg(idMid[i]);
+			costo += it.getCosto(pos);
+		}
+		i++;
+	}
+	fclose(pf);
+	return costo;
+}
+
+int Conjunto_detalle::getCostoLate()
+{
+	Item it;
+	int i = 0, pos = 0, costo = 0;
+	FILE* pf;
+	pf = fopen("resources/items/itemsdata.dat", "rb");
+	if (pf == NULL)
+	{
+		std::cout << "conjunto detalle : getcostoEarly";
+		return 0;
+	}
+	while (fread(&it, sizeof it, 1, pf))
+	{
+		if (idLate[i] != -1 && idLate[i] != -2)
+		{
+			pos = it.buscar_reg(idLate[i]);
+			costo += it.getCosto(pos);
+		}
+		i++;
+	}
+	fclose(pf);
+	return costo;
+}
+
+int Conjunto_detalle::getCostoTotal()
+{
+	int costoTotal = 0;
+	costoTotal += getCostoEarly();
+	costoTotal += getCostoMid();
+	costoTotal += getCostoLate();
+	return costoTotal;
+}

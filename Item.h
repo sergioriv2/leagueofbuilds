@@ -44,6 +44,6 @@ public:
     //get
     bool getEstado() { return estado; }
     int getId() { return id; }
-    int getCosto() { return costo; }
+    int getCosto(int);
 };
 

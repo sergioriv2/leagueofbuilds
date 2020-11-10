@@ -202,8 +202,8 @@ void Menu_Desarrollador::menuItems()
 	cout << "--------------------------------" << endl;
 	cout << "1. Agregar items" << endl;
 	cout << "2. Borrar items " << endl;
-	cout << "3. Editar items" << endl;
-	cout << "4. Mostrar items" << endl;
+	cout << "3. Editar items(FALTA)" << endl;
+	cout << "4. Mostrar items(FALTA)" << endl;
 	cout << "0. Volver" << endl;
 	cout << "-------------------------------" << endl;
 	cout << "Elegir una opcion: ";
@@ -298,9 +298,9 @@ void Menu_Desarrollador::menuConjuntos()
 	cout << "MENU DE CONJUNTOS" << endl;
 	cout << "--------------------------------" << endl;
 	cout << "1. Agregar conjunto" << endl;
-	cout << "2.  " << endl;
-	cout << "3. " << endl;
-	cout << "4. " << endl;
+	cout << "2. Mostrar conjunto" << endl;
+	cout << "3. Editar conjunto" << endl;
+	cout << "4. Borrar conjunto" << endl;
 	cout << "0. Volver" << endl;
 	cout << "-------------------------------" << endl;
 	cout << "Elegir una opcion: ";
@@ -312,13 +312,13 @@ void Menu_Desarrollador::menuConjuntos()
 		agregarConjunto();
 		break;
 	case 2:
-		//
+		mostrarConjunto();
 		break;
 	case 3:
-		//
+		//editarConjunto();
 		break;
 	case 4:
-		//
+		//bajaConjunto();
 		break;
 	case 0:
 		return;
@@ -330,12 +330,54 @@ void Menu_Desarrollador::agregarConjunto()
 {
 	Conjunto_cabecera c;
 
-	c.getDetalle();
+	// Se piden los datos y desp guardo
+	c.ingresarCabecera();
 
+	if (c.guardarCabecera())
+	{
+		cout << "Conjunto guardado" << endl;
+	}
+	else
+	{
+		cout << "Error al guardar el conjunto" << endl;
+	}
 	system("pause");
 
 }
 
+void Menu_Desarrollador::mostrarConjunto()
+{
+	cout << "CONJUNTOS CARGADOS" << endl << endl;
+
+	Conjunto_cabecera c;
+	Conjunto_detalle cd;
+
+	int opc;
+	c.cargarCabecera();
+
+	cout << endl <<  "Ingresa el ID para mostrar mas detalles (-1 para salir): ";
+	cin >> opc;
+	system("cls");
+
+	if (opc == -1) return;
+
+	//Abro el archivo para las propiedades de la cabecera
+	FILE* pf;
+	pf = fopen("resources/conjuntos/conjunto_cabecera.dat", "rb");
+	if (pf == NULL) return;
+	fseek(pf, (sizeof c) * opc, 0);
+	fread(&c, sizeof c, 1, pf);
+	cout << "CONJUNTO DETALLADO |------------------" << endl << endl;
+	cout << "NOMBRE: " << c.getNombre() << endl;
+	cout << "PRECIO TOTAL: " << c.getcostoTotal() << "g" << endl << endl;
+
+	//Cierro el archivo
+	fclose(pf);
+	cd.cargarDetalle(opc);
+
+	system("pause");
+
+}
 
 void Menu_Desarrollador::menuBackup() {
 

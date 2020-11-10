@@ -37,7 +37,7 @@ void Item::setCosto()
 
 bool Item::cargarItem()
 {
-	setStats();
+	setStats(0);
 	if (nombre[0] == '0') return false;
 	setCosto();
 	id = contar_reg();
@@ -45,7 +45,27 @@ bool Item::cargarItem()
 	return true;
 }
 
+
 //archivos
+
+int Item::getCosto(int pos)
+{
+	int c = 0;
+	FILE* pf;
+	pf = fopen(UBICACION_ITEMS, "rb");
+	if (pf == NULL)
+	{
+		cout << "clase item : mostrar_reg";
+		return 0;
+	}
+	fseek(pf, (sizeof * this) * pos, 0);
+	fread(this, sizeof * this, 1, pf);
+
+	if (estado) c = costo;
+
+	fclose(pf);
+	return c;
+}
 
 bool Item::guardar(int pos)
 {
@@ -88,9 +108,7 @@ void Item::mostrar_registros()
 	}
 	while (fread(this, sizeof * this, 1, pf) == 1)
 	{
-		//if (estado)
-		//cout << "  > ";
-			mostrar(false);
+		if (estado) mostrar(false);
 			
 	}
 	fclose(pf);
@@ -120,7 +138,7 @@ void Item::mostrar(bool nombre)
 	if(nombre) cout << getNombre() << endl;
 	else
 	{
-		getStats();
+		getStats(0);
 		cout << "Costo: " << costo << endl;
 		cout << "ID: " << id << endl;
 		cout << "-------------------------" << endl;
