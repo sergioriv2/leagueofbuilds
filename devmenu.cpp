@@ -22,6 +22,7 @@ int Menu_Desarrollador::menuPrincipal()
 	cout << "1. Datos campeones" << endl;
 	cout << "2. Datos items " << endl;
 	cout << "3. Datos conjuntos" << endl;
+	cout << "4. Backup files" << endl;
 	cout << "0. Salir" << endl;
 	cout << "-------------------------------" << endl;
 	cout << "Elegir una opcion: ";
@@ -37,6 +38,10 @@ int Menu_Desarrollador::menuPrincipal()
 	case 2: menuItems();
 		break;
 	case 3:	menuConjuntos();
+		break;
+	case 4: 
+		 menuBackup();
+		
 		break;
 	}
 	return opc;
@@ -329,4 +334,106 @@ void Menu_Desarrollador::agregarConjunto()
 
 	system("pause");
 
+}
+
+
+void Menu_Desarrollador::menuBackup() {
+
+	int opc;
+	system("cls");
+	cout << "--------------------------------" << endl;
+	cout << "MENU DE BACKUP" << endl;
+	cout << "--------------------------------" << endl;
+	cout << "1. CREAR BACKUP" << endl;
+	cout << "2. RESTAURAR BACKUP " << endl;
+	cout << "0. Volver" << endl;
+	cout << "-------------------------------" << endl;
+	cout << "Elegir una opcion: ";
+	cin >> opc;
+	system("cls");
+	switch (opc) {
+	case 1:
+		if (backupFiles() == true) {
+			cout << "Backup creado con exito." << endl;
+		}
+		else {
+			cout << "Hubo un error al crear el backup" << endl;
+		}
+		break;
+	case 2:
+
+		break;
+	}
+
+}
+
+bool Menu_Desarrollador::backupFiles() {
+	FILE *pIt, *pCa, *pCo1, *pCo2;
+	FILE* pbIt, * pbCa, * pbCo1, * pbCo2;
+	Campeon champ;
+	Item item;
+	Conjunto_cabecera Ccab;//TODO: Hacer algo con el conj cabecera para que me deje usarlo aca
+	Conjunto_detalle Cdet;
+
+	char opcion;
+	cout << "Desea hacer una copia de seguridad S/N " << endl;
+	cin >> opcion;
+	if (opcion == 's' || opcion == 'S')
+	{
+
+		pIt = fopen("resources/items/itemsdata.dat", "rb");
+		pCa = fopen("resources/campeones/champsdata.dat", "rb");
+		pCo1 = fopen("resources/conjuntos/conjunto_cabecera.dat", "rb");
+		pCo2 = fopen("resouces/conjuntos/conjunto_detalle.dat", "rb");
+		pbIt = fopen("resources/backups/itemsdata.bkp", "wb");
+		pbCa = fopen("resources/backups/champsdata.bkp", "wb");
+		pbCo1 = fopen("resources/backups/conjunto_cabecera.bkp", "wb");
+		pbCo2 = fopen("resources/backups/conjunto_detalle.bkp", "wb");
+		
+		//Me aseguro de que se hayan abierto correctamente
+		if (pIt == NULL || pCa == NULL || pCo1 == NULL || pCo2 == NULL || pbIt == NULL || pbCa == NULL || pbCo1 == NULL || pbCo2 == NULL) {
+			fclose(pIt);
+			fclose(pCa);
+			fclose(pCo1);
+			fclose(pCo2);
+			fclose(pbIt);
+			fclose(pbCa);
+			fclose(pbCo1);
+			fclose(pbCo2);
+			return false;
+		}
+		
+		//Mientras pueda leer los .dat escribo en los .bkp
+		while (fread(&champ, sizeof(Campeon), 1, pCa))
+		{
+			fwrite(&champ, sizeof(Campeon), 1, pbCa);
+		}
+		
+		while (fread(&item, sizeof(Item), 1, pIt))
+		{
+			fwrite(&item, sizeof(Item), 1, pbIt);
+		}
+		
+		while (fread(&Ccab, sizeof(Conjunto_cabecera), 1, pCo1))
+		{
+			fwrite(&Ccab, sizeof(Conjunto_cabecera), 1, pbCo1);
+		}
+		
+		while (fread(&Cdet, sizeof(Conjunto_detalle), 1, pCo2))
+		{
+			fwrite(&Cdet, sizeof(Conjunto_detalle), 1, pbCo2);
+		}
+
+		fclose(pCa);
+		fclose(pbCa);
+		fclose(pIt);
+		fclose(pbIt);
+		fclose(pCo1);
+		fclose(pbCo1);
+		fclose(pCo2);
+		fclose(pbCo2);
+
+		return true;
+	}
+	return false;
 }

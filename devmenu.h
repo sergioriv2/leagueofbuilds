@@ -10,6 +10,7 @@ public:
 	void menuCampeones();
 	void menuItems();
 	void menuConjuntos();
+	void menuBackup();
 	//Campeones
 	void agregarCampeones();
 	void mostrarCampeones();
@@ -22,4 +23,6 @@ public:
 	void editarItems();
 	//Conjuntos
 	void agregarConjunto();
+	//Backup
+	bool backupFiles();
 };

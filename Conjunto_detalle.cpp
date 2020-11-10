@@ -144,7 +144,6 @@ void Conjunto_detalle::setItemsLate() {
 }
 
 int Conjunto_detalle::contarRegistros() {
-	{
 		
 		FILE* pf;
 		int c = 0;
@@ -156,5 +155,6 @@ int Conjunto_detalle::contarRegistros() {
 		while (fread(this, sizeof(*this), 1, pf) == 1) c++;
 		fclose(pf);
 		return c;
-	}
+	
 }
+
