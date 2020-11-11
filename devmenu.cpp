@@ -402,10 +402,16 @@ void Menu_Desarrollador::menuBackup() {
 			cout << "Hubo un error al crear el backup" << endl;
 		}
 		break;
-	case 2:
+	case 2:if (restoreFiles() == true) {
+		cout << "Archivos restaurados con exito." << endl;
+	}
+		  else {
+		cout << "Hubo un error al restaurar el archivo" << endl;
+	}
 
 		break;
 	}
+	system("pause");
 
 }
 
@@ -414,7 +420,7 @@ bool Menu_Desarrollador::backupFiles() {
 	FILE* pbIt, * pbCa, * pbCo1, * pbCo2;
 	Campeon champ;
 	Item item;
-	Conjunto_cabecera Ccab;//TODO: Hacer algo con el conj cabecera para que me deje usarlo aca
+	Conjunto_cabecera Ccab;
 	Conjunto_detalle Cdet;
 
 	char opcion;
@@ -426,14 +432,83 @@ bool Menu_Desarrollador::backupFiles() {
 		pIt = fopen("resources/items/itemsdata.dat", "rb");
 		pCa = fopen("resources/campeones/champsdata.dat", "rb");
 		pCo1 = fopen("resources/conjuntos/conjunto_cabecera.dat", "rb");
-		pCo2 = fopen("resouces/conjuntos/conjunto_detalle.dat", "rb");
+		pCo2 = fopen("resources/conjuntos/conjunto_detalle.dat", "rb");
 		pbIt = fopen("resources/backups/itemsdata.bkp", "wb");
 		pbCa = fopen("resources/backups/champsdata.bkp", "wb");
 		pbCo1 = fopen("resources/backups/conjunto_cabecera.bkp", "wb");
 		pbCo2 = fopen("resources/backups/conjunto_detalle.bkp", "wb");
 		
 		//Me aseguro de que se hayan abierto correctamente
-		if (pIt == NULL || pCa == NULL || pCo1 == NULL || pCo2 == NULL || pbIt == NULL || pbCa == NULL || pbCo1 == NULL || pbCo2 == NULL) {
+		if (pIt == NULL)
+		{
+			cout << "Items " << endl;
+			system("pause");
+			return false;
+		}
+		if (pCa == NULL)
+		{
+			cout << "Campeones " << endl;
+			system("pause");
+			fclose(pIt);
+			return false;
+		}
+
+		if (pCo1 == NULL)
+		{
+			cout << "Conjunto cabecera " << endl;
+			system("pause");
+			fclose(pIt);
+			fclose(pCa);
+			return false;
+		}
+
+		if (pCo2 == NULL)
+		{
+			cout << "Conjunto detalle " << endl;
+			system("pause");
+			fclose(pIt);
+			fclose(pCa);
+			fclose(pCo1);
+			return false;
+		}
+
+		if (pbIt == NULL)
+		{
+			cout << "Items bkp " << endl;
+			system("pause");
+			fclose(pIt);
+			fclose(pCa);
+			fclose(pCo1);
+			fclose(pCo2);
+			return false;
+		}
+		if (pbCa == NULL)
+		{
+			cout << "Champ bkp " << endl;
+			system("pause");
+			fclose(pIt);
+			fclose(pCa);
+			fclose(pCo1);
+			fclose(pCo2);
+			fclose(pbIt);
+			return false;
+		}
+		if (pbCo1 == NULL)
+		{
+			cout << "Ccab bkp " << endl;
+			system("pause");
+			fclose(pIt);
+			fclose(pCa);
+			fclose(pCo1);
+			fclose(pCo2);
+			fclose(pbIt);
+			fclose(pbCa);
+			return false;
+		}
+		if (pbCo2 == NULL)
+		{
+			cout << "C det bkp " << endl;
+			system("pause");
 			fclose(pIt);
 			fclose(pCa);
 			fclose(pCo1);
@@ -441,10 +516,9 @@ bool Menu_Desarrollador::backupFiles() {
 			fclose(pbIt);
 			fclose(pbCa);
 			fclose(pbCo1);
-			fclose(pbCo2);
 			return false;
+
 		}
-		
 		//Mientras pueda leer los .dat escribo en los .bkp
 		while (fread(&champ, sizeof(Campeon), 1, pCa))
 		{
@@ -474,8 +548,152 @@ bool Menu_Desarrollador::backupFiles() {
 		fclose(pbCo1);
 		fclose(pCo2);
 		fclose(pbCo2);
+	
 
+	
 		return true;
 	}
+	return false;
+}
+
+bool Menu_Desarrollador::restoreFiles()
+{
+	FILE* pIt, * pCa, * pCo1, * pCo2;
+	FILE* pbIt, * pbCa, * pbCo1, * pbCo2;
+	Campeon champ;
+	Item item;
+	Conjunto_cabecera Ccab;
+	Conjunto_detalle Cdet;
+	char opcion;
+
+	cout << "Desea restaurar los datos? S/N " << endl;
+	cin >> opcion;
+	if (opcion == 's' || opcion == 'S')
+	{
+		pIt = fopen("resources/items/itemsdata.dat", "wb");
+		pCa = fopen("resources/campeones/champsdata.dat", "wb");
+		pCo1 = fopen("resources/conjuntos/conjunto_cabecera.dat", "wb");
+		pCo2 = fopen("resources/conjuntos/conjunto_detalle.dat", "wb");
+		pbIt = fopen("resources/backups/itemsdata.bkp", "rb");
+		pbCa = fopen("resources/backups/champsdata.bkp", "rb");
+		pbCo1 = fopen("resources/backups/conjunto_cabecera.bkp", "rb");
+		pbCo2 = fopen("resources/backups/conjunto_detalle.bkp", "rb");
+
+		//Me aseguro de que se hayan abierto correctamente
+		if (pIt == NULL)
+		{
+			cout << "Items " << endl;
+			system("pause");
+			return false;
+		}
+		if (pCa == NULL)
+		{
+			cout << "Campeones " << endl;
+			system("pause");
+			fclose(pIt);
+			return false;
+		}
+
+		if (pCo1 == NULL)
+		{
+			cout << "Conjunto cabecera " << endl;
+			system("pause");
+			fclose(pIt);
+			fclose(pCa);
+			return false;
+		}
+
+		if (pCo2 == NULL)
+		{
+			cout << "Conjunto detalle " << endl;
+			system("pause");
+			fclose(pIt);
+			fclose(pCa);
+			fclose(pCo1);
+			return false;
+		}
+
+		if (pbIt == NULL)
+		{
+			cout << "Items bkp " << endl;
+			system("pause");
+			fclose(pIt);
+			fclose(pCa);
+			fclose(pCo1);
+			fclose(pCo2);
+			return false;
+		}
+		if (pbCa == NULL)
+		{
+			cout << "Champ bkp " << endl;
+			system("pause");
+			fclose(pIt);
+			fclose(pCa);
+			fclose(pCo1);
+			fclose(pCo2);
+			fclose(pbIt);
+			return false;
+		}
+		if (pbCo1 == NULL)
+		{
+			cout << "Ccab bkp " << endl;
+			system("pause");
+			fclose(pIt);
+			fclose(pCa);
+			fclose(pCo1);
+			fclose(pCo2);
+			fclose(pbIt);
+			fclose(pbCa);
+			return false;
+		}
+		if (pbCo2 == NULL)
+		{
+			cout << "C det bkp " << endl;
+			system("pause");
+			fclose(pIt);
+			fclose(pCa);
+			fclose(pCo1);
+			fclose(pCo2);
+			fclose(pbIt);
+			fclose(pbCa);
+			fclose(pbCo1);
+			return false;
+		}
+
+
+		//Mientras pueda leer los .dat escribo en los .bkp
+		while (fread(&champ, sizeof(Campeon), 1, pbCa))
+		{
+			fwrite(&champ, sizeof(Campeon), 1, pCa);
+		}
+
+		while (fread(&item, sizeof(Item), 1, pbIt))
+		{
+			fwrite(&item, sizeof(Item), 1, pIt);
+		}
+
+		while (fread(&Ccab, sizeof(Conjunto_cabecera), 1, pbCo1))
+		{
+			fwrite(&Ccab, sizeof(Conjunto_cabecera), 1, pCo1);
+		}
+
+		while (fread(&Cdet, sizeof(Conjunto_detalle), 1, pbCo2))
+		{
+			fwrite(&Cdet, sizeof(Conjunto_detalle), 1, pCo2);
+		}
+
+		
+		fclose(pCa);
+		fclose(pbCa);
+		fclose(pIt);
+		fclose(pbIt);
+		fclose(pCo1);
+		fclose(pbCo1);
+		fclose(pCo2);
+		fclose(pbCo2);
+		return true;
+	}
+	
+
 	return false;
 }

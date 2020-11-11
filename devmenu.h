@@ -28,4 +28,5 @@ public:
 	void bajaConjunto();
 	//Backup
 	bool backupFiles();
+	bool restoreFiles();
 };
