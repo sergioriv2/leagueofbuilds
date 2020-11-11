@@ -39,9 +39,9 @@ int Menu_Desarrollador::menuPrincipal()
 		break;
 	case 3:	menuConjuntos();
 		break;
-	case 4: 
-		 menuBackup();
-		
+	case 4:
+		menuBackup();
+
 		break;
 	}
 	return opc;
@@ -87,21 +87,26 @@ void Menu_Desarrollador::menuCampeones()
 
 void Menu_Desarrollador::agregarCampeones()
 {
-	Campeon champ;
-
-
-	champ.cargarCampeon();
-
-	if (champ.guardarCampeon())
+	bool w;
+	do
 	{
-		cout << "Se guardo sin errores" << endl;
-	}
-	else
-	{
-		cout << "Error al guardar" << endl;
-	}
+		system("cls");
+		Campeon champ;
+		cout << "Ingresar 0 en Nombre para terminar" << endl << endl;
+		w = champ.cargarCampeon();
+		if (w)
+		{
+			if (champ.guardarCampeon())
+			{
+				cout << "Se guardo sin errores" << endl;
+			}
+			else
+			{
+				cout << "Error al guardar" << endl;
+			}
+		}
+	} while (w);
 
-	system("pause");
 	return;
 
 }
@@ -119,8 +124,24 @@ void Menu_Desarrollador::mostrarCampeones()
 void Menu_Desarrollador::modificarCampeon() {
 
 	Campeon champ;
+
+	//Mostrar ID y nombres de campeones
+	cout << "CAMPEONES CARGADOS  ------------------" << endl << endl;
+	FILE* pf;
+	pf = fopen("resources/campeones/champsdata.dat", "rb");
+	if (pf == NULL) return;
+	while (fread(&champ, sizeof champ, 1, pf))
+	{
+		if (champ.getEstado())
+			cout << "ID: " << champ.getID() << "\t\t" << "Nombre: " << champ.getNombre() << endl;
+	}
+	fclose(pf);
+
+	cout << endl << endl;
+
 	int ID, POS, opc2;
 	char opc;
+	cout << "Inresar -1 para salir " << endl;
 	cout << "Ingresar ID del campeon que se desea modificar: " << endl;
 	cin >> ID;
 	POS = champ.searchPos(ID);//Busco si existe;
@@ -132,7 +153,7 @@ void Menu_Desarrollador::modificarCampeon() {
 		cout << "No se pudo leer el registro" << endl;
 		return;
 	}
-	cout << "Se encontro el siguiente campeon " << endl;
+
 	champ.mostrarCampeon();
 
 	cout << "Desea modificarlo? s/n" << endl;// Confirmo
@@ -155,7 +176,6 @@ void Menu_Desarrollador::modificarCampeon() {
 	else if (opc == 'n' || opc == 'N') {
 		return;
 	}
-
 }
 
 void Menu_Desarrollador::eliminarCampeon() {
@@ -202,8 +222,8 @@ void Menu_Desarrollador::menuItems()
 	cout << "--------------------------------" << endl;
 	cout << "1. Agregar items" << endl;
 	cout << "2. Borrar items " << endl;
-	cout << "3. Editar items(FALTA)" << endl;
-	cout << "4. Mostrar items(FALTA)" << endl;
+	cout << "3. Editar items" << endl;
+	cout << "4. Mostrar items" << endl;
 	cout << "0. Volver" << endl;
 	cout << "-------------------------------" << endl;
 	cout << "Elegir una opcion: ";
@@ -236,7 +256,7 @@ void Menu_Desarrollador::agregarItems()
 	{
 		system("cls");
 		Item obj;
-
+		cout << "Ingresar 0 en Nombre para terminar" << endl << endl;
 		w = obj.cargarItem();
 		if (w)
 		{
@@ -315,10 +335,10 @@ void Menu_Desarrollador::menuConjuntos()
 		mostrarConjunto();
 		break;
 	case 3:
-		//editarConjunto();
+		editarConjunto();
 		break;
 	case 4:
-		//bajaConjunto();
+		bajaConjunto();
 		break;
 	case 0:
 		return;
@@ -326,22 +346,55 @@ void Menu_Desarrollador::menuConjuntos()
 	}
 }
 
+void Menu_Desarrollador::bajaConjunto()
+{
+	Conjunto_cabecera* c;
+	c = new Conjunto_cabecera;
+
+	c->modificar(true);
+
+	delete c;
+	system("pause");
+}
+
+void Menu_Desarrollador::editarConjunto()
+{
+	//Creo un objeto y llamo al metodo
+	//Lo puse en un metodo aparte porque era mucho texto(?
+
+	Conjunto_cabecera* c;
+	c = new Conjunto_cabecera;
+
+	c->modificar();
+
+	delete c;
+	system("pause");
+}
+
 void Menu_Desarrollador::agregarConjunto()
 {
-	Conjunto_cabecera c;
+	Conjunto_cabecera* c;
+	c = new Conjunto_cabecera;
 
 	// Se piden los datos y desp guardo
-	c.ingresarCabecera();
 
-	if (c.guardarCabecera())
+	if (c->ingresarCabecera())
 	{
-		cout << "Conjunto guardado" << endl;
+		if (c->guardarCabecera())
+		{
+			cout << "Conjunto guardado" << endl;
+		}
+		else
+		{
+			cout << "Error al guardar el conjunto" << endl;
+		}
 	}
 	else
 	{
 		cout << "Error al guardar el conjunto" << endl;
 	}
 	system("pause");
+	delete c;
 
 }
 
@@ -349,34 +402,58 @@ void Menu_Desarrollador::mostrarConjunto()
 {
 	cout << "CONJUNTOS CARGADOS" << endl << endl;
 
-	Conjunto_cabecera c;
-	Conjunto_detalle cd;
+	//Creo las variables para mostrar
+
+	Conjunto_cabecera* c;
+	Conjunto_detalle* cd;
+
+	c = new Conjunto_cabecera;
+	cd = new Conjunto_detalle;
 
 	int opc;
-	c.cargarCabecera();
 
-	cout << endl <<  "Ingresa el ID para mostrar mas detalles (-1 para salir): ";
+	//Muestro por pantalla todos los conjuntos activos
+	c->cargarCabecera();
+
+	cout << endl << "Ingresa el ID para mostrar mas detalles (-1 para salir): ";
+
+	//Pido ID del conjunto, que basicamente es la posicion del registro asi que mas adelante lo uso para el fseek
 	cin >> opc;
 	system("cls");
 
 	if (opc == -1) return;
 
-	//Abro el archivo para las propiedades de la cabecera
+	//Verifico que exista el conjunto 
+	if (c->buscaridConjunto(opc) == -1)
+	{
+		std::cout << "El conjunto ingresado no existe" << std::endl;
+		system("pause");
+		return;
+	}
+	//Abro el archivo para las propiedades de CABECERA
 	FILE* pf;
 	pf = fopen("resources/conjuntos/conjunto_cabecera.dat", "rb");
 	if (pf == NULL) return;
-	fseek(pf, (sizeof c) * opc, 0);
-	fread(&c, sizeof c, 1, pf);
-	cout << "CONJUNTO DETALLADO |------------------" << endl << endl;
-	cout << "NOMBRE: " << c.getNombre() << endl;
-	cout << "PRECIO TOTAL: " << c.getcostoTotal() << "g" << endl << endl;
+	fseek(pf, (sizeof * c) * opc, 0);
+	fread(c, sizeof * c, 1, pf);
+
+	cout << "CONJUNTO DETALLADO ------------------" << endl << endl;
+
+	//Cabecera: Muestro Estado, Nombre y Costo
+	cout << "ESTADO " << c->getEstado() << endl;
+	cout << "NOMBRE: " << c->getNombre() << endl;
+	cout << "PRECIO TOTAL: " << c->getcostoTotal() << "g" << endl << endl;
 
 	//Cierro el archivo
 	fclose(pf);
-	cd.cargarDetalle(opc);
+
+	//Cargo detalles de DETALLES en la posicion que mandaron
+	cd->cargarDetalle(opc);
 
 	system("pause");
 
+	delete c;
+	delete cd;
 }
 
 void Menu_Desarrollador::menuBackup() {
@@ -409,18 +486,18 @@ void Menu_Desarrollador::menuBackup() {
 		cout << "Hubo un error al restaurar el archivo" << endl;
 	}
 
-		break;
+		  break;
 	}
 	system("pause");
 
 }
 
 bool Menu_Desarrollador::backupFiles() {
-	FILE *pIt, *pCa, *pCo1, *pCo2;
+	FILE* pIt, * pCa, * pCo1, * pCo2;
 	FILE* pbIt, * pbCa, * pbCo1, * pbCo2;
 	Campeon champ;
 	Item item;
-	Conjunto_cabecera Ccab;
+	Conjunto_cabecera Ccab;//TODO: Hacer algo con el conj cabecera para que me deje usarlo aca
 	Conjunto_detalle Cdet;
 
 	char opcion;
@@ -437,8 +514,9 @@ bool Menu_Desarrollador::backupFiles() {
 		pbCa = fopen("resources/backups/champsdata.bkp", "wb");
 		pbCo1 = fopen("resources/backups/conjunto_cabecera.bkp", "wb");
 		pbCo2 = fopen("resources/backups/conjunto_detalle.bkp", "wb");
-		
+
 		//Me aseguro de que se hayan abierto correctamente
+
 		if (pIt == NULL)
 		{
 			cout << "Items " << endl;
@@ -491,7 +569,6 @@ bool Menu_Desarrollador::backupFiles() {
 			fclose(pCo1);
 			fclose(pCo2);
 			fclose(pbIt);
-			return false;
 		}
 		if (pbCo1 == NULL)
 		{
@@ -503,7 +580,6 @@ bool Menu_Desarrollador::backupFiles() {
 			fclose(pCo2);
 			fclose(pbIt);
 			fclose(pbCa);
-			return false;
 		}
 		if (pbCo2 == NULL)
 		{
@@ -516,25 +592,24 @@ bool Menu_Desarrollador::backupFiles() {
 			fclose(pbIt);
 			fclose(pbCa);
 			fclose(pbCo1);
-			return false;
-
 		}
+
 		//Mientras pueda leer los .dat escribo en los .bkp
 		while (fread(&champ, sizeof(Campeon), 1, pCa))
 		{
 			fwrite(&champ, sizeof(Campeon), 1, pbCa);
 		}
-		
+
 		while (fread(&item, sizeof(Item), 1, pIt))
 		{
 			fwrite(&item, sizeof(Item), 1, pbIt);
 		}
-		
+
 		while (fread(&Ccab, sizeof(Conjunto_cabecera), 1, pCo1))
 		{
 			fwrite(&Ccab, sizeof(Conjunto_cabecera), 1, pbCo1);
 		}
-		
+
 		while (fread(&Cdet, sizeof(Conjunto_detalle), 1, pCo2))
 		{
 			fwrite(&Cdet, sizeof(Conjunto_detalle), 1, pbCo2);
@@ -548,12 +623,11 @@ bool Menu_Desarrollador::backupFiles() {
 		fclose(pbCo1);
 		fclose(pCo2);
 		fclose(pbCo2);
-	
 
-	
 		return true;
 	}
 	return false;
+
 }
 
 bool Menu_Desarrollador::restoreFiles()
@@ -682,7 +756,7 @@ bool Menu_Desarrollador::restoreFiles()
 			fwrite(&Cdet, sizeof(Conjunto_detalle), 1, pCo2);
 		}
 
-		
+
 		fclose(pCa);
 		fclose(pbCa);
 		fclose(pIt);
@@ -693,7 +767,6 @@ bool Menu_Desarrollador::restoreFiles()
 		fclose(pbCo2);
 		return true;
 	}
-	
 
 	return false;
 }

@@ -10,12 +10,14 @@ const char* UBICACION_ITEMS = "resources/items/itemsdata.dat";
 
 Item::Item() :Stat()
 {
+	opc_modif = MOD_ITEM::NONE;
 	costo = 0, id = 0;
 	estado = true;
 }
 
 Item::Item(const char* _nombre) :Stat(_nombre)
 {
+	opc_modif = MOD_ITEM::NONE;
 	costo = id = 0;
 	estado = true;
 }
@@ -47,25 +49,6 @@ bool Item::cargarItem()
 
 
 //archivos
-
-int Item::getCosto(int pos)
-{
-	int c = 0;
-	FILE* pf;
-	pf = fopen(UBICACION_ITEMS, "rb");
-	if (pf == NULL)
-	{
-		cout << "clase item : mostrar_reg";
-		return 0;
-	}
-	fseek(pf, (sizeof * this) * pos, 0);
-	fread(this, sizeof * this, 1, pf);
-
-	if (estado) c = costo;
-
-	fclose(pf);
-	return c;
-}
 
 bool Item::guardar(int pos)
 {
@@ -153,7 +136,8 @@ int Item::contar_reg()
 	FILE* pf;
 	pf = fopen(UBICACION_ITEMS, "rb");
 	if (pf == NULL) return 0;
-	while (fread(&pitem, sizeof pitem, 1, pf) == 1) c++;
+	while (fread(&pitem, sizeof pitem, 1, pf) == 1)
+	if(pitem.getEstado())c++;
 	fclose(pf);
 	return c;
 }
@@ -217,16 +201,33 @@ int Item::buscar_reg(int id)
 
 bool Item::editar()
 {
+
+	//Mostrar ID y nombres de campeones
+	cout << "ITEMS CARGADOS  ------------------" << endl << endl;
+	FILE* pf;
+	pf = fopen("resources/items/itemsdata.dat", "rb");
+	if (pf == NULL) return false;
+	while (fread(this, sizeof *this, 1, pf))
+	{
+		if (this->getEstado())
+			cout << "ID: " << this->getId() << "\t\t" << "Nombre: " << this->getNombre() << endl;
+	}
+	fclose(pf);
+
+	cout << endl << endl;
+
 	int opc;
 	int id, pos;
-	do
-	{
-		cout << "Escribir -1 para salir" << endl << endl;
-		cout << "Ingresar N de ID: ";
-		cin >> id;
-		if (id == -1) return false;
-		pos = buscar_reg(id);
-	} while (pos == -1);
+	cout << "Inresar -1 para salir " << endl;
+	cout << "Ingresar ID del item que se desea modificar: " << endl;
+	cin >> id;
+
+	pos = buscar_reg(id);//Busco si existe;
+	if (pos == -1) {
+		cout << "No se ha encontrado un item con esa ID" << endl;// Si no existe me salgo
+		return false;
+	}
+
 	system("cls");
 	cout << "Se encontro el siguiente registro: " << endl << endl;
 
@@ -247,6 +248,7 @@ bool Item::editar()
 	cout << "Elegir que modificar: ";
 	cin >> opc;
 	system("cls");
+	
 	switch (opc)
 	{
 	case 0: return false;
@@ -282,7 +284,7 @@ bool Item::editar()
 		break;
 	default:return false;
 	}
-
+	
 	return modificar(pos);
 
 }

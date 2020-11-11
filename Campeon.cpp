@@ -30,14 +30,15 @@ void Campeon::setEstadoFalse() {
 	estado = false;
 }
 
-void Campeon::cargarCampeon()
+bool Campeon::cargarCampeon()
 {
 	setStats(1);
+	if (nombre[0] == '0') return false;
 	setEstilo();
 	setdmgType();
 	id = contar_reg();
 	estado = true;
-
+	return true;
 }
 
 void Campeon::mostrarCampeon()
@@ -118,13 +119,17 @@ void Campeon::mostrarCampeones()
 		system("pause");
 		return;
 	}
-	while (fread(this, sizeof *this, 1, pf) && getEstado() == true)
+	while (fread(this, sizeof *this, 1, pf))
 	{
-		getStats(1);
-		cout << "Estilo: " << getEstilo() << endl;
-		cout << "Tipo de danio " << getDmg() << endl;
-		cout << "ID: " << id << endl;
-		cout << "-----------------------------" << endl;
+		if (estado)
+		{
+			getStats(1);
+			cout << "Estilo: " << getEstilo() << endl;
+			cout << "Tipo de danio " << getDmg() << endl;
+			cout << "ID: " << id << endl;
+			cout << "-----------------------------" << endl;
+		}
+	
 	}
 	fclose(pf);
 
@@ -145,6 +150,7 @@ int Campeon::searchPos(int ID) {
 		}
 		pos++;
 	}
+	fclose(p);
 	return -1;
 }
 

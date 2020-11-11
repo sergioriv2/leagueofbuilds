@@ -11,7 +11,7 @@ public:
 	void imprimirMid();
 	void imprimirLate();
 	void imprimirDetalle();
-	bool guardarDetalle();
+	bool guardarDetalle(int pos = -1);
 	void cargarDetalle(int);
 	//set
 	void setDetalle(int);
@@ -19,12 +19,10 @@ public:
 	void setitemsEarly();
 	void setItemsMid();
 	void setItemsLate();
+	void setEstado(bool _estado) { estado = _estado; }
 	//gets
+	bool getEstado() { return estado; }
 	int getDetalle() { return idDetalle; }//id
-	int getCostoEarly();
-	int getCostoMid();
-	int getCostoLate();
-	int getCostoTotal();
 	int* getEarly() { return idEarly; }
 	int* getMid() { return idMid; }
 	int* getLate() { return idLate; }

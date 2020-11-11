@@ -3,6 +3,7 @@
 
 enum MOD_ITEM
 {
+    NONE,
     NOMBRE,
     ATAQUE,
     VEL_ATAQUE,
@@ -44,6 +45,6 @@ public:
     //get
     bool getEstado() { return estado; }
     int getId() { return id; }
-    int getCosto(int);
+    int getCosto() { return costo; }
 };
 

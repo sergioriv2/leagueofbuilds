@@ -10,20 +10,26 @@ private:
 public:
 	Conjunto_cabecera();
 	//metodos
-	void ingresarCabecera();
-	int calcularCosto(int);
+	bool ingresarCabecera();
 	int buscaridChamp(int);
-	bool guardarCabecera();
+	int buscaridConjunto(int);
+	bool guardarCabecera(int pos = -1);
 	void cargarCabecera();
+	void modificar(bool borrar = false);
 	//set
 	void setidConjunto();
 	void setidCampeon();
 	void setCostototal();
 	void setNombre();
+	void setEstado(bool _estado) { estado = _estado; }
 	//get
 	int getidConjunto() { return idConjunto; }
 	int getidCampeon() { return idCampeon; }
+	int getCostoEarly();
+	int getCostoMid();
+	int getCostoLate();
 	int getcostoTotal() { return costoTotal; }
+	bool getEstado() { return estado; }
 	char* getNombre() { return nombre; }
 	//
 	int contarRegistros();
