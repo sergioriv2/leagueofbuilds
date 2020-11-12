@@ -12,7 +12,7 @@ public:
 	Campeon(const char* _estilo = "None", const char* _dmgtype = "None");
 	~Campeon();
 	//metodos
-	void cargarCampeon();
+	bool cargarCampeon();
 	void mostrarCampeon();
 	// operaciones archivo
 	bool guardarCampeon(int pos = -1);
