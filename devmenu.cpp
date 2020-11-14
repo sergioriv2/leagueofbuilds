@@ -12,6 +12,13 @@ using namespace std;
 #include "Item.h"
 #include "Conjunto_detalle.h"
 #include "Conjunto_cabecera.h"
+#include "Archivo.h"
+
+const char* UB_CAMPEONES = "resources/campeones/champsdata.dat";
+const char* UB_ITEMS = "resources/items/itemsdata.dat";
+const char* UB_CONDET = "resources/conjuntos/conjunto_detalle.dat";
+const char* UB_CONCAB = "resources/conjuntos/conjunto_cabecera.dat";
+
 
 int Menu_Desarrollador::menuPrincipal()
 {
@@ -35,12 +42,12 @@ int Menu_Desarrollador::menuPrincipal()
 		break;
 	case 1: menuCampeones();
 		break;
-	case 2: menuItems();
+	case 2: //menuItems();
 		break;
-	case 3:	menuConjuntos();
+	case 3:	//menuConjuntos();
 		break;
 	case 4:
-		menuBackup();
+		//menuBackup();
 
 		break;
 	}
@@ -70,7 +77,7 @@ void Menu_Desarrollador::menuCampeones()
 		agregarCampeones();
 		break;
 	case 2:
-		eliminarCampeon();
+		//eliminarCampeon();
 		break;
 	case 3:
 		modificarCampeon();
@@ -87,74 +94,75 @@ void Menu_Desarrollador::menuCampeones()
 
 void Menu_Desarrollador::agregarCampeones()
 {
-	bool w;
-	do
-	{
-		system("cls");
-		Campeon champ;
-		cout << "Ingresar 0 en Nombre para terminar" << endl << endl;
-		w = champ.cargarCampeon();
-		if (w)
-		{
-			if (champ.guardarCampeon())
-			{
-				cout << "Se guardo sin errores" << endl;
-			}
-			else
-			{
-				cout << "Error al guardar" << endl;
-			}
-		}
-	} while (w);
+	Archivo campeones(UB_CAMPEONES, sizeof(Campeon));
+	Campeon champ;
+	int x;
 
-	return;
-
+	champ.Cargar();
+	x = campeones.grabarRegistro(champ, -1);
+	if (x == 1) cout << "Campeon cargado" << endl;
+	else cout << "Error al cargar campeon" << endl;
+	system("pause");
 }
 
 void Menu_Desarrollador::mostrarCampeones()
 {
+	Archivo campeones(UB_CAMPEONES, sizeof(Campeon));
 	Campeon champ;
 
-	champ.mostrarCampeones();
+	if (!campeones.listarArchivo(champ))
+	{
+		cout << "Error al listar" << endl;
+	}
 
 	system("pause");
 	return;
 }
 
+
+
 void Menu_Desarrollador::modificarCampeon() {
 
+	Archivo campeones(UB_CAMPEONES, sizeof(Campeon));
 	Campeon champ;
-
+	int i = 0;
 	//Mostrar ID y nombres de campeones
 	cout << "CAMPEONES CARGADOS  ------------------" << endl << endl;
-	FILE* pf;
-	pf = fopen("resources/campeones/champsdata.dat", "rb");
-	if (pf == NULL) return;
-	while (fread(&champ, sizeof champ, 1, pf))
-	{
-		if (champ.getEstado())
-			cout << "ID: " << champ.getID() << "\t\t" << "Nombre: " << champ.getNombre() << endl;
-	}
-	fclose(pf);
 
+	while (campeones.leerRegistro(champ, i))
+	{
+		cout << "ID: " << champ.getID() << "\t\t" << "Nombre: " << champ.getNombre() << endl;
+		i++;
+	}
 	cout << endl << endl;
 
 	int ID, POS, opc2;
 	char opc;
-	cout << "Inresar -1 para salir " << endl;
-	cout << "Ingresar ID del campeon que se desea modificar: " << endl;
-	cin >> ID;
-	POS = champ.searchPos(ID);//Busco si existe;
-	if (POS == -1) {
-		cout << "No se ha encontrado un campeon con esa ID" << endl;// Si no existe me salgo
-		return;
-	}
-	if (champ.leerCampeon(POS) == false) {
-		cout << "No se pudo leer el registro" << endl;
-		return;
-	}
+	cout << "Ingresar ID del campeon que se desea modificar (-1 para salir): " << endl;
 
-	champ.mostrarCampeon();
+	//Creo un objeto de Campeon dinamico solo para ver si existe
+
+	Campeon* nchamp;
+	nchamp = new Campeon;
+	cin >> ID;
+
+	nchamp->setID(ID);
+	//Verifico si existe el id ingresado
+	if (campeones.buscarRegistro(*nchamp) == -1)
+	{	//Si no, chau
+		cout << "El registro no existe" << endl;
+		system("cls");
+		return;
+	}
+	else
+	{	//Si existe, se carga
+		cout << endl << "Se encontro el siguiente registro: " << endl;
+		campeones.leerRegistro(champ, ID);
+	}
+	//Borro el objeto
+	delete nchamp;
+
+	champ.Mostrar();
 
 	cout << "Desea modificarlo? s/n" << endl;// Confirmo
 	cin >> opc;
@@ -171,13 +179,16 @@ void Menu_Desarrollador::modificarCampeon() {
 		cout << "8 PROBABILIDAD DE CRITICO" << endl;
 		cout << "9 MANA" << endl;
 		cin >> opc2;
-		champ.modify(POS, opc2);
+		//Hasta haca todo bien
+		//TODO: Ver como adaptar esto con la nueva clase
+		//champ.modify(POS, opc2);
 	}
 	else if (opc == 'n' || opc == 'N') {
 		return;
 	}
+	system("pause");
 }
-
+/*
 void Menu_Desarrollador::eliminarCampeon() {
 	Campeon champ;
 	int ID, POS;
@@ -769,4 +780,4 @@ bool Menu_Desarrollador::restoreFiles()
 	}
 
 	return false;
-}
+}*/

@@ -1,7 +1,8 @@
 #pragma once
 #include "Stat.h"
+#include "Registro.h"
 
-class Campeon : public Stat
+class Campeon : public Stat, public Registro
 {
 private:
 	char estilo[20];
@@ -11,24 +12,42 @@ private:
 public:
 	Campeon(const char* _estilo = "None", const char* _dmgtype = "None");
 	~Campeon();
-	//metodos
-	bool cargarCampeon();
-	void mostrarCampeon();
-	// operaciones archivo
-	bool guardarCampeon(int pos = -1);
-	int contar_reg();
-	void mostrarCampeones();
-	int searchPos(int ID);
-	bool modify(int POS, int OPC);//OPC Es mandado a un switch donde se elije la varaible a modificar
-	bool leerCampeon(int POS);//Lee un campeon del archivo depende la pos.
+	//metodos registro
+	bool Cargar();
+	void Mostrar();
+	Campeon& operator = (Registro* temp)
+	{
+		Campeon* aux = (Campeon*)temp;
+
+		this->setNombre(aux->getNombre());
+		ataque = aux->getAtaque();
+		vel_ataque = aux->getVel_ataque();
+		vida = aux->getVida();
+		armor = aux->getArmor();
+		mana = aux->getMana();
+
+		strcpy(this->estilo, aux->estilo);
+		strcpy(this->dmg_type, aux->dmg_type);
+		id = aux->id;
+		estado = aux->estado;
+		return *this;
+	}
+	bool comparaID(Registro* temp)
+	{
+		Campeon* aux = (Campeon*)temp;
+		if (aux->id == id) return true;
+		return false;
+	}
 	//sets
 	void setEstilo();
 	void setdmgType();
 	void setEstadoFalse();
+	void setID(int _id) { id = _id; }
 	//gets
 	int getID() { return id; }
 	const char* getEstilo() { return estilo; }
 	const char* getDmg() { return dmg_type; }
+	int getSize() { return sizeof *this; }
 	bool getEstado() { return estado; }
 };
 

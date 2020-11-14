@@ -5,7 +5,7 @@
 #include "Conjunto_cabecera.h"
 #include "Campeon.h"
 #include "Item.h"
-
+/*
 Conjunto_cabecera::Conjunto_cabecera()
 {
 	const char* n = "n/a";
@@ -578,4 +578,4 @@ int Conjunto_cabecera::getCostoLate()
 	return costoT;
 }
 
-
+*/

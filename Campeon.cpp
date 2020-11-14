@@ -5,6 +5,7 @@
 using namespace std;
 
 #include "Campeon.h"
+#include "Archivo.h"
 
 Campeon::Campeon(const char* _estilo, const char* _dmgtype) :Stat()
 {
@@ -30,25 +31,28 @@ void Campeon::setEstadoFalse() {
 	estado = false;
 }
 
-bool Campeon::cargarCampeon()
+bool Campeon::Cargar()
 {
+	Archivo arch("resources/campeones/champsdata.dat", sizeof(Campeon));
+
 	setStats(1);
 	if (nombre[0] == '0') return false;
 	setEstilo();
 	setdmgType();
-	id = contar_reg();
+
+	id = arch.getCantidadRegistros();
+
 	estado = true;
 	return true;
 }
 
-void Campeon::mostrarCampeon()
+void Campeon::Mostrar()
 {
-	system("cls");
 	if (getEstado() == true) {
 		getStats(1);
 		cout << "Tipo de danio: " << dmg_type << endl;
 		cout << "Rol: " << estilo << endl << endl;
-		cout << "---------------------------------------" << endl;
+		cout << "---------------------------------------" << endl << endl;
 	}
 }
 
@@ -63,6 +67,7 @@ void Campeon::setdmgType()
 
 // Operaciones archivos
 
+/*
 int Campeon::contar_reg() // Fixed
 {
 	Campeon pchamp;
@@ -213,3 +218,5 @@ bool Campeon::leerCampeon(int POS) {
 	return true;
 
 }
+
+*/

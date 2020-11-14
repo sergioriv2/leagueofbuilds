@@ -39,6 +39,20 @@ public:
 	void setregVida();
 	void setlifeSteal();
 	void setCDR();
+	//Sobrecarga
+	void setNombre(const char* _nombre) { strcpy(nombre, _nombre); }
+	void setAtaque(float _ataque) { ataque = _ataque; }
+	void setVel_ataque(float _vataque) { vel_ataque = _vataque; }
+	void setPoder_habilidad(float _ap) { poder_habilidad = _ap; }
+	void setVida(float _vida) { vida = _vida; }
+	void setArmor(float _armor) { armor = _armor; }
+	void setResistencia_magica(float _mr) { resistencia_magica = _mr ; }
+	void setCrit_chance(float _critc) { crit_chance = _critc; }
+	void setMana(float _mana) { mana = _mana; }
+	void setregMana(float _rmana) { regmana = _rmana; }
+	void setregVida(float _rvida) { regvida = _rvida; }
+	void setlifeSteal(float _ls) { lifeSteal = _ls; }
+	void setCDR(float _cdr) { CDR = _cdr; }
 	//gets
 	// True para cargar Campeones, False  para cargar items
 	void getStats(bool basicStats);
