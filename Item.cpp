@@ -5,19 +5,18 @@
 using namespace std;
 
 #include "Item.h"
+#include "Archivo.h"
 
 const char* UBICACION_ITEMS = "resources/items/itemsdata.dat";
 
 Item::Item() :Stat()
 {
-	opc_modif = MOD_ITEM::NONE;
 	costo = 0, id = 0;
 	estado = true;
 }
 
 Item::Item(const char* _nombre) :Stat(_nombre)
 {
-	opc_modif = MOD_ITEM::NONE;
 	costo = id = 0;
 	estado = true;
 }
@@ -37,202 +36,54 @@ void Item::setCosto()
 	
 }
 
-bool Item::cargarItem()
+bool Item::Cargar()
 {
+	Archivo arch(UBICACION_ITEMS, sizeof(Item));
+
 	setStats(0);
 	if (nombre[0] == '0') return false;
 	setCosto();
-	id = contar_reg();
+
+	id = arch.getCantidadRegistros();
+
 	estado = true;
 	return true;
 }
 
-
-//archivos
-
-bool Item::guardar(int pos)
-{
-	FILE* pf;
-	if (pos == -1)
-	{
-		pf = fopen(UBICACION_ITEMS, "ab");
-		if (pf == NULL)
-		{
-			cout << "clase items : guardar";
-			return false;
-		}
-		bool save = fwrite(this, sizeof * this, 1, pf);
-		fclose(pf);
-		return save;
-	}
-	else
-	{
-		pf = fopen(UBICACION_ITEMS, "rb+");
-		if (pf == NULL)
-		{
-			cout << "clase items : guardar";
-			return false;
-		}
-		fseek(pf, (sizeof * this) * pos, 0);
-		bool save = fwrite(this, sizeof * this, 1, pf);
-		fclose(pf);
-		return save;
-	}
-}
-
-void Item::mostrar_registros()
-{
-	FILE* pf;
-	pf = fopen(UBICACION_ITEMS, "rb");
-	if (pf == NULL)
-	{
-		cout << "clase item : mostrar_registros";
-		return;
-	}
-	while (fread(this, sizeof * this, 1, pf) == 1)
-	{
-		if (estado) mostrar(false);
-			
-	}
-	fclose(pf);
-}
-
-void Item::mostrar_reg(int pos, bool mostrar_nombre)
-{
-	FILE* pf;
-	pf = fopen(UBICACION_ITEMS, "rb");
-	if (pf == NULL)
-	{
-		cout << "clase item : mostrar_reg";
-		return;
-	}
-	fseek(pf, (sizeof * this) * pos, 0);
-	fread(this, sizeof * this, 1, pf);
-
-	if (estado) mostrar(mostrar_nombre);
-
-	fclose(pf);
-}
-
-void Item::mostrar(bool nombre)
+void Item::Mostrar()
 {	
-	// SOLO PARA MOSTRAR EL NOMBRE DEL ITEM 
 
-	if(nombre) cout << getNombre() << endl;
-	else
+	if(estado)
 	{
 		getStats(0);
 		cout << "Costo: " << costo << endl;
 		cout << "ID: " << id << endl;
-		cout << "-------------------------" << endl;
+		cout << "-------------------------" << endl << endl;
 	}
 	
 }
 
-int Item::contar_reg()
+bool Item::BajaVirtual(int ID)
 {
-	Item pitem;
-	int c = 0;
-	FILE* pf;
-	pf = fopen(UBICACION_ITEMS, "rb");
-	if (pf == NULL) return 0;
-	while (fread(&pitem, sizeof pitem, 1, pf) == 1)
-	if(pitem.getEstado())c++;
-	fclose(pf);
-	return c;
+	int b;
+	Archivo arch("resources/campeones/champsdata.dat", sizeof(Item));
+	Item item;
+	arch.leerRegistro(item, ID);
+
+	item.setEstado(false);
+
+	b = arch.grabarRegistro(item, ID, LecturaEscritura);
+	if (b)return true;
+	else return false;
 }
 
-bool Item::baja()
+bool Item::Modificar(int pos)
 {
-	char opc;
-	int id, pos;
-	do
-	{
-		cout << "Ingresar N de ID: ";
-		cin >> id;
-		pos = buscar_reg(id);
-	} while (pos == -1);
-	system("cls");
-	cout << "Se encontro el siguiente registro: " << endl << endl;
-
-	mostrar_reg(pos, false);
-
-	cout << endl << "Darlo de baja? S/N" << endl;
-	cin >> opc;
-	system("cls");
-	if (opc == 's' || opc == 'S')
-	{
-		opc_modif = MOD_ITEM::ESTADO;
-		return modificar(pos);
-	}
-	else
-	{
-		return false;
-	}
-
-
-}
-
-int Item::buscar_reg(int id)
-{
-	Item pitem;
-	int pos = 0;
-	FILE* pf;
-	pf = fopen(UBICACION_ITEMS, "rb");
-	if (pf == NULL)
-	{
-		cout << "item : buscar_reg";
-		return -1;
-	}
-	while (fread(&pitem, sizeof pitem, 1, pf))
-	{
-		if (pitem.getEstado())
-		{
-			if (pitem.getId() == id)
-			{
-				return pos;
-			}
-		}
-		pos++;
-	}
-	fclose(pf);
-	return -1;
-}
-
-bool Item::editar()
-{
-
-	//Mostrar ID y nombres de campeones
-	cout << "ITEMS CARGADOS  ------------------" << endl << endl;
-	FILE* pf;
-	pf = fopen("resources/items/itemsdata.dat", "rb");
-	if (pf == NULL) return false;
-	while (fread(this, sizeof *this, 1, pf))
-	{
-		if (this->getEstado())
-			cout << "ID: " << this->getId() << "\t\t" << "Nombre: " << this->getNombre() << endl;
-	}
-	fclose(pf);
-
-	cout << endl << endl;
+	Archivo arch(UBICACION_ITEMS, sizeof(Item));
+	Item item;
+	arch.leerRegistro(item, pos);
 
 	int opc;
-	int id, pos;
-	cout << "Inresar -1 para salir " << endl;
-	cout << "Ingresar ID del item que se desea modificar: " << endl;
-	cin >> id;
-
-	pos = buscar_reg(id);//Busco si existe;
-	if (pos == -1) {
-		cout << "No se ha encontrado un item con esa ID" << endl;// Si no existe me salgo
-		return false;
-	}
-
-	system("cls");
-	cout << "Se encontro el siguiente registro: " << endl << endl;
-
-	mostrar_reg(pos, false);
-
 	cout << endl;
 	cout << "0 SALIR" << endl;
 	cout << "1 NOMBRE" << endl;
@@ -248,99 +99,47 @@ bool Item::editar()
 	cout << "Elegir que modificar: ";
 	cin >> opc;
 	system("cls");
-	
 	switch (opc)
 	{
 	case 0: return false;
 	case 1:
-		opc_modif = MOD_ITEM::NOMBRE;
+		item.setNombre();
 		break;
-	case 2: 
-		opc_modif = MOD_ITEM::ATAQUE;
+	case 2:
+		item.setAtaque();
 		break;
 	case 3:
-		opc_modif = MOD_ITEM::VEL_ATAQUE;
+		item.setVel_ataque();
 		break;
 	case 4:
-		opc_modif = MOD_ITEM::AP;
+		item.setPoder_habilidad();
 		break;
 	case 5:
-		opc_modif = MOD_ITEM::VIDA;
+		item.setVida();
 		break;
 	case 6:
-		opc_modif = MOD_ITEM::ARMOR;
+		item.setArmor();
 		break;
 	case 7:
-		opc_modif = MOD_ITEM::MR;
+		item.setResistencia_magica();
 		break;
 	case 8:
-		opc_modif = MOD_ITEM::CRIT_CHANCE;
+		item.setCrit_chance();
 		break;
 	case 9:
-		opc_modif = MOD_ITEM::MANA;
+		item.setMana();
 		break;
 	case 10:
-		opc_modif = MOD_ITEM::COSTO;
+		item.setCosto();
 		break;
 	default:return false;
 	}
-	
-	return modificar(pos);
-
+	int b = arch.grabarRegistro(item, pos, LecturaEscritura);
+	if (b == -1) return false;
+	else
+	{
+		if (b) return true;
+		else return false;
+	}
 }
 
-bool Item::modificar(int pos)
-{
-	FILE* pf;
-	bool mod;
-	pf = fopen(UBICACION_ITEMS, "rb+");
-	if (pf == NULL)
-	{
-		cout << "item : modificar";
-		return false;
-	}
-	fseek(pf, (sizeof *this) * pos, 0);
-
-	//Depende que le mande el enum, hace otras cositas
-	switch (opc_modif)
-	{
-	case NOMBRE:
-		setNombre();
-		break;
-	case ATAQUE:
-		setAtaque();
-		break;
-	case VEL_ATAQUE:
-		setVel_ataque();
-		break;
-	case AP:
-		setPoder_habilidad();
-		break;
-	case VIDA:
-		setVida();
-		break;
-	case ARMOR:
-		setArmor();
-		break;
-	case MR:
-		setResistencia_magica();
-		break;
-	case CRIT_CHANCE:
-		setCrit_chance();
-		break;
-	case MANA:
-		setMana();
-		break;
-	case COSTO:
-		setCosto();
-		break;
-	case ESTADO:
-		estado = false;
-		break;
-	default:
-		break;
-	}
-	mod = fwrite(this, sizeof * this, 1, pf);
-	fclose(pf);
-	return mod;
-}

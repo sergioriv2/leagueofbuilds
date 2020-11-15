@@ -4,7 +4,7 @@
 #include <cstdlib>
 #include "Conjunto_detalle.h"
 #include "Item.h"
-
+/*
 Conjunto_detalle::Conjunto_detalle()
 {
 	setDetalle(0);
@@ -190,3 +190,4 @@ int Conjunto_detalle::contarRegistros() {
 		return c;
 	
 }
+*/

@@ -48,7 +48,7 @@ int  Archivo::leerRegistro(Registro& var, int pos) {
 //DEVUELVE 1 SI GRABO; -1 SI NO EXISTE; 0 SI NO PUDO GRABAR
 int Archivo::grabarRegistro(Registro& dato, int pos, Modo modo) {
     int grabo;
-   
+
     switch (modo) {
     case Escritura:
         if (!abrirArchivo(Escritura)) {
@@ -56,7 +56,7 @@ int Archivo::grabarRegistro(Registro& dato, int pos, Modo modo) {
             system("pause");
             return -1;
         }
-        grabo = fwrite(&dato, (sizeof(Campeon)*pos), 1, pF);
+        grabo = fwrite(&dato, (dato.getSize() * pos), 1, pF);
         cerrarArchivo();
 
         return grabo;
@@ -66,8 +66,8 @@ int Archivo::grabarRegistro(Registro& dato, int pos, Modo modo) {
             cout << "lecturaEscritura" << endl;
             return -1;
         }
-        fseek(pF, sizeof(Campeon) * pos, 0);
-        grabo = fwrite(&dato, sizeof(Campeon), 1, pF);
+        fseek(pF, dato.getSize() * pos, 0);
+        grabo = fwrite(&dato, dato.getSize(), 1, pF);
         cerrarArchivo();
         return grabo;
 
@@ -83,10 +83,11 @@ int Archivo::grabarRegistro(Registro& dato, int pos, Modo modo) {
         if (grabo && pos == -1)  cantRegistros++;
         return grabo;
         break;
+    default: return -1;
     }
-    
-   // if (grabo && pos == -1)  cantRegistros++; not sure donde dejar esto
-    
+
+    // if (grabo && pos == -1)  cantRegistros++; not sure donde dejar esto
+
 }
 
 //alta(Registro &obj)
@@ -103,7 +104,7 @@ int Archivo::alta(Registro& obj) {
     obj.Cargar();
     int pos = buscarRegistro(obj);
     if (pos == -1) {
-        grabo = grabarRegistro(obj, -1,Agregar);
+        grabo = grabarRegistro(obj, -1, Agregar);
         cerrarArchivo();
         return grabo;
     }

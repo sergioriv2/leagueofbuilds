@@ -42,7 +42,7 @@ int Menu_Desarrollador::menuPrincipal()
 		break;
 	case 1: menuCampeones();
 		break;
-	case 2: //menuItems();
+	case 2: menuItems();
 		break;
 	case 3:	//menuConjuntos();
 		break;
@@ -77,7 +77,7 @@ void Menu_Desarrollador::menuCampeones()
 		agregarCampeones();
 		break;
 	case 2:
-		eliminarCampeon();
+		//eliminarCampeon();
 		break;
 	case 3:
 		modificarCampeon();
@@ -117,9 +117,8 @@ void Menu_Desarrollador::mostrarCampeones()
 
 	system("pause");
 	return;
+
 }
-
-
 
 void Menu_Desarrollador::modificarCampeon() {
 
@@ -131,14 +130,12 @@ void Menu_Desarrollador::modificarCampeon() {
 
 	while (campeones.leerRegistro(champ, i))
 	{
-		if (champ.getEstado()) {
-			cout << "ID: " << champ.getID() << "\t\t" << "Nombre: " << champ.getNombre() << endl;
-		}
+		cout << "ID: " << champ.getID() << "\t\t" << "Nombre: " << champ.getNombre() << endl;
 		i++;
 	}
 	cout << endl << endl;
 
-	int ID, POS, opc2;
+	int ID;
 	char opc;
 	cout << "Ingresar ID del campeon que se desea modificar (-1 para salir): " << endl;
 
@@ -169,74 +166,14 @@ void Menu_Desarrollador::modificarCampeon() {
 	cout << "Desea modificarlo? s/n" << endl;// Confirmo
 	cin >> opc;
 	if (opc == 's' || opc == 'S') {
-		if (champ.Modificar(ID)) {
-			cout << "Modificado correctamente" << endl;
-		}
-		else cout << "Error al modificar" << endl;
+		if (champ.Modificar(ID)) cout << "Se modifico correctamente" << endl;
+		else cout << "Error al modificar el registro" << endl;
 	}
 	else if (opc == 'n' || opc == 'N') {
 		return;
 	}
 	system("pause");
 }
-void Menu_Desarrollador::eliminarCampeon() {
-	Archivo campeones(UB_CAMPEONES, sizeof(Campeon));
-	Campeon champ;
-	int i = 0;
-	//Mostrar ID y nombres de campeones
-	cout << "CAMPEONES CARGADOS  ------------------" << endl << endl;
-
-	while (campeones.leerRegistro(champ, i))
-	{
-		if(champ.getEstado()){
-		cout << "ID: " << champ.getID() << "\t\t" << "Nombre: " << champ.getNombre() << endl;
-		}
-		i++;
-	}
-	cout << endl << endl;
-
-	int ID, POS, opc2;
-	char opc;
-	cout << "Ingresar ID del campeon que se desea modificar (-1 para salir): " << endl;
-
-	//Creo un objeto de Campeon dinamico solo para ver si existe
-
-	Campeon* nchamp;
-	nchamp = new Campeon;
-	cin >> ID;
-
-	nchamp->setID(ID);
-	//Verifico si existe el id ingresado
-	if (campeones.buscarRegistro(*nchamp) == -1)
-	{	//Si no, chau
-		cout << "El registro no existe" << endl;
-		system("cls");
-		return;
-	}
-	else
-	{	//Si existe, se carga
-		cout << endl << "Se encontro el siguiente registro: " << endl;
-		campeones.leerRegistro(champ, ID);
-	}
-	//Borro el objeto
-	delete nchamp;
-
-	champ.Mostrar();
-
-	cout << "Desea darlo de baja? s/n" << endl;// Confirmo
-	cin >> opc;
-	if (opc == 's' || opc == 'S') {
-		if (champ.BajaVirtual(ID)) {
-			cout << "Dado de baja correctamente" << endl;
-		}
-		else cout << "Error al dar de baja" << endl;
-	}
-	else if (opc == 'n' || opc == 'N') {
-		return;
-	}
-	system("pause");
-}
-
 /*
 void Menu_Desarrollador::eliminarCampeon() {
 	Campeon champ;
@@ -273,6 +210,7 @@ void Menu_Desarrollador::eliminarCampeon() {
 }
 
 //ITEMS
+*/
 
 void Menu_Desarrollador::menuItems()
 {
@@ -311,23 +249,19 @@ void Menu_Desarrollador::menuItems()
 
 void Menu_Desarrollador::agregarItems()
 {
+	Archivo architem(UB_ITEMS, sizeof(Item));
 	bool w;
 	do
 	{
 		system("cls");
-		Item obj;
+		Item item;
 		cout << "Ingresar 0 en Nombre para terminar" << endl << endl;
-		w = obj.cargarItem();
+		w = item.Cargar();
 		if (w)
 		{
-			if (obj.guardar())
-			{
-				cout << "Se guardo sin errores" << endl;
-			}
-			else
-			{
-				cout << "Error al guardar" << endl;
-			}
+			if (architem.grabarRegistro(item, -1, Modo::Agregar)) cout << "Se guardo sin errores" << endl;
+			else cout << "Error al guardar" << endl;
+
 			system("pause");
 		}
 	} while (w);
@@ -337,40 +271,131 @@ void Menu_Desarrollador::agregarItems()
 
 void Menu_Desarrollador::bajaItems()
 {
-	Item obj;
+	Archivo architem(UB_ITEMS, sizeof(Item));
+	Item item;
+	int i = 0;
+	//Mostrar ID y nombres de items
+	cout << "CAMPEONES CARGADOS  ------------------" << endl << endl;
 
-	if (obj.baja())
+	while (architem.leerRegistro(item, i))
 	{
-		cout << "Se dio de baja correctamente" << endl;
+		if (item.getEstado()) cout << "ID: " << item.getId() << "\t\t" << "Nombre: " << item.getNombre() << endl;
+		i++;
+	}
+	cout << endl << endl;
+
+	int ID;
+	char opc;
+	cout << "Ingresar ID del item que se desea modificar (-1 para salir): " << endl;
+
+	//Creo un objeto de item dinamico solo para ver si existe
+
+	Item* nitem;
+	nitem = new Item;
+	cin >> ID;
+
+	nitem->setID(ID);
+	//Verifico si existe el id ingresado
+	if (architem.buscarRegistro(*nitem) == -1)
+	{	//Si no, chau
+		cout << "El registro no existe" << endl;
+		system("cls");
+		return;
 	}
 	else
-	{
-		cout << "Error al dar de baja " << endl;
+	{	//Si existe, se carga
+		cout << endl << "Se encontro el siguiente registro: " << endl;
+		architem.leerRegistro(item, ID);
 	}
+	//Borro el objeto
+	delete nitem;
 
+	item.Mostrar();
+
+	cout << "Desea modificarlo? s/n" << endl;// Confirmo
+	cin >> opc;
+	if (opc == 's' || opc == 'S') {
+		if (item.BajaVirtual(ID)) cout << "Se elimino correctamente" << endl;
+		else cout << "Error al eliminar el registro" << endl;
+	}
+	else if (opc == 'n' || opc == 'N') {
+		return;
+	}
 	system("pause");
 }
 
 void Menu_Desarrollador::editarItems()
 {
-	Item obj;
+	Archivo architem(UB_ITEMS, sizeof(Item));
+	Item item;
+	int i = 0;
+	//Mostrar ID y nombres de items
+	cout << "CAMPEONES CARGADOS  ------------------" << endl << endl;
 
-	obj.editar();
+	while (architem.leerRegistro(item, i))
+	{
+		if (item.getEstado()) cout << "ID: " << item.getId() << "\t\t" << "Nombre: " << item.getNombre() << endl;
+		i++;
+	}
+	cout << endl << endl;
+
+	int ID;
+	char opc;
+	cout << "Ingresar ID del item que se desea modificar (-1 para salir): " << endl;
+
+	//Creo un objeto de item dinamico solo para ver si existe
+
+	Item* nitem;
+	nitem = new Item;
+	cin >> ID;
+	system("cls");
+	nitem->setID(ID);
+	//Verifico si existe el id ingresado
+	if (architem.buscarRegistro(*nitem) == -1)
+	{	//Si no, chau
+		cout << "El registro no existe" << endl;
+		system("cls");
+		return;
+	}
+	else
+	{	//Si existe, se carga
+		cout << "Se encontro el siguiente registro: " << endl << endl;
+		architem.leerRegistro(item, ID);
+	}
+	//Borro el objeto
+	delete nitem;
+
+	item.Mostrar();
+
+	cout << "Desea modificarlo? s/n" << endl;// Confirmo
+	cin >> opc;
+	if (opc == 's' || opc == 'S') {
+		if (item.Modificar(ID)) cout << "Se modifico correctamente" << endl;
+		else cout << "Error al modificar el registro" << endl;
+	}
+	else if (opc == 'n' || opc == 'N') {
+		return;
+	}
 	system("pause");
 }
 
 void Menu_Desarrollador::mostrarItems()
 {
-	Item obj;
+	Archivo architem(UB_ITEMS, sizeof(Item));
+	Item item;
+	int i = 0;
+	while (architem.leerRegistro(item, i))
+	{
+		if (item.getEstado()) item.Mostrar();
+		i++;
+	}
 
-	// PARA MOSTRAR SOLO EL NOMBRE, IR A LA DEFINICION DE ESTA FUNCION Y EN LA LINEA 92 PONE EN TRUE
-	obj.mostrar_registros();
 	system("pause");
 	return;
 }
 
 //CONJUNTOS
-
+/*
 void Menu_Desarrollador::menuConjuntos()
 {
 	system("cls");

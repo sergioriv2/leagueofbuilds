@@ -16,7 +16,6 @@ public:
 	bool Cargar();
 	void Mostrar();
 	bool Modificar(int ID);
-	bool BajaVirtual(int ID);
 	Campeon& operator = (Registro* temp)
 	{
 		Campeon* aux = (Campeon*)temp;
@@ -41,6 +40,7 @@ public:
 		if (aux->id == id) return true;
 		return false;
 	}
+	bool BajaVirtual(int ID);
 	//sets
 	void setEstilo();
 	void setdmgType();
