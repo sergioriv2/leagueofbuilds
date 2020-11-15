@@ -15,6 +15,8 @@ public:
 	//metodos registro
 	bool Cargar();
 	void Mostrar();
+	bool Modificar(int ID);
+	bool BajaVirtual(int ID);
 	Campeon& operator = (Registro* temp)
 	{
 		Campeon* aux = (Campeon*)temp;
@@ -25,6 +27,7 @@ public:
 		vida = aux->getVida();
 		armor = aux->getArmor();
 		mana = aux->getMana();
+		resistencia_magica = aux->getResistencia_magica();
 
 		strcpy(this->estilo, aux->estilo);
 		strcpy(this->dmg_type, aux->dmg_type);

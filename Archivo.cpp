@@ -7,6 +7,7 @@ using namespace std;
 
 #include "Registro.h"
 #include "Archivo.h"
+#include "Campeon.h"
 
 
 /////////////
@@ -45,25 +46,47 @@ int  Archivo::leerRegistro(Registro& var, int pos) {
 //SI EL VALOR DE POS ES -1 AGREGA UN REGISTRO NUEVO
 // SI EL VALOR ES 0 O POSITIVO SOBREESCRIBE EL REGISTRO UBICADO EN ESA POSICION
 //DEVUELVE 1 SI GRABO; -1 SI NO EXISTE; 0 SI NO PUDO GRABAR
-int Archivo::grabarRegistro(Registro& dato, int pos) {
+int Archivo::grabarRegistro(Registro& dato, int pos, Modo modo) {
     int grabo;
-    if (pos == -1) {
+   
+    switch (modo) {
+    case Escritura:
+        if (!abrirArchivo(Escritura)) {
+            cout << "no pudo abrir en RB" << endl;
+            system("pause");
+            return -1;
+        }
+        grabo = fwrite(&dato, (sizeof(Campeon)*pos), 1, pF);
+        cerrarArchivo();
+
+        return grabo;
+        break;
+    case LecturaEscritura:
+        if (!abrirArchivo(LecturaEscritura)) {
+            cout << "lecturaEscritura" << endl;
+            return -1;
+        }
+        fseek(pF, sizeof(Campeon) * pos, 0);
+        grabo = fwrite(&dato, sizeof(Campeon), 1, pF);
+        cerrarArchivo();
+        return grabo;
+
+        break;
+    case Agregar:
         if (!abrirArchivo(Agregar)) {
             cout << "no pudo abrir en AB" << endl;
             system("pause");
             return -1;
         }
+        grabo = fwrite(&dato, tamanioRegistro, 1, pF);
+        cerrarArchivo();
+        if (grabo && pos == -1)  cantRegistros++;
+        return grabo;
+        break;
     }
-    else {
-        if (!abrirArchivo(LecturaEscritura)) {
-            return -1;
-        }
-        fseek(pF, pos * tamanioRegistro, 0);
-    }
-    grabo = fwrite(&dato, tamanioRegistro, 1, pF);
-    cerrarArchivo();
-    if (grabo && pos == -1)  cantRegistros++;
-    return grabo;
+    
+   // if (grabo && pos == -1)  cantRegistros++; not sure donde dejar esto
+    
 }
 
 //alta(Registro &obj)
@@ -80,7 +103,7 @@ int Archivo::alta(Registro& obj) {
     obj.Cargar();
     int pos = buscarRegistro(obj);
     if (pos == -1) {
-        grabo = grabarRegistro(obj, -1);
+        grabo = grabarRegistro(obj, -1,Agregar);
         cerrarArchivo();
         return grabo;
     }

@@ -53,7 +53,7 @@ public:
         tamanioRegistro = tam;
         pRegistro = (void*)malloc(tamanioRegistro);
         cantRegistros = cantidadRegistros();
-        estado = Estado::Cerrado;
+        estado = Cerrado;
     }
     ~Archivo() {
         delete nombreArchivo;
@@ -63,7 +63,7 @@ public:
 
     int leerRegistro(Registro&, int);
     int buscarRegistro(Registro&);
-    int grabarRegistro(Registro&, int);
+    int grabarRegistro(Registro& dato, int pos, Modo modo);
 
     int alta(Registro&);
     const char* getNombreArchivo() { return nombreArchivo; }

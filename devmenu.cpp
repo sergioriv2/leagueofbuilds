@@ -77,7 +77,7 @@ void Menu_Desarrollador::menuCampeones()
 		agregarCampeones();
 		break;
 	case 2:
-		//eliminarCampeon();
+		eliminarCampeon();
 		break;
 	case 3:
 		modificarCampeon();
@@ -99,7 +99,7 @@ void Menu_Desarrollador::agregarCampeones()
 	int x;
 
 	champ.Cargar();
-	x = campeones.grabarRegistro(champ, -1);
+	x = campeones.grabarRegistro(champ, 0,Agregar);
 	if (x == 1) cout << "Campeon cargado" << endl;
 	else cout << "Error al cargar campeon" << endl;
 	system("pause");
@@ -131,7 +131,9 @@ void Menu_Desarrollador::modificarCampeon() {
 
 	while (campeones.leerRegistro(champ, i))
 	{
-		cout << "ID: " << champ.getID() << "\t\t" << "Nombre: " << champ.getNombre() << endl;
+		if (champ.getEstado()) {
+			cout << "ID: " << champ.getID() << "\t\t" << "Nombre: " << champ.getNombre() << endl;
+		}
 		i++;
 	}
 	cout << endl << endl;
@@ -167,27 +169,74 @@ void Menu_Desarrollador::modificarCampeon() {
 	cout << "Desea modificarlo? s/n" << endl;// Confirmo
 	cin >> opc;
 	if (opc == 's' || opc == 'S') {
-		cout << "Elija lo que desea modificar " << endl;
-
-		cout << "1 NOMBRE" << endl;
-		cout << "2 ATAQUE" << endl;
-		cout << "3 VELOCIDAD DE ATAQ" << endl;
-		cout << "4 PODER DE HABILIDAD" << endl;
-		cout << "5 VIDA" << endl;
-		cout << "6 ARMOR" << endl;
-		cout << "7 RESISTENCIA MAGICA" << endl;
-		cout << "8 PROBABILIDAD DE CRITICO" << endl;
-		cout << "9 MANA" << endl;
-		cin >> opc2;
-		//Hasta haca todo bien
-		//TODO: Ver como adaptar esto con la nueva clase
-		//champ.modify(POS, opc2);
+		if (champ.Modificar(ID)) {
+			cout << "Modificado correctamente" << endl;
+		}
+		else cout << "Error al modificar" << endl;
 	}
 	else if (opc == 'n' || opc == 'N') {
 		return;
 	}
 	system("pause");
 }
+void Menu_Desarrollador::eliminarCampeon() {
+	Archivo campeones(UB_CAMPEONES, sizeof(Campeon));
+	Campeon champ;
+	int i = 0;
+	//Mostrar ID y nombres de campeones
+	cout << "CAMPEONES CARGADOS  ------------------" << endl << endl;
+
+	while (campeones.leerRegistro(champ, i))
+	{
+		if(champ.getEstado()){
+		cout << "ID: " << champ.getID() << "\t\t" << "Nombre: " << champ.getNombre() << endl;
+		}
+		i++;
+	}
+	cout << endl << endl;
+
+	int ID, POS, opc2;
+	char opc;
+	cout << "Ingresar ID del campeon que se desea modificar (-1 para salir): " << endl;
+
+	//Creo un objeto de Campeon dinamico solo para ver si existe
+
+	Campeon* nchamp;
+	nchamp = new Campeon;
+	cin >> ID;
+
+	nchamp->setID(ID);
+	//Verifico si existe el id ingresado
+	if (campeones.buscarRegistro(*nchamp) == -1)
+	{	//Si no, chau
+		cout << "El registro no existe" << endl;
+		system("cls");
+		return;
+	}
+	else
+	{	//Si existe, se carga
+		cout << endl << "Se encontro el siguiente registro: " << endl;
+		campeones.leerRegistro(champ, ID);
+	}
+	//Borro el objeto
+	delete nchamp;
+
+	champ.Mostrar();
+
+	cout << "Desea darlo de baja? s/n" << endl;// Confirmo
+	cin >> opc;
+	if (opc == 's' || opc == 'S') {
+		if (champ.BajaVirtual(ID)) {
+			cout << "Dado de baja correctamente" << endl;
+		}
+		else cout << "Error al dar de baja" << endl;
+	}
+	else if (opc == 'n' || opc == 'N') {
+		return;
+	}
+	system("pause");
+}
+
 /*
 void Menu_Desarrollador::eliminarCampeon() {
 	Campeon champ;
