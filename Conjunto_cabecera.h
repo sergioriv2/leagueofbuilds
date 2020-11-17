@@ -1,6 +1,8 @@
 #pragma once
 
-class Conjunto_cabecera
+#include "Registro.h"
+
+class Conjunto_cabecera: public Registro
 {
 private:
 	int idConjunto, idCampeon;
@@ -10,14 +12,31 @@ private:
 public:
 	Conjunto_cabecera();
 	//metodos
-	bool ingresarCabecera();
-	int buscaridChamp(int);
-	int buscaridConjunto(int);
-	bool guardarCabecera(int pos = -1);
-	void cargarCabecera();
-	void modificar(bool borrar = false);
+	bool Cargar();
+	bool Modificar(int ID);
+	bool BajaVirtual(int ID);
+	void Mostrar();
+	void MostrarCabecera();
+	Conjunto_cabecera& operator = (Registro* temp)
+	{
+		Conjunto_cabecera* aux = (Conjunto_cabecera*)temp;
+
+		idConjunto = aux->idConjunto;
+		idCampeon = aux->idCampeon;
+		costoTotal = aux->costoTotal;
+		strcpy(nombre, aux->nombre);
+		estado = aux->estado;
+		return *this;
+	}
+	bool comparaID(Registro* temp)
+	{
+		Conjunto_cabecera* aux = (Conjunto_cabecera*)temp;
+		if (aux->idConjunto == idConjunto) return true;
+		return false;
+	}
 	//set
 	void setidConjunto();
+	void setID(int _id) { idConjunto = _id; }
 	void setidCampeon();
 	void setCostototal();
 	void setNombre();
@@ -25,12 +44,11 @@ public:
 	//get
 	int getidConjunto() { return idConjunto; }
 	int getidCampeon() { return idCampeon; }
-	int getCostoEarly();
-	int getCostoMid();
-	int getCostoLate();
+	int getCosto();
 	int getcostoTotal() { return costoTotal; }
 	bool getEstado() { return estado; }
 	char* getNombre() { return nombre; }
+	int getSize() { return sizeof *this; }
 	//
 	int contarRegistros();
 };

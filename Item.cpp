@@ -52,7 +52,6 @@ bool Item::Cargar()
 
 void Item::Mostrar()
 {	
-
 	if(estado)
 	{
 		getStats(0);
@@ -60,8 +59,8 @@ void Item::Mostrar()
 		cout << "ID: " << id << endl;
 		cout << "-------------------------" << endl << endl;
 	}
-	
 }
+
 
 bool Item::BajaVirtual(int ID)
 {

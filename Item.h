@@ -28,6 +28,7 @@ public:
         lifeSteal = aux->getlifeSteal();
         id = aux->id;
         estado = aux->estado;
+        costo = aux->costo;
         return *this;
     }
     bool comparaID(Registro* temp)
@@ -49,6 +50,10 @@ public:
     bool getEstado() { return estado; }
     int getId() { return id; }
     int getSize() { return sizeof * this; }
-    int getCosto() { return costo; }
+    int getCosto() 
+    {
+        if (estado) return costo;
+        else return 0;
+    }
 };
 

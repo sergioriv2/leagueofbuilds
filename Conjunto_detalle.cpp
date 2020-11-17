@@ -4,57 +4,12 @@
 #include <cstdlib>
 #include "Conjunto_detalle.h"
 #include "Item.h"
-/*
+#include "Archivo.h"
+
 Conjunto_detalle::Conjunto_detalle()
 {
 	setDetalle(0);
 	estado = true;
-}
-
-bool Conjunto_detalle::guardarDetalle(int pos)
-{
-	FILE* pf;
-	bool write;
-	if (pos == -1)
-	{
-		pf = fopen("resources/conjuntos/conjunto_detalle.dat", "ab");
-		if (pf == NULL)
-		{
-			std::cout << "conjunto detalle : guardarDetalle";
-			return 0;
-		}
-		write = fwrite(this, sizeof * this, 1, pf);
-		fclose(pf);
-	}
-	else
-	{
-		pf = fopen("resources/conjuntos/conjunto_detalle.dat", "rb+");
-		if (pf == NULL)
-		{
-			std::cout << "conjunto detalle : guardarDetalle";
-			return 0;
-		}
-		fseek(pf, (sizeof * this) * pos, 0);
-		write = fwrite(this, sizeof * this, 1, pf);
-		fclose(pf);
-	}
-
-	return write;
-}
-
-void Conjunto_detalle::cargarDetalle(int id)
-{
-	FILE* pf;
-	pf = fopen("resources/conjuntos/conjunto_detalle.dat", "rb");
-	if (pf == NULL)
-	{
-		std::cout << "conjunto detalle : cargarDetalle";
-		return;
-	}
-	fseek(pf, (sizeof * this) * id, 0);
-	fread(this, sizeof * this, 1, pf);
-	if(this->estado) this->imprimirDetalle();
-	fclose(pf);
 }
 
 void Conjunto_detalle::setDetalle(int n) {
@@ -64,30 +19,68 @@ void Conjunto_detalle::setDetalle(int n) {
 
 void Conjunto_detalle::imprimirEarly()
 {
+	Archivo architem("resources/items/itemsdata.dat", sizeof(Item));
 	Item it;
 	int pos = 0;
-	for(int i=0; i<10; i++)
+	std::cout << std::endl;
+	for (int i = 0; i < 10; i++)
 	{
 		if (idEarly[i] != -1 && idEarly[i] != -2)
 		{
-			pos = it.buscar_reg(idEarly[i]);
-			it.mostrar_reg(pos, true);
+			it.setID(idEarly[i]);
+			pos = architem.buscarRegistro(it);
+
+			if (pos == -2)
+			{
+				std::cout << "Error abrir archivo (early)" << std::endl;
+
+			}
+			else
+			{
+				if (pos == -1)
+				{
+					std::cout << "Error encontrar el item (early)" << std::endl;
+				}
+				else
+				{
+					architem.leerRegistro(it, pos);
+					std::cout << i+1 << "." << it.getNombre() << std::endl;
+				}
+			}
 		}
 	}
 }
 
 void Conjunto_detalle::imprimirMid()
 {
+	Archivo architem("resources/items/itemsdata.dat", sizeof(Item));
 	Item it;
 	int pos = 0;
-
+	std::cout << std::endl;
 	for (int i = 0; i < 10; i++)
 	{
-
 		if (idMid[i] != -1 && idMid[i] != -2)
 		{
-			pos = it.buscar_reg(idMid[i]);
-			it.mostrar_reg(pos, true);
+			it.setID(idMid[i]);
+			pos = architem.buscarRegistro(it);
+
+			if (pos == -2)
+			{
+				std::cout << "Error abrir archivo (Mid)" << std::endl;
+
+			}
+			else
+			{
+				if (pos == -1)
+				{
+					std::cout << "Error encontrar el item (Mid)" << std::endl;
+				}
+				else
+				{
+					architem.leerRegistro(it, pos);
+					std::cout << i+1 << "."<< it.getNombre() << std::endl;
+				}
+			}
 		}
 	}
 		
@@ -95,21 +88,40 @@ void Conjunto_detalle::imprimirMid()
 
 void Conjunto_detalle::imprimirLate()
 {
+	Archivo architem("resources/items/itemsdata.dat", sizeof(Item));
 	Item it;
 	int pos = 0;
-
+	std::cout << std::endl;
 	for (int i = 0; i < 6; i++)
 	{
 		if (idLate[i] != -1 && idLate[i] != -2)
 		{
-			pos = it.buscar_reg(idLate[i]);
-			it.mostrar_reg(pos, true);
+			it.setID(idLate[i]);
+			pos = architem.buscarRegistro(it);
+
+			if (pos == -2)
+			{
+				std::cout << "Error abrir archivo (Late)" << std::endl;
+
+			}
+			else
+			{
+				if (pos == -1)
+				{
+					std::cout << "Error encontrar el item (Late)" << std::endl;
+				}
+				else
+				{
+					architem.leerRegistro(it, pos);
+					std::cout << i+1 << "." <<  it.getNombre() << std::endl;
+				}
+			}
 		}
 	}
 	
 }
 
-void Conjunto_detalle::imprimirDetalle()
+void Conjunto_detalle::Mostrar()
 {
 	std::cout << "Early:" <<std::endl;
 	imprimirEarly();
@@ -121,11 +133,13 @@ void Conjunto_detalle::imprimirDetalle()
 	imprimirLate();
 }
 
-void Conjunto_detalle::setItems()
+
+bool Conjunto_detalle::Cargar()
 {
 	setitemsEarly();
 	setItemsMid();
 	setItemsLate();
+	return true;
 }
 
 void Conjunto_detalle::setitemsEarly() {
@@ -190,4 +204,13 @@ int Conjunto_detalle::contarRegistros() {
 		return c;
 	
 }
-*/
+
+bool Conjunto_detalle::Modificar(int ID)
+{
+	return true;
+}
+
+bool Conjunto_detalle::BajaVirtual(int ID)
+{
+	return true;
+}

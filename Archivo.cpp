@@ -56,7 +56,7 @@ int Archivo::grabarRegistro(Registro& dato, int pos, Modo modo) {
             system("pause");
             return -1;
         }
-        grabo = fwrite(&dato, (dato.getSize() * pos), 1, pF);
+        grabo = fwrite(&dato, dato.getSize(), 1, pF);
         cerrarArchivo();
 
         return grabo;

@@ -1,5 +1,8 @@
 #pragma once
-class Conjunto_detalle
+
+#include "Registro.h"
+
+class Conjunto_detalle : public Registro
 {
 private:
 	int idDetalle;
@@ -10,12 +13,35 @@ public:
 	void imprimirEarly();
 	void imprimirMid();
 	void imprimirLate();
-	void imprimirDetalle();
-	bool guardarDetalle(int pos = -1);
-	void cargarDetalle(int);
+	bool Cargar();
+	void Mostrar();
+	bool Modificar(int ID);
+	bool BajaVirtual(int ID);
+	//Wea
+	Conjunto_detalle& operator = (Registro* temp)
+	{
+		Conjunto_detalle* aux = (Conjunto_detalle*)temp;
+		idDetalle = aux->idDetalle;
+		for (int i = 0; i < 10; i++)
+		{
+			idEarly[i] = aux->idEarly[i];
+			idMid[i] = aux->idMid[i];
+		}
+		for (int i = 0; i < 6; i++)
+		{
+			idLate[i] = aux->idLate[i];
+		}
+		estado = aux->estado;
+		return *this;
+	}
+	bool comparaID(Registro* temp)
+	{
+		Conjunto_detalle* aux = (Conjunto_detalle*)temp;
+		if (aux->idDetalle == idDetalle) return true;
+		return false;
+	}
 	//set
 	void setDetalle(int);
-	void setItems();
 	void setitemsEarly();
 	void setItemsMid();
 	void setItemsLate();
@@ -26,6 +52,7 @@ public:
 	int* getEarly() { return idEarly; }
 	int* getMid() { return idMid; }
 	int* getLate() { return idLate; }
+	int getSize() { return sizeof * this; }
 	//
 	int contarRegistros();
 };

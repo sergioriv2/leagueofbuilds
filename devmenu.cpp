@@ -44,7 +44,7 @@ int Menu_Desarrollador::menuPrincipal()
 		break;
 	case 2: menuItems();
 		break;
-	case 3:	//menuConjuntos();
+	case 3:	menuConjuntos();
 		break;
 	case 4:
 		//menuBackup();
@@ -77,7 +77,7 @@ void Menu_Desarrollador::menuCampeones()
 		agregarCampeones();
 		break;
 	case 2:
-		//eliminarCampeon();
+		eliminarCampeon();
 		break;
 	case 3:
 		modificarCampeon();
@@ -98,10 +98,12 @@ void Menu_Desarrollador::agregarCampeones()
 	Campeon champ;
 	int x;
 
-	champ.Cargar();
-	x = campeones.grabarRegistro(champ, 0,Agregar);
-	if (x == 1) cout << "Campeon cargado" << endl;
-	else cout << "Error al cargar campeon" << endl;
+	if (champ.Cargar())
+	{
+		x = campeones.grabarRegistro(champ, 0, Agregar);
+		if (x == 1) cout << "Campeon cargado" << endl;
+		else cout << "Error al cargar campeon" << endl;
+	}
 	system("pause");
 }
 
@@ -126,11 +128,15 @@ void Menu_Desarrollador::modificarCampeon() {
 	Campeon champ;
 	int i = 0;
 	//Mostrar ID y nombres de campeones
+	cout << "MENU DE MODIFACION DE CAMPEONES" << endl << endl;
 	cout << "CAMPEONES CARGADOS  ------------------" << endl << endl;
 
 	while (campeones.leerRegistro(champ, i))
 	{
-		cout << "ID: " << champ.getID() << "\t\t" << "Nombre: " << champ.getNombre() << endl;
+		if (champ.getEstado())
+		{
+			cout << "ID: " << champ.getID() << "\t\t" << "Nombre: " << champ.getNombre() << endl;
+		}	
 		i++;
 	}
 	cout << endl << endl;
@@ -174,43 +180,65 @@ void Menu_Desarrollador::modificarCampeon() {
 	}
 	system("pause");
 }
-/*
+
 void Menu_Desarrollador::eliminarCampeon() {
+	Archivo campeones(UB_CAMPEONES, sizeof(Campeon));
 	Campeon champ;
-	int ID, POS;
+	int i = 0;
+	//Mostrar ID y nombres de campeones
+	cout << "MENU DE BAJA DE CAMPEONES" << endl << endl;
+	cout << "CAMPEONES CARGADOS  ------------------" << endl << endl;
+
+	while (campeones.leerRegistro(champ, i))
+	{
+		if (champ.getEstado()) {
+			cout << "ID: " << champ.getID() << "\t\t" << "Nombre: " << champ.getNombre() << endl;
+		}
+		i++;
+	}
+	cout << endl << endl;
+
+	int ID;
 	char opc;
-	cout << "Ingresar ID del campeon que se desea modificar: " << endl;
+	cout << "Ingresar ID del campeon que se desea dar de baja (-1 para salir): " << endl;
+
+	//Creo un objeto de Campeon dinamico solo para ver si existe
+
+	Campeon* nchamp;
+	nchamp = new Campeon;
 	cin >> ID;
-	POS = champ.searchPos(ID);//Busco si existe;
-	if (POS == -1) {
-		cout << "No se ha encontrado un campeon con esa ID" << endl;// Si no existe me salgo
+
+	nchamp->setID(ID);
+	//Verifico si existe el id ingresado
+	if (campeones.buscarRegistro(*nchamp) == -1)
+	{	//Si no, chau
+		cout << "El registro no existe" << endl;
+		system("cls");
 		return;
 	}
-	cout << "Se encontro el siguiente campeon " << endl;
-	champ.mostrarCampeon();
+	else
+	{	//Si existe, se carga
+		cout << endl << "Se encontro el siguiente registro: " << endl;
+		campeones.leerRegistro(champ, ID);
+	}
+	//Borro el objeto
+	delete nchamp;
 
-	cout << "Desea eliminarlo? s/n" << endl;// Confirmo
+	champ.Mostrar();
+
+	cout << "Desea darlo de baja? s/n" << endl;// Confirmo
 	cin >> opc;
 	if (opc == 's' || opc == 'S') {
-		FILE* p;
-
-		p = fopen("resources/campeones/champsdata.dat", "rb+");
-		if (p == NULL) {
-			cout << "Error abriendo champsdata.dat " << endl;
-			return;
+		if (champ.BajaVirtual(ID)) {
+			cout << "Dado de baja correctamente" << endl;
 		}
-		fseek(p, sizeof(Campeon) * POS, 0);
-		champ.setEstadoFalse();
-		fwrite(&champ, sizeof(Campeon), 1, p);
-		fclose(p);
+		else cout << "Error al dar de baja" << endl;
 	}
 	else if (opc == 'n' || opc == 'N') {
 		return;
 	}
+	system("pause");
 }
-
-//ITEMS
-*/
 
 void Menu_Desarrollador::menuItems()
 {
@@ -275,7 +303,8 @@ void Menu_Desarrollador::bajaItems()
 	Item item;
 	int i = 0;
 	//Mostrar ID y nombres de items
-	cout << "CAMPEONES CARGADOS  ------------------" << endl << endl;
+	cout << "MENU DE BAJA ITEMS" << endl << endl;
+	cout << "ITEMS CARGADOS  ------------------" << endl << endl;
 
 	while (architem.leerRegistro(item, i))
 	{
@@ -286,7 +315,7 @@ void Menu_Desarrollador::bajaItems()
 
 	int ID;
 	char opc;
-	cout << "Ingresar ID del item que se desea modificar (-1 para salir): " << endl;
+	cout << "Ingresar ID del item que se dar de baja (-1 para salir): ";
 
 	//Creo un objeto de item dinamico solo para ver si existe
 
@@ -312,7 +341,7 @@ void Menu_Desarrollador::bajaItems()
 
 	item.Mostrar();
 
-	cout << "Desea modificarlo? s/n" << endl;// Confirmo
+	cout << "Desea darlo de baja? s/n" << endl;// Confirmo
 	cin >> opc;
 	if (opc == 's' || opc == 'S') {
 		if (item.BajaVirtual(ID)) cout << "Se elimino correctamente" << endl;
@@ -330,7 +359,8 @@ void Menu_Desarrollador::editarItems()
 	Item item;
 	int i = 0;
 	//Mostrar ID y nombres de items
-	cout << "CAMPEONES CARGADOS  ------------------" << endl << endl;
+	cout << "MENU DE MODIFACION DE ITEMS" << endl << endl;
+	cout << "ITEMS CARGADOS  ------------------" << endl << endl;
 
 	while (architem.leerRegistro(item, i))
 	{
@@ -341,7 +371,7 @@ void Menu_Desarrollador::editarItems()
 
 	int ID;
 	char opc;
-	cout << "Ingresar ID del item que se desea modificar (-1 para salir): " << endl;
+	cout << "Ingresar ID del item que se desea modificar (-1 para salir): ";
 
 	//Creo un objeto de item dinamico solo para ver si existe
 
@@ -395,7 +425,6 @@ void Menu_Desarrollador::mostrarItems()
 }
 
 //CONJUNTOS
-/*
 void Menu_Desarrollador::menuConjuntos()
 {
 	system("cls");
@@ -431,74 +460,183 @@ void Menu_Desarrollador::menuConjuntos()
 	}
 }
 
-void Menu_Desarrollador::bajaConjunto()
-{
-	Conjunto_cabecera* c;
-	c = new Conjunto_cabecera;
+void Menu_Desarrollador::bajaConjunto(){
 
-	c->modificar(true);
+	Archivo archcab(UB_CONCAB, sizeof(Conjunto_cabecera));
+	Archivo archdet(UB_CONDET, sizeof(Conjunto_detalle));
 
-	delete c;
+	cout << "CONJUNTOS CARGADOS" << endl << endl;
+
+	//Creo las variables para mostrar
+
+	Conjunto_cabecera c;
+	Conjunto_detalle cd;
+
+	int opc;
+	char opc2;
+
+	//Muestro por pantalla todos los conjuntos activos
+
+	c.MostrarCabecera();
+
+	cout << endl << "Ingresa el ID para dar de baja (-1 para salir): ";
+
+	//Pido ID del conjunto, que basicamente es la posicion del registro asi que mas adelante lo uso para el fseek
+	cin >> opc;
+	system("cls");
+
+	if (opc == -1) return;
+
+	//Creo un objeto dinamico solo para la verificacion 
+	Conjunto_cabecera* nc;
+	nc = new Conjunto_cabecera;
+	nc->setID(opc);
+	if (archcab.buscarRegistro(*nc) == -1)
+	{	//Si no, chau
+		cout << "El registro no existe" << endl << endl;
+		system("pause");
+		return;
+	}
+	else
+	{	//Si existe, se carga
+		archcab.leerRegistro(c, opc);
+	}
+	//Borro el objeto
+	delete nc;
+	cout << "MENU DE BAJA CONJUNTOS " << endl;
+	cout << "CONJUNTO DETALLADO ------------------" << endl << endl;
+	//Fin de verificacion -------------
+
+	//Cabecera: Muestro Estado, Nombre y Costo
+	cout << "Se encontro el siguiente registro: " << endl << endl;
+	cout << "ESTADO " << c.getEstado() << endl;
+	cout << "NOMBRE: " << c.getNombre() << endl;
+	cout << "PRECIO TOTAL: " << c.getcostoTotal() << "g" << endl << endl;
+
+	cout << "Desea darlo de baja? s/n" << endl;// Confirmo
+	cin >> opc2;
+	if (opc2 == 's' || opc2 == 'S') {
+		c.setEstado(false);
+		archdet.leerRegistro(cd, opc);
+		cd.setEstado(false);
+		if (archdet.grabarRegistro(cd, opc, LecturaEscritura))
+		{
+			if (archcab.grabarRegistro(c, opc, LecturaEscritura))
+			{
+				cout << "Baja exitosa" << endl;
+				system("pause");
+				return;
+			}
+
+		}
+		cout << "Error al dar de baja " << endl;
+		
+	}
+	else if (opc2 == 'n' || opc2 == 'N') {
+		return;
+	}
 	system("pause");
 }
 
 void Menu_Desarrollador::editarConjunto()
 {
-	//Creo un objeto y llamo al metodo
-	//Lo puse en un metodo aparte porque era mucho texto(?
+	Archivo archcab(UB_CONCAB, sizeof(Conjunto_cabecera));
+	Archivo archdet(UB_CONDET, sizeof(Conjunto_detalle));
+	cout << "MENU DE EDICION CONJUNTOS " << endl << endl;
+	cout << "CONJUNTOS CARGADOS" << endl << endl;
 
-	Conjunto_cabecera* c;
-	c = new Conjunto_cabecera;
+	//Creo las variables para mostrar
 
-	c->modificar();
+	Conjunto_cabecera c;
+	Conjunto_detalle cd;
 
-	delete c;
-	system("pause");
+	int opc;
+
+	//Muestro por pantalla todos los conjuntos activos
+
+	c.MostrarCabecera();
+
+	cout << endl << "Ingresa el ID para editar (-1 para salir): ";
+
+	//Pido ID del conjunto, que basicamente es la posicion del registro asi que mas adelante lo uso para el fseek
+	cin >> opc;
+	system("cls");
+
+	if (opc == -1) return;
+
+	//Creo un objeto dinamico solo para la verificacion 
+	Conjunto_cabecera* nc;
+	nc = new Conjunto_cabecera;
+	nc->setID(opc);
+	if (archcab.buscarRegistro(*nc) == -1)
+	{	//Si no, chau
+		cout << "El registro no existe" << endl << endl;
+		system("pause");
+		return;
+	}
+	else
+	{	//Si existe, se carga
+		archcab.leerRegistro(c, opc);
+		archdet.leerRegistro(cd, opc);
+	}
+	//Borro el objeto
+	delete nc;
+	cout << "MENU DE EDICION CONJUNTOS " << endl << endl;
+	cout << "CONJUNTO DETALLADO ------------------" << endl << endl;
+	//Fin de verificacion -------------
+	cout << "Se encontro el siguiente registro: " << endl << endl;
+	//Cabecera: Muestro Estado, Nombre y Costo
+	cout << "ESTADO " << c.getEstado() << endl;
+	cout << "NOMBRE: " << c.getNombre() << endl;
+	cout << "PRECIO TOTAL: " << c.getcostoTotal() << "g" << endl << endl;
+	cd.Mostrar();
+	c.Modificar(opc);
+
 }
 
 void Menu_Desarrollador::agregarConjunto()
 {
-	Conjunto_cabecera* c;
-	c = new Conjunto_cabecera;
-
-	// Se piden los datos y desp guardo
-
-	if (c->ingresarCabecera())
+	Conjunto_cabecera conjunto;
+	Archivo arch(UB_CONCAB, sizeof(Conjunto_cabecera));
+	
+	//Cargo cabecera, si se carga correctamente se guarda detalle
+	if (conjunto.Cargar())
 	{
-		if (c->guardarCabecera())
+		if (arch.grabarRegistro(conjunto, -1, Modo::Agregar))
 		{
-			cout << "Conjunto guardado" << endl;
+			cout << "El conjunto se agrego correctamente" << endl;
 		}
 		else
 		{
-			cout << "Error al guardar el conjunto" << endl;
+			cout << "Error al agregar el conjunto " << endl;
 		}
 	}
 	else
 	{
-		cout << "Error al guardar el conjunto" << endl;
+		return;
 	}
 	system("pause");
-	delete c;
+	return;
 
 }
 
 void Menu_Desarrollador::mostrarConjunto()
 {
+	Archivo archdet(UB_CONDET, sizeof(Conjunto_detalle));
+	Archivo archcab(UB_CONCAB, sizeof(Conjunto_cabecera));
+	cout << "LISTA DE CONJUNTOS" << endl << endl;
 	cout << "CONJUNTOS CARGADOS" << endl << endl;
 
 	//Creo las variables para mostrar
 
-	Conjunto_cabecera* c;
-	Conjunto_detalle* cd;
-
-	c = new Conjunto_cabecera;
-	cd = new Conjunto_detalle;
+	Conjunto_cabecera c;
+	Conjunto_detalle cd;
 
 	int opc;
 
 	//Muestro por pantalla todos los conjuntos activos
-	c->cargarCabecera();
+
+	c.MostrarCabecera();
 
 	cout << endl << "Ingresa el ID para mostrar mas detalles (-1 para salir): ";
 
@@ -508,39 +646,43 @@ void Menu_Desarrollador::mostrarConjunto()
 
 	if (opc == -1) return;
 
-	//Verifico que exista el conjunto 
-	if (c->buscaridConjunto(opc) == -1)
-	{
-		std::cout << "El conjunto ingresado no existe" << std::endl;
+	//Creo un objeto dinamico solo para la verificacion 
+
+	Conjunto_cabecera* nc;
+	nc = new Conjunto_cabecera;
+
+	nc->setID(opc);
+
+	//Verifico si existe el id ingresado
+	if (archcab.buscarRegistro(*nc) == -1)
+	{	//Si no, chau
+		cout << "El registro no existe" << endl << endl;
 		system("pause");
 		return;
 	}
-	//Abro el archivo para las propiedades de CABECERA
-	FILE* pf;
-	pf = fopen("resources/conjuntos/conjunto_cabecera.dat", "rb");
-	if (pf == NULL) return;
-	fseek(pf, (sizeof * c) * opc, 0);
-	fread(c, sizeof * c, 1, pf);
+	else
+	{	//Si existe, se carga
+		cout << "Se encontro el siguiente registro: " << endl << endl;
+		archcab.leerRegistro(c, opc);
+	}
+	//Borro el objeto
+	delete nc;
 
 	cout << "CONJUNTO DETALLADO ------------------" << endl << endl;
 
 	//Cabecera: Muestro Estado, Nombre y Costo
-	cout << "ESTADO " << c->getEstado() << endl;
-	cout << "NOMBRE: " << c->getNombre() << endl;
-	cout << "PRECIO TOTAL: " << c->getcostoTotal() << "g" << endl << endl;
-
-	//Cierro el archivo
-	fclose(pf);
+	cout << "ESTADO " << c.getEstado() << endl;
+	cout << "NOMBRE: " << c.getNombre() << endl;
+	cout << "PRECIO TOTAL: " << c.getcostoTotal() << "g" << endl << endl;
 
 	//Cargo detalles de DETALLES en la posicion que mandaron
-	cd->cargarDetalle(opc);
-
+	archdet.leerRegistro(cd, opc);
+	cd.Mostrar();
 	system("pause");
-
-	delete c;
-	delete cd;
+	
 }
 
+/*
 void Menu_Desarrollador::menuBackup() {
 
 	int opc;

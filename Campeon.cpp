@@ -51,7 +51,8 @@ void Campeon::Mostrar()
 	if (getEstado() == true) {
 		getStats(1);
 		cout << "Tipo de danio: " << dmg_type << endl;
-		cout << "Rol: " << estilo << endl << endl;
+		cout << "Rol: " << estilo << endl;
+		cout << "ID: " << id << endl << endl;
 		cout << "---------------------------------------" << endl << endl;
 	}
 }
