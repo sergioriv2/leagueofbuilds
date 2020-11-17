@@ -187,3 +187,50 @@ bool Archivo::abrirArchivo(Modo modo) {
     }
     return true;
 }
+
+//El archivo que va a llamar a este metodo es del que se va a generar un bkp
+//Deberia llamarse desde los .dat e ingresar el .bkp
+bool Archivo::crearBackup(Registro& aux ,Archivo& archbkp) {
+
+    this->pF = fopen(nombreArchivo, "rb");
+    if (this->pF == NULL) {
+        cout << "Error leyendo archivo L204" << endl;
+        return false;
+    }
+    archbkp.pF = fopen(archbkp.getNombreArchivo(), "wb");
+    if (archbkp.pF==NULL) {
+        cout << "Error creando archivo bkp." << endl;
+        return false;
+    }
+    //mientras pueda leer en el dat escribe en el bkp
+    while (fread(&aux,sizeof(aux),1,this->pF)) {
+        fwrite(&aux, sizeof(aux), 1, archbkp.pF);
+    }
+    fclose(this->pF);
+    fclose(archbkp.pF);
+
+    return true;
+}
+//El archivo que llame a este metodo va ser desde el que se restaurara
+//Deberia llamarse desde los .bkp e ingresar el .dat
+bool Archivo::restoreBackup(Registro& aux, Archivo& torestore) {
+
+    this->pF = fopen(nombreArchivo, "rb");
+    if (this->pF == NULL) {
+        cout << "Error leyendo archivo L220" << endl;
+        return false;
+    }
+    torestore.pF = fopen(torestore.getNombreArchivo(), "wb");
+    if (torestore.pF == NULL) {
+        cout << "Error restaurando el archivo .dat " << endl;
+        return false;
+    }
+    //mientras pueda leer en el dat escribe en el bkp
+    while (fread(&aux, sizeof(aux), 1, this->pF)) {
+        fwrite(&aux, sizeof(aux), 1, torestore.pF);
+    }
+    fclose(this->pF);
+    fclose(torestore.pF);
+
+    return true;
+}

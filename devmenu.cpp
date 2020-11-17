@@ -46,9 +46,7 @@ int Menu_Desarrollador::menuPrincipal()
 		break;
 	case 3:	menuConjuntos();
 		break;
-	case 4:
-		//menuBackup();
-
+	case 4:	menuBackup();
 		break;
 	}
 	return opc;
@@ -682,7 +680,7 @@ void Menu_Desarrollador::mostrarConjunto()
 	
 }
 
-/*
+
 void Menu_Desarrollador::menuBackup() {
 
 	int opc;
@@ -703,22 +701,207 @@ void Menu_Desarrollador::menuBackup() {
 			cout << "Backup creado con exito." << endl;
 		}
 		else {
-			cout << "Hubo un error al crear el backup" << endl;
+			cout << "Hubo un error al crear el backup, regresando a menu principal" << endl;
 		}
 		break;
-	case 2:if (restoreFiles() == true) {
-		cout << "Archivos restaurados con exito." << endl;
-	}
-		  else {
-		cout << "Hubo un error al restaurar el archivo" << endl;
-	}
-
+	case 2:
+		if (restoreFiles() == true) {
+			cout << "Archivos restaurados con exito." << endl;
+		}
+		else {
+			cout << "Hubo un error al restaurar el archivo, regresando a menu principal" << endl;
+		}
 		  break;
+		  
 	}
 	system("pause");
 
 }
 
+
+bool Menu_Desarrollador::backupFiles() {
+	
+	char opc;
+
+	cout << "Desea hacer una copia de seguridad completa? presione 'S'" << endl;
+	cout << "Para hacer una copia de campeones 'C'" << endl;
+	cout << "Para una copia de items 'I'" << endl;
+	cout << "Para una copia de conjuntos 'D' " << endl;
+	cout << "Para volver al menu principal 'N'" << endl;
+	cin >> opc;
+
+	if (opc == 's' || opc == 'S')
+	{
+		//files
+		Archivo archChamp(UB_CAMPEONES, sizeof(Campeon));
+		Archivo archItem(UB_ITEMS, sizeof(Item));
+		Archivo archCab(UB_CONCAB, sizeof(Conjunto_cabecera));
+		Archivo archDet(UB_CONDET, sizeof(Conjunto_detalle));
+		//bkp files
+		Archivo archChampbkp("resources/backups/champsdata.bkp", sizeof(Campeon));
+		Archivo archItembkp("resources/backups/itemsdata.bkp", sizeof(Item));
+		Archivo archCabbkp("resources/backups/conjunto_cabecera.bkp", sizeof(Conjunto_cabecera));
+		Archivo archDetbkp("resources/backups/conjunto_detalle.bkp", sizeof(Conjunto_detalle));
+
+		Campeon champ;
+		Item item;
+		Conjunto_cabecera CCAB;
+		Conjunto_detalle CDET;
+		
+		if (archChamp.crearBackup(champ, archChampbkp) == false)return false;
+			
+		if (archItem.crearBackup(item, archItembkp)==false)return false;
+
+		if (archCab.crearBackup(CCAB, archCabbkp)==false)return false;
+
+		if (archDet.crearBackup(CDET, archDetbkp)==false)return false;
+
+
+
+		return true;
+	}
+	else if (opc == 'i' || opc == 'I')
+	{
+		//files
+		Archivo archItem(UB_ITEMS, sizeof(Item));
+		//bkp file
+		
+		Archivo archItembkp("resources/backups/itemsdata.bkp", sizeof(Item));
+
+		Item item;
+		 
+		if (archItem.crearBackup(item, archItembkp) == false)return false;
+
+		return true;
+	}
+	else if (opc == 'c' || opc == 'C')
+	{
+		//files
+		Archivo archChamp(UB_CAMPEONES, sizeof(Campeon));
+		//bkp file
+		Archivo archChampbkp("resources/backups/champsdata.bkp", sizeof(Campeon));
+		
+		Campeon champ;
+
+		if (archChamp.crearBackup(champ, archChampbkp) == false)return false;
+
+		return true;
+
+	}
+	else if (opc == 'd' || opc == 'D')
+	{
+		//files
+		Archivo archCab(UB_CONCAB, sizeof(Conjunto_cabecera));
+		Archivo archDet(UB_CONDET, sizeof(Conjunto_detalle));
+		//bkp files
+		Archivo archCabbkp("resources/backups/conjunto_cabecera.bkp", sizeof(Conjunto_cabecera));
+		Archivo archDetbkp("resources/backups/conjunto_detalle.bkp", sizeof(Conjunto_detalle));
+
+		Conjunto_cabecera CCAB;
+		Conjunto_detalle CDET;
+
+		if (archCab.crearBackup(CCAB, archCabbkp) == false)return false;
+
+		if (archDet.crearBackup(CDET, archDetbkp) == false)return false;
+
+		return true;
+	}
+	
+	
+	return false;
+}
+
+bool Menu_Desarrollador::restoreFiles()
+{
+
+	char opc;
+
+	cout << "Desea hacer una restauracion completa? presione 'S'" << endl;
+	cout << "Para hacer una restauracion de campeones 'C'" << endl;
+	cout << "Para una restauracion de items 'I'" << endl;
+	cout << "Para una restauracion de conjuntos 'D' " << endl;
+	cout << "Para volver al menu principal 'N'" << endl;
+	cin >> opc;
+
+	if (opc == 's' || opc == 'S')
+	{
+		//files
+		Archivo archChamp(UB_CAMPEONES, sizeof(Campeon));
+		Archivo archItem(UB_ITEMS, sizeof(Item));
+		Archivo archCab(UB_CONCAB, sizeof(Conjunto_cabecera));
+		Archivo archDet(UB_CONDET, sizeof(Conjunto_detalle));
+		//bkp files
+		Archivo archChampbkp("resources/backups/champsdata.bkp", sizeof(Campeon));
+		Archivo archItembkp("resources/backups/itemsdata.bkp", sizeof(Item));
+		Archivo archCabbkp("resources/backups/conjunto_cabecera.bkp", sizeof(Conjunto_cabecera));
+		Archivo archDetbkp("resources/backups/conjunto_detalle.bkp", sizeof(Conjunto_detalle));
+
+		Campeon champ;
+		Item item;
+		Conjunto_cabecera CCAB;
+		Conjunto_detalle CDET;
+
+		if (archChampbkp.restoreBackup(champ, archChamp) == false)return false;
+
+		if (archItembkp.restoreBackup(item, archItem) == false)return false;
+
+		if (archCabbkp.restoreBackup(CCAB, archCab) == false)return false;
+
+		if (archDetbkp.restoreBackup(CDET, archDet) == false)return false;
+
+
+		return true;
+	}
+	else if (opc == 'i' || opc == 'I')
+	{
+		//files
+		Archivo archItem(UB_ITEMS, sizeof(Item));
+		//bkp file
+
+		Archivo archItembkp("resources/backups/itemsdata.bkp", sizeof(Item));
+
+		Item item;
+
+		if (archItembkp.restoreBackup(item, archItem) == false)return false;
+
+		return true;
+	}
+	else if (opc == 'c' || opc == 'C')
+	{
+		//files
+		Archivo archChamp(UB_CAMPEONES, sizeof(Campeon));
+		//bkp file
+		Archivo archChampbkp("resources/backups/champsdata.bkp", sizeof(Campeon));
+
+		Campeon champ;
+
+		if (archChampbkp.restoreBackup(champ, archChamp) == false)return false;
+
+		return true;
+	}
+	else if (opc == 'd' || opc == 'D')
+	{
+		//files
+		Archivo archCab(UB_CONCAB, sizeof(Conjunto_cabecera));
+		Archivo archDet(UB_CONDET, sizeof(Conjunto_detalle));
+		//bkp files
+		Archivo archCabbkp("resources/backups/conjunto_cabecera.bkp", sizeof(Conjunto_cabecera));
+		Archivo archDetbkp("resources/backups/conjunto_detalle.bkp", sizeof(Conjunto_detalle));
+
+		Conjunto_cabecera CCAB;
+		Conjunto_detalle CDET;
+
+		if (archCabbkp.restoreBackup(CCAB, archCab) == false)return false;
+
+		if (archDetbkp.restoreBackup(CDET, archDet) == false)return false;
+
+		return true;
+	}
+	else return false;
+
+
+}
+/*
 bool Menu_Desarrollador::backupFiles() {
 	FILE* pIt, * pCa, * pCo1, * pCo2;
 	FILE* pbIt, * pbCa, * pbCo1, * pbCo2;

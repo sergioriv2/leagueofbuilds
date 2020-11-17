@@ -69,5 +69,8 @@ public:
     const char* getNombreArchivo() { return nombreArchivo; }
     int getCantidadRegistros() { return cantRegistros; }
     bool listarArchivo(Registro& aux);
+
+    bool crearBackup(Registro& aux,Archivo& archbkp);
+    bool restoreBackup(Registro& aux, Archivo& torestore);
 };
 
