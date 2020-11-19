@@ -1,2 +1,0 @@
-C:\Users\ser-a\source\repos\sergioriv2\leagueofbuilds\x64\Debug\leagueofbuilds.exe
-C:\Users\ser-a\source\repos\sergioriv2\leagueofbuilds\x64\Debug\leagueofbuilds.pdb
