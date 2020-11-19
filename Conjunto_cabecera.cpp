@@ -31,7 +31,7 @@ void Conjunto_cabecera::MostrarCabecera()
 	Campeon champ;
 	Conjunto_cabecera con;
 	int i = 0;
-	while (arch.leerRegistro(con, i))
+	while (arch.leerRegistro(con, i)==1)
 	{
 		if (con.getEstado()) {
 

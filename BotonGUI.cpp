@@ -16,44 +16,45 @@ void BotonGUI::cmd(sf::RenderWindow& window)
 	case DEFAULT:
 		break;
 	case CHAMPS:
-		texto.setPosition(5.0f, 113.0f);
+		
 		if (sf::Mouse::getPosition(window).y >= 100 && sf::Mouse::getPosition(window).y <= 150)
 		{
-			if (sf::Mouse::getPosition(window).x >= 0 && sf::Mouse::getPosition(window).x <= 200)
+			if (sf::Mouse::getPosition(window).x >= 280 && sf::Mouse::getPosition(window).x <= 480)
 			{
 				estadoBtn = Estado::CAMBIO_COLOR;
 				if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 				{
 					//Codigo ------
+					//
 				}
 			}
 		}
 		break;
 	case ITEMS:
-		texto.setPosition(7.0f, 193.0f);
+		
 		if (sf::Mouse::getPosition(window).y >= 180 && sf::Mouse::getPosition(window).y <= 230)
 		{
-			if (sf::Mouse::getPosition(window).x >= 0 && sf::Mouse::getPosition(window).x <= 200)
+			if (sf::Mouse::getPosition(window).x >= 280 && sf::Mouse::getPosition(window).x <= 480)
 			{
 				estadoBtn = Estado::CAMBIO_COLOR;
 			}
 		}
 		break;
 	case CONJ:
-		texto.setPosition(9.0f, 273.0f);
+		
 		if (sf::Mouse::getPosition(window).y >= 260 && sf::Mouse::getPosition(window).y <= 310)
 		{
-			if (sf::Mouse::getPosition(window).x >= 0 && sf::Mouse::getPosition(window).x <= 200)
+			if (sf::Mouse::getPosition(window).x >= 280 && sf::Mouse::getPosition(window).x <= 480)
 			{
 				estadoBtn = Estado::CAMBIO_COLOR;
 			}
 		}
 		break;
 	case BACKUP:
-		texto.setPosition(11.0f, 353.0f);
+		
 		if (sf::Mouse::getPosition(window).y >= 340 && sf::Mouse::getPosition(window).y <= 390)
 		{
-			if (sf::Mouse::getPosition(window).x >= 0 && sf::Mouse::getPosition(window).x <= 200)
+			if (sf::Mouse::getPosition(window).x >= 280 && sf::Mouse::getPosition(window).x <= 480)
 			{
 				estadoBtn = Estado::CAMBIO_COLOR;
 			}
@@ -62,7 +63,7 @@ void BotonGUI::cmd(sf::RenderWindow& window)
 	case SALIR:
 		if (sf::Mouse::getPosition(window).y >= 420 && sf::Mouse::getPosition(window).y <= 470)
 		{
-			if (sf::Mouse::getPosition(window).x >= 0 && sf::Mouse::getPosition(window).x <= 200)
+			if (sf::Mouse::getPosition(window).x >= 280 && sf::Mouse::getPosition(window).x <= 480)
 			{
 				estadoBtn = Estado::CAMBIO_COLOR;
 			}

@@ -71,13 +71,14 @@ public:
 	//SETS
 	////////////////////
 
-
-
-	void setPosY(float _y)
-	{ 
-		cordBtn.y = (int)_y;
-		button.setPosition(0, (float)cordBtn.y); 
+	
+	//Setea la posicion de el titulo y el texto a la vez
+	void setbothPos(float _x, float _y)
+	{
+		button.setPosition(_x, _y);
+		texto.setPosition(_x+20.0f, _y);
 	}
+
 	void setTextoString(const sf::String& string);
 	void setBtnType(btnType _btn) { tipoBtn = _btn; }
 
