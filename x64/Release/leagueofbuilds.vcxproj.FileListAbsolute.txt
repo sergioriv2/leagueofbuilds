@@ -1,1 +1,2 @@
 C:\Users\ser-a\source\repos\leagueofbuilds\x64\Release\leagueofbuilds.exe
+C:\Users\ser-a\source\repos\sergioriv2\leagueofbuilds\x64\Release\leagueofbuilds.exe

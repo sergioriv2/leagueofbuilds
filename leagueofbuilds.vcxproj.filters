@@ -45,6 +45,9 @@
     <ClCompile Include="Archivo.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
+    <ClCompile Include="BotonGUI.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="devmenu.h">
@@ -72,6 +75,9 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="Archivo.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="BotonGUI.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>

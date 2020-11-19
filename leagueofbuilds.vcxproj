@@ -152,6 +152,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Archivo.cpp" />
+    <ClCompile Include="BotonGUI.cpp" />
     <ClCompile Include="Campeon.cpp" />
     <ClCompile Include="GUI.cpp" />
     <ClCompile Include="Conjunto_cabecera.cpp" />
@@ -164,6 +165,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Archivo.h" />
+    <ClInclude Include="BotonGUI.h" />
     <ClInclude Include="Campeon.h" />
     <ClInclude Include="GUI.h" />
     <ClInclude Include="Conjunto_cabecera.h" />

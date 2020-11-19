@@ -4,25 +4,31 @@
 #include <cstdio>
 #include <cstring>
 
-using namespace sf;
 using namespace std;
 
 #include "devmenu.h"
-
+#include "GUI.h"
 
 int main()
 {
-bool DEV_MENU = true;
+	bool DEV_MENU = false;
 
-	if(DEV_MENU){
+	if (DEV_MENU) {
 		Menu_Desarrollador menu;
 
 		while (menu.menuPrincipal() != 0) {};
 	}
-	else {
-		//Interfaz normal user.
+	else
+	{
+		Menu MenuGUI;
 	}
-	
 
-	return 0;
+
+		return 0;
+	
 }
+
+/*int WinMain()
+{
+	Menu MenuGUI;
+}*/
