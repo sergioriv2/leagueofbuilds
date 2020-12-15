@@ -150,20 +150,19 @@ public:
                   //it1_2_3[vuelta - 1].setID(86 + vuelta);
 
                   //Archivo item 4
-                  //cargarItem(&it4[vuelta - 1], cell, row);
-                  //it4[vuelta - 1].setID(129 + vuelta);
+                  cargarItem(&it4[vuelta - 1], cell, row);
+                  it4[vuelta - 1].setID(129 + vuelta);
 
                 }
                 vuelta++;
-
             }
         }
 
         //Archivo item 1_2_3
-       //for (int i = 0; i < 23; i++) arch.grabarRegistro(it1_2_3[i], -1, Agregar);
+       //for (int i = 0; i < 43; i++) arch.grabarRegistro(it1_2_3[i], -1, Agregar);
 
        //Archivo item 4
-       //for (int i = 0; i < 23; i++) arch.grabarRegistro(it4[i], -1, Agregar);
+       for (int i = 0; i < 23; i++) arch.grabarRegistro(it4[i], -1, Agregar);
         
 
 
