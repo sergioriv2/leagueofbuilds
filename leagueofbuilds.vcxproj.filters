@@ -18,22 +18,10 @@
     <ClCompile Include="main.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="devmenu.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
     <ClCompile Include="Stat.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="Campeon.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="Conjunto_cabecera.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="Conjunto_detalle.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="GUI.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="Item.cpp">
@@ -45,27 +33,12 @@
     <ClCompile Include="Archivo.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="BotonGUI.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="devmenu.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
     <ClInclude Include="Stat.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="Campeon.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="Conjunto_cabecera.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="Conjunto_detalle.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="GUI.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="Item.h">
@@ -75,9 +48,6 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="Archivo.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="BotonGUI.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>

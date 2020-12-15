@@ -152,25 +152,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Archivo.cpp" />
-    <ClCompile Include="BotonGUI.cpp" />
     <ClCompile Include="Campeon.cpp" />
-    <ClCompile Include="GUI.cpp" />
-    <ClCompile Include="Conjunto_cabecera.cpp" />
-    <ClCompile Include="Conjunto_detalle.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="devmenu.cpp" />
     <ClCompile Include="Registro.cpp" />
     <ClCompile Include="Stat.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Archivo.h" />
-    <ClInclude Include="BotonGUI.h" />
     <ClInclude Include="Campeon.h" />
-    <ClInclude Include="GUI.h" />
-    <ClInclude Include="Conjunto_cabecera.h" />
-    <ClInclude Include="Conjunto_detalle.h" />
-    <ClInclude Include="devmenu.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="Registro.h" />
     <ClInclude Include="Stat.h" />

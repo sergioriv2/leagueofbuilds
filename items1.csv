@@ -1,0 +1,14 @@
+Nombre,Totem Centinela,Lente del oraculo,Alteracion de Vision Lejana,Centinela de Control,Pocion de Vida,Pocion Reutilizable,Espada Larga,El Sello de la Oscuridad,Sortija de Doran,Filo del Robahechizos,Hombreras de Acero,Escudo Reliquia,Hoz Espectral,Escudo de Doran,Espada de Doran,Sacrificar,Pocion de Corrupcion,Talisman del Cazador,Machete del Cazador,Espada del Acechador,Sable del Escaramuzador,Elixir de Hierro,Elixir de Brujeria,Armadura de Tela,Cota de Malla,Sudario Glacial,Vesta Espinosa,Cota del Guardabosques,Egida de la Legion,Guardabrazo del Buscador,Promesa del Caballero,Relicario de los Solari,Convergencia de Zeke,Armadura Petrea,Gloria Justiciera,Guantelete de Hielo,Corazon de Hielo,Capa de Fuego Solar,Angel Guardian,Cota de Espinas,Presagio de Randuin,Reloj de Arena Zhonya,Placa del Hombre Muerto
+Ataque,0,0,0,0,0,0,10,0,0,0,3,0,5,0,8,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,45,0,0,0,0
+Vel de ataq,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+AP,0,0,0,0,0,0,0,10,15,10,0,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,20,0,0,0,0,0,0,0,0,0,0,0,75,0
+Vida,0,0,0,0,0,0,0,0,60,10,30,30,10,80,80,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,250,0,0,0,400,0,0,425,0,250,400,0,425
+Armor,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,15,40,20,35,40,30,30,40,30,60,40,30,65,110,60,40,80,60,45,60
+RM,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,30,0,0,60,30,40,0,0,0,0,0,0,0,0,0
+Prob critico,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Mana,0,0,0,0,0,0,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,250,0,0,0,0,0,0,250,0,0,300,400,0,0,0,0,0,0
+Reg. Vida,0,0,0,0,0,0,0,0,0,0,1.25,1.25,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0
+Reg. Mana,0,0,0,0,0,0,0,0,0,1.5,0,0,1.25,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Robo de Vida,0,0,0,0,0,0,0,0,0,0,0,0,0,0,01.03,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+CDR,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.1,0,0,0,0,0.1,0,0.1,0,0.1,0.2,0.2,0,0,0,0,0.1,0
+Costo,0,0,0,75,50,150,350,350,400,400,400,400,400,450,450,450,500,350,350,1000,1000,500,500,300,800,900,1000,1000,1100,1100,2200,2200,2250,2500,2650,2700,2700,2750,2800,2900,2900,2900,2900

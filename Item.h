@@ -21,6 +21,8 @@ public:
         vida = aux->getVida();
         armor = aux->getArmor();
         resistencia_magica = aux->getResistencia_magica();
+        poder_habilidad = aux->getPoder_habilidad();
+        CDR = aux->getCDR();
         crit_chance = aux->getCrit_chance();
         mana = aux->getMana();
         regvida = aux->getregVida();
@@ -42,15 +44,17 @@ public:
     void Mostrar();
     bool Modificar(int ID);
     bool BajaVirtual(int ID);
+    bool validarCosto(int costo);
     //set
     void setID(int _id) { id = _id; }
     void setEstado(bool);
     void setCosto();
+    void setCosto(int costo) { this->costo = costo; }
     //get
     bool getEstado() { return estado; }
     int getId() { return id; }
     int getSize() { return sizeof * this; }
-    int getCosto() 
+    int getCosto()
     {
         if (estado) return costo;
         else return 0;

@@ -1,0 +1,14 @@
+Nombre,Brazal Cristalino,Gemaluz,Ceniza de Bami,Cinturon de Gigante,Catalizador de Eones,Punio de Jaurim,Habito de Espectro,Bacteriofago,Antifaz Embrujado,Orbe del Olvido,Cronometro,Botas de Velocidad,Cristal de Rubi,Libro Amplificador,Amuleto de las Hadas,Capa de Agilidad,Cristal de Zafiro,Daga,Espadon,Manto Anulamagia,Picacha,Vara Innecesariamente Grande,Varita Explosiva,Fajin de Mercurio,Aguijon,Arco Recurvado,Brillo,Brisa de Eter,Caliz de Armonia,Capa de Negratrones,Capitulo Perdido,Cetro Vampirico,Codice Diabolico,Llamado del Verdugo,Fervor,Fragmento de Kirecheis,Idolo Prohibido,Lagrima de la Diosa,Martillo de Guerra,Puñal Serrado,Revolver Hextech,Sable de Aguasturbias,Sorbehechizos
+Ataque,0,0,0,0,0,15,0,15,0,0,0,0,0,0,0,0,0,0,0,0,25,0,0,0,0,0,0,0,0,0,0,15,0,15,0,0,0,0,25,25,0,25,0
+Vel de ataq,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1.12,40,0,0,0,0,0,1.5,1.25,0,0,0,0,0,0,0,0,1.12,1.15,0,0,0,0,0,0,20
+AP,0,0,0,0,0,0,0,0,35,20,0,0,0,20,0,0,0,0,0,0,0,60,40,0,0,0,0,30,0,0,40,0,35,0,0,0,0,0,0,0,40,0,0
+Vida,200,200,200,380,225,200,250,200,200,200,0,0,150,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Armor,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+RM,0,0,0,0,0,0,25,0,0,0,0,0,0,0,0,0,0,0,0,25,0,0,0,30,0,0,0,0,30,40,0,0,0,0,0,0,0,0,0,0,0,0,35
+Prob critico,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1.2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1.25,0,0,0,0,0,0,0,0
+Mana,0,0,0,0,300,0,0,0,0,0,0,0,0,0,0,0,250,0,0,0,0,0,0,0,0,0,250,0,0,0,300,0,0,0,0,0,0,250,0,0,0,0,0
+Reg. Vida,1.5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Reg. Mana,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1.25,0,0,0,0,0,0,0,0,0,0,0,0,0,1.5,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Robo de Vida,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1.1,1.1,0,0,0,0,0,0,0,0,1.1,0
+CDR,0,0.1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.1,0,0.1,0,0,0,0,0,0,0,0,0,0.1,0,0.1,0,0,0,0
+Costo,650,800,900,1000,1100,1200,1200,1250,1500,1600,650,300,400,435,125,800,350,300,1300,450,875,1250,850,1300,1200,1000,1050,850,800,720,1300,900,900,800,1400,700,800,850,1100,1100,1050,1600,1300
