@@ -157,9 +157,12 @@
     <ClCompile Include="GUI.cpp" />
     <ClCompile Include="Conjunto_cabecera.cpp" />
     <ClCompile Include="Conjunto_detalle.cpp" />
+    <ClCompile Include="iconosListado.cpp" />
+    <ClCompile Include="inputGUI.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="devmenu.cpp" />
+    <ClCompile Include="outputGUI.cpp" />
     <ClCompile Include="Registro.cpp" />
     <ClCompile Include="Stat.cpp" />
   </ItemGroup>
@@ -167,11 +170,19 @@
     <ClInclude Include="Archivo.h" />
     <ClInclude Include="BotonGUI.h" />
     <ClInclude Include="Campeon.h" />
+    <ClInclude Include="clsMouse.h" />
+    <ClInclude Include="enums.h" />
     <ClInclude Include="GUI.h" />
     <ClInclude Include="Conjunto_cabecera.h" />
     <ClInclude Include="Conjunto_detalle.h" />
     <ClInclude Include="devmenu.h" />
+    <ClInclude Include="claseIngresoTxt.h" />
+    <ClInclude Include="headerGUI.h" />
+    <ClInclude Include="iconosListado.h" />
+    <ClInclude Include="inputGUI.h" />
     <ClInclude Include="Item.h" />
+    <ClInclude Include="Leyenda.h" />
+    <ClInclude Include="outputGUI.h" />
     <ClInclude Include="Registro.h" />
     <ClInclude Include="Stat.h" />
   </ItemGroup>

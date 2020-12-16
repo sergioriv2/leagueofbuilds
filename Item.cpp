@@ -32,8 +32,8 @@ void Item::setCosto()
 	{
 		cout << "Costo: ";
 		cin >> costo;
-	} while (costo < 0);
-	
+	} while (!validarCosto(costo));
+
 }
 
 bool Item::Cargar()
@@ -44,15 +44,15 @@ bool Item::Cargar()
 	if (nombre[0] == '0') return false;
 	setCosto();
 
-	id = arch.getCantidadRegistros();
+	id = arch.getCantidadRegistros() + 1;
 
 	estado = true;
 	return true;
 }
 
 void Item::Mostrar()
-{	
-	if(estado)
+{
+	if (estado)
 	{
 		getStats(0);
 		cout << "Costo: " << costo << endl;
@@ -65,7 +65,7 @@ void Item::Mostrar()
 bool Item::BajaVirtual(int ID)
 {
 	int b;
-	Archivo arch("resources/campeones/champsdata.dat", sizeof(Item));
+	Archivo arch("resources/items/itemsdata.dat", sizeof(Item));
 	Item item;
 	arch.leerRegistro(item, ID);
 
@@ -140,5 +140,13 @@ bool Item::Modificar(int pos)
 		if (b) return true;
 		else return false;
 	}
+}
+
+bool Item::validarCosto(int costo) {
+	if (costo < 0) {
+		cout << "No se permiten costo negativo" << endl;
+		return false;
+	}
+	return true;
 }
 

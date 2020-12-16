@@ -1,7 +1,6 @@
 #include <iostream>
 #include <cstdio>
 #include <string>
-#include <iomanip>
 
 using namespace std;
 
@@ -24,8 +23,7 @@ void Stat::setStats(bool basicStats)
 {
 	if (basicStats)
 	{
-		setNombre();
-		if (nombre[0] == '0') return;
+		if(!(setNombre())) return;
 		setAtaque();
 		setVel_ataque();
 		setVida();
@@ -35,8 +33,7 @@ void Stat::setStats(bool basicStats)
 	}
 	else
 	{
-		setNombre();
-		if (nombre[0] == '0') return;
+		if (!(setNombre())) return;
 		setAtaque();
 		setVel_ataque();
 		setPoder_habilidad();
@@ -88,80 +85,113 @@ void Stat::getStats(bool basicStats)
 
 }
 
-void Stat::setNombre()
+bool Stat::setNombre()
 {
-	cin.ignore();
-	cout << "Nombre: " << endl;
+	do {
+		/*cin.ignore();
+		cout << "Nombre: " << endl;
 
-	int i;
-	fflush(stdin);
-	for (i = 0; i < 30; i++) {
-		nombre[i] = cin.get();
-		if (nombre[i] == '\n') break;
-	}
-	nombre[i] = '\0';
-	fflush(stdin);
+		int i;
+		fflush(stdin);
+		for (i = 0; i < 30; i++) {
+			nombre[i] = cin.get();
+			if (nombre[i] == '\n') break;
+		}
+		nombre[i] = '\0';
+		fflush(stdin);
+		*/
+
+		cout << "Ingresar nombre: " << endl;
+		cin.ignore();
+		cin.getline(nombre, 30, '\n');
+		if (nombre[0] == '0') return false;;
+	} while (!Stat::validarNombre(nombre));
+	return true;
 
 }
 
 void Stat::setAtaque()
 {
-	cout << "Ataque: " << endl;
-	cin >> ataque;
+	do {
+		cout << "Ataque: " << endl;
+		cin >> ataque;
+	} while (!Stat::validarAtaque(ataque));
 }
 void Stat::setVel_ataque()
 {
-	cout << "Velocidad de ataque: " << endl;
-	cin >> vel_ataque;
+	do {
+		cout << "Velocidad de ataque (): " << endl;
+		cin >> vel_ataque;
+	} while (!Stat::validarVa(vel_ataque));
 }
 void Stat::setPoder_habilidad()
 {
-	cout << "Poder de habilidad: " << endl;;
-	cin >> poder_habilidad;
+	do {
+		cout << "Poder de habilidad: " << endl;;
+		cin >> poder_habilidad;
+	} while (!Stat::validarPh(poder_habilidad));
 }
 void Stat::setVida() {
-	cout << "Vida: " << endl;
-	cin >> vida;
+	do {
+		cout << "Vida: " << endl;
+		cin >> vida;
+	} while (!Stat::validarVida(vida));
 }
 void Stat::setArmor() {
-	cout << "Armor: " << endl;
-	cin >> armor;
+	do {
+		cout << "Armor: " << endl;
+		cin >> armor;
+	} while (!Stat::validarArmor(armor));
 }
 void Stat::setResistencia_magica() {
-	cout << "Resistencia magica: " << endl;
-	cin >> resistencia_magica;
+	do {
+		cout << "Resistencia magica: " << endl;
+		cin >> resistencia_magica;
+	} while (!Stat::validarRM(resistencia_magica));
 }
 
 void Stat::setCrit_chance()
 {
-	cout << "Crit chance: " << endl;
-	cin >> crit_chance;
+	do {
+		cout << "Crit chance: " << endl;
+		cin >> crit_chance;
+	} while (!Stat::validarCrit(crit_chance));
 }
 void Stat::setMana()
 {
-	cout << "Mana: " << endl;
-	cin >> mana;
+	do {
+		cout << "Mana: " << endl;
+		cin >> mana;
+	} while (!Stat::validarMana(mana));
 }
 
 void Stat::setregMana()
 {
-	cout << "Reg. Mana: " << endl;
-	cin >> regmana;
+	do {
+		cout << "Reg. Mana: " << endl;
+		cin >> regmana;
+	} while (!Stat::validarRegmana(regmana));
 }
 void Stat::setregVida()
 {
-	cout << "Reg. Vida: " << endl;
-	cin >> regvida;
+	do {
+		cout << "Reg. Vida: " << endl;
+		cin >> regvida;
+	} while (!Stat::validarRegvida(regvida));
 }
 void Stat::setCDR()
 {
-	cout << "CDR: " << endl;
-	cin >> CDR;
+	do {
+		cout << "CDR: " << endl;
+		cin >> CDR;
+	} while (!Stat::validarCDR(CDR));
 }
 void Stat::setlifeSteal()
 {
-	cout << "Robo de vida: " << endl;
-	cin >> lifeSteal;
+	do {
+		cout << "Robo de vida: " << endl;
+		cin >> lifeSteal;
+	} while (!Stat::validarRobovida(lifeSteal));
 }
 
 float Stat::getAtaque() { return ataque; };
@@ -172,3 +202,99 @@ float Stat::getArmor() { return armor; }
 float Stat::getResistencia_magica() { return resistencia_magica; }
 float Stat::getCrit_chance() { return crit_chance; }
 float Stat::getMana() { return mana; }
+
+bool Stat::validarNombre(char* nombre) {
+	if (nombre[0] == '\0' || nombre[0] == ' ') {
+		cout << "No ingresar espacios en blanco." << endl;
+		return false;
+	}
+	return true;
+}
+bool Stat::validarAtaque(float ataque) {
+
+	if (ataque > 200 || ataque < 0) {
+		cout << "Checkear que el ataque ingresado no mayor a 200 ni menor a 0" << endl;
+		return false;
+	}
+	return true;
+}
+bool Stat::validarVa(float va) {
+	//champ
+	if (va < 0.00f) {
+		cout << "Checkear que la velocidad de ataque ingresada no sea un valor negativo " << endl;
+		return false;
+	}
+
+	return true;
+}
+bool Stat::validarPh(float ph) {
+	if (ph > 300 || ph < 0) {
+		cout << "Checkear que el poder de habilidad no sea mayor a 300 ni un valor negativo" << endl;
+		return false;
+	}
+	return true;
+}
+bool Stat::validarVida(float vida) {
+	if (vida < 0) {
+		cout << "Checkear que la vida no sea un valor negativo" << endl;
+		return false;
+	}
+	return true;
+}
+bool Stat::validarArmor(float armor) {
+	if (armor < 0) {
+		cout << "Checkear que la armadura no sea un valor negativo" << endl;
+		return false;
+	}
+	return true;
+}
+bool Stat::validarRM(float rm) {
+	if (rm < 0) {
+		cout << "Checkear que la resistencia magica no sea un valor negativo" << endl;
+
+		return false;
+	}
+	return true;
+}
+bool Stat::validarCrit(float crit) {
+	if (crit < 0) {
+		cout << "Checkear que la probabilidad de critico no sea un valor negativo" << endl;
+		return false;
+	}
+	return true;
+}
+bool Stat::validarMana(float mana) {
+	if (mana < 0) {
+		cout << "Checkear que el mana no sea un valor negativo" << endl;
+		return false;
+	}
+	return true;
+}
+bool Stat::validarRegmana(float regmana) {
+	if (regmana < 0) {
+		cout << "Checkear que la regeneracion de  mana no sea un valor negativo" << endl;
+		return false;
+	}
+	return true;
+}
+bool Stat::validarRegvida(float regvida) {
+	if (regvida < 0) {
+		cout << "Checkear que la regeneracion de vida no sea un valor negativo" << endl;
+		return false;
+	}
+	return true;
+}
+bool Stat::validarCDR(float cdr) {
+	if (cdr < 0) {
+		cout << "Checkear que la reduccion de enfriamiento no sea un valor negativo" << endl;
+		return false;
+	}
+	return true;
+}
+bool Stat::validarRobovida(float lifesteal) {
+	if (lifesteal < 0) {
+		cout << "Checkear que el robo de vida no sea un valor negativo" << endl;
+		return false;
+	}
+	return true;
+}

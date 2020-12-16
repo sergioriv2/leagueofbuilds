@@ -6,7 +6,7 @@ class Conjunto_detalle : public Registro
 {
 private:
 	int idDetalle;
-	int idEarly[10], idMid[10], idLate[6];// ID DE ITEMS
+	int idEarly[6], idMid[6], idLate[6];// ID DE ITEMS
 	bool estado;
 public:
 	Conjunto_detalle();
@@ -22,7 +22,7 @@ public:
 	{
 		Conjunto_detalle* aux = (Conjunto_detalle*)temp;
 		idDetalle = aux->idDetalle;
-		for (int i = 0; i < 10; i++)
+		for (int i = 0; i < 6; i++)
 		{
 			idEarly[i] = aux->idEarly[i];
 			idMid[i] = aux->idMid[i];
@@ -40,6 +40,14 @@ public:
 		if (aux->idDetalle == idDetalle) return true;
 		return false;
 	}
+	//Seteo id en la pos del vec
+	void setidEarly(int iditem, int pos) { idEarly[pos] = iditem; }
+	void setidMid(int iditem, int pos) { idMid[pos] = iditem; }
+	void setidLate(int iditem, int pos) { idLate[pos] = iditem; }
+	//Recibo id en la pos del vec
+	int getidEarly(int pos) { return idEarly[pos];}
+	int getidMid(int pos) { return idMid[pos]; }
+	int getidLate(int pos) { return idLate[pos]; }
 	//set
 	void setDetalle(int);
 	void setitemsEarly();
@@ -55,4 +63,6 @@ public:
 	int getSize() { return sizeof * this; }
 	//
 	int contarRegistros();
+	bool iditemcheck(int iditem);
+	
 };

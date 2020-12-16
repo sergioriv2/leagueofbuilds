@@ -21,7 +21,9 @@ Conjunto_cabecera::Conjunto_cabecera()
 
 void Conjunto_cabecera::Mostrar()
 {
-
+	std::cout << "ID: " << idConjunto << std::endl;
+	std::cout << "Campeon: " << idCampeon << std::endl;
+	std::cout << "Nombre: " << this->getNombre() << std::endl;
 }
 
 void Conjunto_cabecera::MostrarCabecera()
@@ -31,11 +33,11 @@ void Conjunto_cabecera::MostrarCabecera()
 	Campeon champ;
 	Conjunto_cabecera con;
 	int i = 0;
-	while (arch.leerRegistro(con, i)==1)
+	while (arch.leerRegistro(con, i) == 1)
 	{
 		if (con.getEstado()) {
 
-			arch2.leerRegistro(champ, con.getidCampeon());
+			arch2.leerRegistro(champ, con.getidCampeon() - 1);
 
 			std::cout << "ID: " << con.getidConjunto() << "\t\t" << "Campeon: " << champ.getNombre() << "\t\t" << "Nombre conjunto: " << con.getNombre() << std::endl;
 		}
@@ -180,40 +182,46 @@ bool Conjunto_cabecera::Modificar(int ID)
 void Conjunto_cabecera::setidConjunto() {
 
 	Archivo arch(UB_CABECERA, sizeof(Conjunto_cabecera));
-	idConjunto = arch.getCantidadRegistros();
+	idConjunto = arch.getCantidadRegistros() + 1;
 }
-
-void Conjunto_cabecera::setidCampeon() { //Conchadetumadre
+bool Conjunto_cabecera::idchampcheck(int IDCAMPEON) {
 	Archivo archchamp("resources/campeones/champsdata.dat", sizeof(Campeon));
 	Campeon champ;
-	bool ciclo = true;
-	std::cout << "Ingresar ID campeon:" << std::endl;
-	std::cin >> idCampeon;
-	if (archchamp.leerRegistro(champ, idCampeon) == 0)	// Devuelve 0 si no lee
+
+	int i = 0;
+	while (archchamp.leerRegistro(champ, i++))
 	{
-		do
+		if (champ.getID() == IDCAMPEON && champ.getEstado())
 		{
-			system("cls");
-			std::cout << "ID incorrecto, ingresa otro:" << std::endl;
-			std::cin >> idCampeon;
-			if (archchamp.leerRegistro(champ, idCampeon) == 1 && champ.getEstado())
-			{
-				ciclo = false;
-			}
-		} while (ciclo);
-	}
-	else
-	{
-		if (champ.getEstado() == false)
-		{
-			do
-			{
-				system("cls");
-				std::cout << "ID incorrecto, ingresa otro:" << std::endl;
-				std::cin >> idCampeon;
-			} while (ciclo);
+			std::cout << "ID CORRECTO" << std::endl;
+			return true;
 		}
 	}
+	std::cout << "ID INCORRECTO" << std::endl;
+	return false;
+}
+void Conjunto_cabecera::setidCampeon() {
+	Archivo archchamp("resources/campeones/champsdata.dat", sizeof(Campeon));
+	int i = 0;
+	Campeon	 champaux;
+
+	while (true)
+	{
+		i = 0;
+		std::cout << "Ingresar ID campeon:" << std::endl;
+		std::cin >> idCampeon;
+
+		while (archchamp.leerRegistro(champaux, i++))
+		{
+			if (champaux.getID() == idCampeon && champaux.getEstado())
+			{
+				return;
+			}
+		}
+		std::cout << "ID Incorrecto, ingresa otro" << std::endl;
+	}
+
+
 
 }
 
@@ -240,137 +248,83 @@ void Conjunto_cabecera::setNombre() {
 
 bool Conjunto_cabecera::BajaVirtual(int ID)
 {
-	//lpmmmm por que no guardasssssssssss
-	/*
-	Archivo archdet(UB_DET, sizeof(Conjunto_detalle));
-	Archivo archcab(UB_CABECERA, sizeof(Conjunto_cabecera));
-	Conjunto_detalle cd;
-	Conjunto_cabecera c;
-	//Leo detalle en la posicion que me mandaron
-	archdet.leerRegistro(cd, ID);
-	archcab.leerRegistro(c, ID);
-	c.setEstado(false);
-	archdet.grabarRegistro(c, ID, LecturaEscritura);
-	return true
-	*/
-	return false;
+	Conjunto_detalle* cd;
+
+	cd = new Conjunto_detalle;
+
+	Archivo* archdet, * archcab;
+
+	archcab = new Archivo(UB_CABECERA, sizeof(Conjunto_cabecera));
+	archdet = new Archivo(UB_DET, sizeof(Conjunto_detalle));
+
+	archdet->leerRegistro(*cd, ID);
+	archcab->leerRegistro(*this, ID);
+
+	this->setEstado(false);
+	cd->setEstado(false);
+
+	archcab->grabarRegistro(*this, ID, LecturaEscritura);
+	archdet->grabarRegistro(*cd, ID, LecturaEscritura);
+
+	delete cd, archcab, archdet;
+
+	return true;
 }
 
+int Conjunto_cabecera::getCosto() {
 
-int Conjunto_cabecera::getCosto()
-{
 	//Creo objeto item, para saber el precio
 	Item it;
-	int pos, costoT = 0;
+	int		costoT = 0;
 	//Creo nuevo objeto, donde voy a almacenar todo
 	Conjunto_detalle conDet;
 	//Abro archivos
 	Archivo architem("resources/items/itemsdata.dat", sizeof(Item));
 	Archivo archdet("resources/conjuntos/conjunto_detalle.dat", sizeof(Conjunto_detalle));
 	//Leo detalle
-	archdet.leerRegistro(conDet, idConjunto);
+	//LEO EL ID-1 PORQUE EL ID 1 DEL CABECERA ES LA POS 0
+	archdet.leerRegistro(conDet, idConjunto - 1);
 
-	//1. Costo Early
-	//--------------------------------------------------------
-	for (int i = 0; i < 10; i++)
-	{
-		if (conDet.getEarly()[i] != -1 && conDet.getEarly()[i] != -2)
+	for (int i = 0; i < 6; i++) {
+
+		if (conDet.getidEarly(i) > 0)
 		{
-			//Seteo el id de item con el detalle de early en la posicion i
-			it.setID(conDet.getEarly()[i]);
-			//Busco la pos del item
-			pos = architem.buscarRegistro(it);
-			if (pos == -2)
-			{
-				std::cout << "Error al abrir archivo, getCosto conjunto cabecera" << std::endl;
-				system("pause");
-				return -1;
+			if (architem.leerRegistro(it, conDet.getidEarly(i) - 1) == 1) {
+				costoT += it.getCosto();
 			}
 			else
 			{
-				if (pos == -1)
-				{
-					std::cout << "Error al encontrar item, getCosto conjunto cabecera " << std::endl;
-					system("pause");
-					return -1;
-				}
-				else
-				{
-					//Cargo de disco a memoria en la variable it
-					architem.leerRegistro(it, pos);
-					costoT += it.getCosto();
-				}
+				std::cout << "X1";
+			}
+		}
+	}
+	for (int i = 0; i < 6; i++) {
+		if (conDet.getidMid(i) > 0)
+		{
+			if (architem.leerRegistro(it, conDet.getidMid(i) - 1) == 1) {
+				costoT += it.getCosto();
+			}
+			else
+			{
+				std::cout << "X2";
 			}
 		}
 
 	}
-	//2. Costo Mid
-	for (int i = 0; i < 10; i++)
-	{
-		if (conDet.getMid()[i] != -1 && conDet.getMid()[i] != -2)
+	for (int i = 0; i < 6; i++) {
+		if (conDet.getidLate(i) > 0)
 		{
-			//Seteo el id de item con el detalle de Mid en la posicion i
-			it.setID(conDet.getMid()[i]);
-			//Busco la pos del item
-			pos = architem.buscarRegistro(it);
-			if (pos == -2)
-			{
-				std::cout << "Error al abrir archivo, getCosto conjunto cabecera" << std::endl;
-				system("pause");
-				return -1;
+			if (architem.leerRegistro(it, conDet.getidLate(i) - 1) == 1) {
+				costoT += it.getCosto();
 			}
 			else
 			{
-				if (pos == -1)
-				{
-					std::cout << "Error al encontrar item, getCosto conjunto cabecera " << std::endl;
-					system("pause");
-					return -1;
-				}
-				else
-				{
-					//Cargo de disco a memoria en la variable it
-					architem.leerRegistro(it, pos);
-					costoT += it.getCosto();
-				}
+				std::cout << "X3";
 			}
 		}
 
 	}
-	//3. Costo Late
-	for (int i = 0; i < 6; i++)
-	{
-		if (conDet.getLate()[i] != -1 && conDet.getLate()[i] != -2)
-		{
-			//Seteo el id de item con el detalle de Late en la posicion i
-			it.setID(conDet.getLate()[i]);
-			//Busco la pos del item
-			pos = architem.buscarRegistro(it);
-			if (pos == -2)
-			{
-				std::cout << "Error al abrir archivo, getCosto conjunto cabecera" << std::endl;
-				system("pause");
-				return -1;
-			}
-			else
-			{
-				if (pos == -1)
-				{
-					std::cout << "Error al encontrar item, getCosto conjunto cabecera " << std::endl;
-					system("pause");
-					return -1;
-				}
-				else
-				{
-					//Cargo de disco a memoria en la variable it
-					architem.leerRegistro(it, pos);
-					costoT += it.getCosto();
-				}
-			}
-		}
-
-	}
-
 	return costoT;
 }
+
 

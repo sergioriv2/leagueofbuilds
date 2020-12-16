@@ -2,9 +2,11 @@
 #pragma warning(disable : 4996)
 #include <iostream>
 #include <cstdlib>
+#include <string>
 #include "Conjunto_detalle.h"
 #include "Item.h"
 #include "Archivo.h"
+
 
 Conjunto_detalle::Conjunto_detalle()
 {
@@ -21,110 +23,55 @@ void Conjunto_detalle::imprimirEarly()
 {
 	Archivo architem("resources/items/itemsdata.dat", sizeof(Item));
 	Item it;
-	int pos = 0;
-	std::cout << std::endl;
-	for (int i = 0; i < 10; i++)
-	{
-		if (idEarly[i] != -1 && idEarly[i] != -2)
+	for (int i = 0; i < 6; i++) {
+
+		if (idEarly[i] > 0)
 		{
-			it.setID(idEarly[i]);
-			pos = architem.buscarRegistro(it);
-
-			if (pos == -2)
-			{
-				std::cout << "Error abrir archivo (early)" << std::endl;
-
-			}
-			else
-			{
-				if (pos == -1)
-				{
-					std::cout << "Error encontrar el item (early)" << std::endl;
-				}
-				else
-				{
-					architem.leerRegistro(it, pos);
-					std::cout << i+1 << "." << it.getNombre() << std::endl;
-				}
-			}
+			architem.leerRegistro(it, idEarly[i] - 1);
+			std::cout << i + 1 << "." << it.getNombre() << std::endl;
 		}
 	}
-}
 
+}
+	
 void Conjunto_detalle::imprimirMid()
 {
 	Archivo architem("resources/items/itemsdata.dat", sizeof(Item));
 	Item it;
-	int pos = 0;
-	std::cout << std::endl;
-	for (int i = 0; i < 10; i++)
-	{
-		if (idMid[i] != -1 && idMid[i] != -2)
+	for (int i = 0; i < 6; i++) {
+
+
+		if (idMid[i] > 0)
 		{
-			it.setID(idMid[i]);
-			pos = architem.buscarRegistro(it);
-
-			if (pos == -2)
-			{
-				std::cout << "Error abrir archivo (Mid)" << std::endl;
-
-			}
-			else
-			{
-				if (pos == -1)
-				{
-					std::cout << "Error encontrar el item (Mid)" << std::endl;
-				}
-				else
-				{
-					architem.leerRegistro(it, pos);
-					std::cout << i+1 << "."<< it.getNombre() << std::endl;
-				}
-			}
+			architem.leerRegistro(it, idMid[i] - 1);
+			std::cout << i + 1 << "." << it.getNombre() << std::endl;
 		}
+	
 	}
-		
+	
 }
 
 void Conjunto_detalle::imprimirLate()
 {
 	Archivo architem("resources/items/itemsdata.dat", sizeof(Item));
 	Item it;
-	int pos = 0;
-	std::cout << std::endl;
-	for (int i = 0; i < 6; i++)
-	{
-		if (idLate[i] != -1 && idLate[i] != -2)
+	for (int i = 0; i < 6; i++) {
+
+		if (idLate[i] > 0)
 		{
-			it.setID(idLate[i]);
-			pos = architem.buscarRegistro(it);
-
-			if (pos == -2)
-			{
-				std::cout << "Error abrir archivo (Late)" << std::endl;
-
-			}
-			else
-			{
-				if (pos == -1)
-				{
-					std::cout << "Error encontrar el item (Late)" << std::endl;
-				}
-				else
-				{
-					architem.leerRegistro(it, pos);
-					std::cout << i+1 << "." <<  it.getNombre() << std::endl;
-				}
-			}
+			architem.leerRegistro(it, idLate[i] - 1);
+			std::cout << i + 1 << "." << it.getNombre() << std::endl;
 		}
+
 	}
-	
+
 }
 
 void Conjunto_detalle::Mostrar()
 {
 	std::cout << "Early:" <<std::endl;
 	imprimirEarly();
+
 	std::cout << std::endl;
 	std::cout << "Mid:" << std::endl;
 	imprimirMid();
@@ -139,20 +86,21 @@ bool Conjunto_detalle::Cargar()
 	setitemsEarly();
 	setItemsMid();
 	setItemsLate();
+
 	return true;
 }
 
 void Conjunto_detalle::setitemsEarly() {
 
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < 6; i++)
 	{
-		idEarly[i] = -2;
+		idEarly[i] = 0;
 	}
+	std::cout << "Ingresar ID de items early game(0 Para finalizar): " << std::endl;
 
-	std::cout << "Ingresar ID de items early game(-1 Para finalizar): " << std::endl;
-	for (int i = 0; i < 10; i++) {
+	for (int i = 0; i < 6; i++) {
 		std::cin >> idEarly[i];
-		if (idEarly[i] == -1) {
+		if (idEarly[i] == 0) {
 			return;
 		}
 	}
@@ -160,15 +108,15 @@ void Conjunto_detalle::setitemsEarly() {
 
 void Conjunto_detalle::setItemsMid() {
 
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < 6; i++)
 	{
-		idMid[i] = -2;
+		idMid[i] = 0;
 	}
 
-	std::cout << "Ingresar ID de items mid game(-1 Para finalizar): " << std::endl;
-	for (int i = 0; i < 10; i++) {
+	std::cout << "Ingresar ID de items mid game(0 Para finalizar): " << std::endl;
+	for (int i = 0; i < 6; i++) {
 		std::cin >> idMid[i];
-		if (idMid[i] == -1) {
+		if (idMid[i] == 0) {
 			return;
 		}
 	}
@@ -178,13 +126,13 @@ void Conjunto_detalle::setItemsLate() {
 
 	for (int i = 0; i < 6; i++)
 	{
-		idLate[i] = -2;
+		idLate[i] = 0;
 	}
 
-	std::cout << "Ingresar ID de items late game(-1 Para finalizar): " << std::endl;
+	std::cout << "Ingresar ID de items late game(0 Para finalizar): " << std::endl;
 	for (int i = 0; i < 6; i++) {
 		std::cin >> idLate[i];
-		if (idLate[i] == -1) {
+		if (idLate[i] == 0) {
 			return;
 		}
 	}
@@ -203,6 +151,20 @@ int Conjunto_detalle::contarRegistros() {
 		fclose(pf);
 		return c;
 	
+}
+bool Conjunto_detalle::iditemcheck(int iditem) {
+	Archivo architems("resources/items/itemsdata.dat", sizeof(Item));
+	int i = 0;
+	Item items;
+
+	if (iditem == 0) return true;
+	while (architems.leerRegistro(items, i++))
+	{
+		if (items.getId() == iditem && items.getEstado()) return true;
+	}
+
+	std::cout << "ID INCORRECTO" << std::endl;
+	return false;
 }
 
 bool Conjunto_detalle::Modificar(int ID)

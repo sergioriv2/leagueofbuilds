@@ -7,24 +7,21 @@ using namespace std;
 #include "Campeon.h"
 #include "Archivo.h"
 
-Campeon::Campeon(const char* _estilo, const char* _dmgtype) :Stat()
+Campeon::Campeon(int _estilo, int _dmgtype) :Stat()
 {
-	strcpy(estilo, _estilo);
-	strcpy(dmg_type, _dmgtype);
+
+	this->estilo = _estilo;
+	this->dmg_type = _dmgtype;
 	id = 0;
-	estado = 0;
-}
-
-Campeon::~Campeon()
-{
-
+	estado = true;
 }
 
 void Campeon::setEstilo() {
-
-	cin.ignore();
-	cout << "Estilo: " << endl;
-	cin.getline(estilo, 20);
+	do {
+		cout << "1-Luchador | 2-Mago | 3-Asesino | 4-Soporte | 5-Tanque | 6-Tirador" << endl;
+		cout << "Estilo: " << endl;
+		cin >> estilo;
+	} while (!Campeon::validarEstilo(estilo));
 }
 
 void Campeon::setEstadoFalse() {
@@ -40,7 +37,7 @@ bool Campeon::Cargar()
 	setEstilo();
 	setdmgType();
 
-	id = arch.getCantidadRegistros();
+	id = arch.getCantidadRegistros()+1;
 
 	estado = true;
 	return true;
@@ -50,8 +47,34 @@ void Campeon::Mostrar()
 {
 	if (getEstado() == true) {
 		getStats(1);
-		cout << "Tipo de danio: " << dmg_type << endl;
-		cout << "Rol: " << estilo << endl;
+		switch (dmg_type) {
+		case 1:
+			cout << "Tipo de danio: AD" << endl;
+			break;
+		case 2:
+			cout << "Tipo de danio: AP" << endl;
+			break;
+		}
+		switch (estilo) {
+		case 1:
+			cout << "Rol: Luchador" << endl;
+			break;
+		case 2:
+			cout << "Rol: Mago" << endl;
+			break;
+		case 3:
+			cout << "Rol: Asesino" << endl;
+			break;
+		case 4:
+			cout << "Rol: Soporte" << endl;
+			break;
+		case 5:
+			cout << "Rol: Tanque" << endl;
+			break;
+		case 6:
+			cout << "Rol: Tirador" << endl;
+			break;
+		}
 		cout << "ID: " << id << endl << endl;
 		cout << "---------------------------------------" << endl << endl;
 	}
@@ -131,12 +154,28 @@ bool Campeon::Modificar(int ID) {
 		else return false;
 	}
 }
-	
+
 
 void Campeon::setdmgType()
 {
-
-	cout << "Tipo de danio: " << endl;
-	cin >> dmg_type;
-
+	do {
+		cout << "Tipo de danio(1-ad,2-ap): " << endl;
+		cin >> dmg_type;
+	} while (!validarTipodmg(dmg_type));
 }
+
+bool Campeon::validarEstilo(int estilo) {
+	if (estilo > 6 || estilo < 0) {
+		cout << "Ingresar un estilo valido (1-Luchador | 2-Mago | 3-Asesino | 4-Soporte | 5-Tanque | 6-Tirador)" << endl;
+		return false;
+	}
+	return true;
+}
+bool Campeon::validarTipodmg(int tipodmg) {
+	if (tipodmg > 2 || tipodmg < 0) {
+		cout << "Ingresar un tipo valido (1-AD,2-AP)" << endl;
+		return false;
+	}
+	return true;
+}
+

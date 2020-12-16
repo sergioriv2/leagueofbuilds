@@ -4,7 +4,7 @@
 class Stat
 {
 protected:
-	char nombre[30];
+	char nombre[30] = "";
 	float ataque;
 	float vel_ataque;
 	float poder_habilidad;
@@ -26,7 +26,7 @@ public:
 	//sets
 	// True para cargar Campeones, False  para cargar items
 	void setStats(bool basicStats);
-	void setNombre();
+	bool setNombre();
 	void setAtaque();
 	void setVel_ataque();
 	void setPoder_habilidad();
@@ -46,7 +46,7 @@ public:
 	void setPoder_habilidad(float _ap) { poder_habilidad = _ap; }
 	void setVida(float _vida) { vida = _vida; }
 	void setArmor(float _armor) { armor = _armor; }
-	void setResistencia_magica(float _mr) { resistencia_magica = _mr ; }
+	void setResistencia_magica(float _mr) { resistencia_magica = _mr; }
 	void setCrit_chance(float _critc) { crit_chance = _critc; }
 	void setMana(float _mana) { mana = _mana; }
 	void setregMana(float _rmana) { regmana = _rmana; }
@@ -69,5 +69,20 @@ public:
 	float getregVida() { return regvida; }
 	float getCDR() { return CDR; }
 	float getlifeSteal() { return lifeSteal; }
+
+	//validaciones a la hora de ingresar datos
+	bool validarNombre(char* nombre);
+	bool validarAtaque(float ataque);
+	bool validarVa(float va);
+	bool validarPh(float ph);
+	bool validarVida(float vida);
+	bool validarArmor(float armor);
+	bool validarRM(float rm);
+	bool validarCrit(float crit);
+	bool validarMana(float mana);
+	bool validarRegmana(float regmana);
+	bool validarRegvida(float regvida);
+	bool validarCDR(float cdr);
+	bool validarRobovida(float lifesteal);
 };
 

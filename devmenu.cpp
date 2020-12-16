@@ -84,7 +84,7 @@ void Menu_Desarrollador::menuCampeones()
 		mostrarCampeones();
 		break;
 	case 0:
-		return;
+		menuPrincipal();
 		break;
 	}
 
@@ -95,7 +95,7 @@ void Menu_Desarrollador::agregarCampeones()
 	Archivo campeones(UB_CAMPEONES, sizeof(Campeon));
 	Campeon champ;
 	int x;
-
+	std::cout << "CARGA DE CAMPEONES: " << std::endl;
 	if (champ.Cargar())
 	{
 		x = campeones.grabarRegistro(champ, 0, Agregar);
@@ -103,6 +103,7 @@ void Menu_Desarrollador::agregarCampeones()
 		else cout << "Error al cargar campeon" << endl;
 	}
 	system("pause");
+	system("cls");
 }
 
 void Menu_Desarrollador::mostrarCampeones()
@@ -148,19 +149,19 @@ void Menu_Desarrollador::modificarCampeon() {
 	Campeon* nchamp;
 	nchamp = new Campeon;
 	cin >> ID;
-
 	nchamp->setID(ID);
 	//Verifico si existe el id ingresado
 	if (campeones.buscarRegistro(*nchamp) == -1)
 	{	//Si no, chau
 		cout << "El registro no existe" << endl;
+		system("pause");
 		system("cls");
 		return;
 	}
 	else
 	{	//Si existe, se carga
 		cout << endl << "Se encontro el siguiente registro: " << endl;
-		campeones.leerRegistro(champ, ID);
+		campeones.leerRegistro(champ, ID - 1);
 	}
 	//Borro el objeto
 	delete nchamp;
@@ -268,7 +269,7 @@ void Menu_Desarrollador::menuItems()
 		mostrarItems();
 		break;
 	case 0:
-		return;
+		menuPrincipal();
 		break;
 	}
 }
@@ -453,7 +454,7 @@ void Menu_Desarrollador::menuConjuntos()
 		bajaConjunto();
 		break;
 	case 0:
-		return;
+		menuPrincipal();
 		break;
 	}
 }
@@ -514,17 +515,11 @@ void Menu_Desarrollador::bajaConjunto(){
 	cout << "Desea darlo de baja? s/n" << endl;// Confirmo
 	cin >> opc2;
 	if (opc2 == 's' || opc2 == 'S') {
-		c.setEstado(false);
-		archdet.leerRegistro(cd, opc);
-		cd.setEstado(false);
-		if (archdet.grabarRegistro(cd, opc, LecturaEscritura))
+		if (c.BajaVirtual(opc))
 		{
-			if (archcab.grabarRegistro(c, opc, LecturaEscritura))
-			{
-				cout << "Baja exitosa" << endl;
-				system("pause");
-				return;
-			}
+			cout << "Baja exitosa" << endl;
+			system("pause");
+			
 
 		}
 		cout << "Error al dar de baja " << endl;
@@ -674,12 +669,11 @@ void Menu_Desarrollador::mostrarConjunto()
 	cout << "PRECIO TOTAL: " << c.getcostoTotal() << "g" << endl << endl;
 
 	//Cargo detalles de DETALLES en la posicion que mandaron
-	archdet.leerRegistro(cd, opc);
+	archdet.leerRegistro(cd, opc - 1);
 	cd.Mostrar();
 	system("pause");
 	
 }
-
 
 void Menu_Desarrollador::menuBackup() {
 
@@ -712,7 +706,9 @@ void Menu_Desarrollador::menuBackup() {
 			cout << "Hubo un error al restaurar el archivo, regresando a menu principal" << endl;
 		}
 		  break;
-		  
+	case 0:
+		menuPrincipal();
+		break;
 	}
 	system("pause");
 

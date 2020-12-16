@@ -3,7 +3,7 @@
 
 ///////////////////////////
 //TIPOS ENUMERADOS PARA USAR CON LA CLASE ARCHIVO
-enum Estado {//DEFINE LOS ESTADOS EN LOS QUE PUEDE ESTAR EL ARCHIVO
+enum EstadoArch {//DEFINE LOS ESTADOS EN LOS QUE PUEDE ESTAR EL ARCHIVO
     NoExiste,
     Cerrado,
     AbiertoR,

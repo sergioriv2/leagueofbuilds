@@ -2,7 +2,7 @@
 
 #include "Registro.h"
 
-class Conjunto_cabecera: public Registro
+class Conjunto_cabecera : public Registro
 {
 private:
 	int idConjunto, idCampeon;
@@ -38,9 +38,13 @@ public:
 	void setidConjunto();
 	void setID(int _id) { idConjunto = _id; }
 	void setidCampeon();
+	bool idchampcheck(int IDCAMPEON);
 	void setCostototal();
 	void setNombre();
 	void setEstado(bool _estado) { estado = _estado; }
+	void setidCampeon(int idchamp) { idCampeon = idchamp; }
+	void setNombre(char* nombre) { strcpy(this->nombre, nombre); }
+	void setCostototal(int cost) { costoTotal = cost; }
 	//get
 	int getidConjunto() { return idConjunto; }
 	int getidCampeon() { return idCampeon; }
@@ -48,8 +52,15 @@ public:
 	int getcostoTotal() { return costoTotal; }
 	bool getEstado() { return estado; }
 	char* getNombre() { return nombre; }
-	int getSize() { return sizeof *this; }
+	int getSize() { return sizeof * this; }
+	
 	//
-	int contarRegistros();
+	bool validarNombre(char* nombre) {
+		if (nombre[0] == '\0' || nombre[0] == ' ') {
+			std::cout << "No ingresar espacios en blanco." << std::endl;
+			return false;
+		}
+		return true;
+	}
 };
 
