@@ -770,9 +770,13 @@ void Menu::menumostrarChamps()
 
 void Menu::menubajaChamp()
 {
+    delete champ;
+    champ = new Campeon;
+
+    Archivo arch("resources/campeones/champsdata.dat", sizeof(Campeon));
 	std::string auxid = outputWindow[lastIngresoOutput - 1].getId().getString();
 	int pos = std::stoi(auxid) - 1;
-	champ->BajaVirtual(pos);
+    champ->BajaVirtual(pos);
 	champsaMostrar--;
 	if (champsaMostrar != 0) StateMenu = MENUMOSTRAR_CHAMP;
 	else StateMenu = MENUCHAMP;

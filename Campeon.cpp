@@ -87,7 +87,7 @@ bool Campeon::BajaVirtual(int ID)
 	Campeon champ;
 	arch.leerRegistro(champ, ID);
 
-	champ.setEstadoFalse();
+	champ.setEstado(false);
 
 	b = arch.grabarRegistro(champ, ID, LecturaEscritura);
 	if (b)return true;
@@ -100,9 +100,6 @@ bool Campeon::Modificar(int ID) {
 	Archivo arch("resources/campeones/champsdata.dat", sizeof(Campeon));
 	Campeon champ;
 	arch.leerRegistro(champ, ID);
-
-	//No hace falta, con usar ID ya está
-	//pos=arch.buscarRegistro(champ);//Leo y cargo el registro para buscar la pos
 
 	cout << "Elija lo que desea modificar " << endl;
 
@@ -121,10 +118,10 @@ bool Campeon::Modificar(int ID) {
 		champ.setNombre();
 		break;
 	case 2:
-		champ.setNombre();
+		champ.setAtaque();
 		break;
 	case 3:
-		champ.setNombre();
+		champ.setVel_ataque();
 		break;
 	case 4:
 		champ.setPoder_habilidad();
