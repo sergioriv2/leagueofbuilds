@@ -1,5 +1,3 @@
-
-#pragma warning(disable : 4996)
 #include <iostream>
 #include <cstdlib>
 #include <string>
@@ -33,7 +31,7 @@ void Conjunto_detalle::imprimirEarly()
 	}
 
 }
-	
+
 void Conjunto_detalle::imprimirMid()
 {
 	Archivo architem("resources/items/itemsdata.dat", sizeof(Item));
@@ -46,9 +44,9 @@ void Conjunto_detalle::imprimirMid()
 			architem.leerRegistro(it, idMid[i] - 1);
 			std::cout << i + 1 << "." << it.getNombre() << std::endl;
 		}
-	
+
 	}
-	
+
 }
 
 void Conjunto_detalle::imprimirLate()
@@ -139,7 +137,7 @@ void Conjunto_detalle::setItemsLate() {
 }
 
 int Conjunto_detalle::contarRegistros() {
-		
+
 		FILE* pf;
 		int c = 0;
 		pf = fopen("resources/conjuntos/conjunto_detalle.dat", "rb");
@@ -150,7 +148,7 @@ int Conjunto_detalle::contarRegistros() {
 		while (fread(this, sizeof(*this), 1, pf) == 1) c++;
 		fclose(pf);
 		return c;
-	
+
 }
 bool Conjunto_detalle::iditemcheck(int iditem) {
 	Archivo architems("resources/items/itemsdata.dat", sizeof(Item));

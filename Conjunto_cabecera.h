@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Registro.h"
+#include <cstring>
 
 class Conjunto_cabecera : public Registro
 {
@@ -53,7 +54,7 @@ public:
 	bool getEstado() { return estado; }
 	char* getNombre() { return nombre; }
 	int getSize() { return sizeof * this; }
-	
+
 	//
 	bool validarNombre(char* nombre) {
 		if (nombre[0] == '\0' || nombre[0] == ' ') {

@@ -1,6 +1,4 @@
 #pragma once
-#pragma warning(disable : 4996)
-
 ///////////////////////////
 //TIPOS ENUMERADOS PARA USAR CON LA CLASE ARCHIVO
 enum EstadoArch {//DEFINE LOS ESTADOS EN LOS QUE PUEDE ESTAR EL ARCHIVO

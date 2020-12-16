@@ -1,5 +1,3 @@
-#pragma warning(disable : 4996)
-
 #include <SFML/Graphics.hpp>
 #include "Campeon.h"
 #include "Archivo.h"

@@ -1,4 +1,3 @@
-#pragma warning(disable : 4996)
 #include <iostream>
 #include <cstdlib>
 
@@ -66,10 +65,10 @@ bool Conjunto_cabecera::Cargar()
 	do
 	{
 		system("cls");
-		//Detalle: Cargo el array 
+		//Detalle: Cargo el array
 		detalle.Cargar();
 		system("cls");
-		//Cuando se termina de cargar, muestro 
+		//Cuando se termina de cargar, muestro
 		std::cout << "Detalles del conjunto: " << nombre << std::endl << std::endl;
 		detalle.Mostrar();
 		std::cout << std::endl << std::endl;
@@ -266,7 +265,9 @@ bool Conjunto_cabecera::BajaVirtual(int ID)
 	archcab->grabarRegistro(*this, ID, LecturaEscritura);
 	archdet->grabarRegistro(*cd, ID, LecturaEscritura);
 
-	delete cd, archcab, archdet;
+	delete cd;
+	delete archcab;
+	delete archdet;
 
 	return true;
 }

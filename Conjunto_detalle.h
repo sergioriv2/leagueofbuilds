@@ -64,5 +64,5 @@ public:
 	//
 	int contarRegistros();
 	bool iditemcheck(int iditem);
-	
+
 };

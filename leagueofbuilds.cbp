@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="leagueofbuilds" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/leagueofbuilds" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+				<Linker>
+					<Add library="sfml-graphics" />
+					<Add library="sfml-window" />
+					<Add library="sfml-system" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/leagueofbuilds" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add library="sfml-graphics" />
+					<Add library="sfml-window" />
+					<Add library="sfml-system" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-fexceptions" />
+			<Add directory="sfml/include" />
+		</Compiler>
+		<Linker>
+			<Add directory="sfml/lib" />
+		</Linker>
+		<Unit filename="Archivo.cpp" />
+		<Unit filename="Archivo.h" />
+		<Unit filename="BotonGUI.cpp" />
+		<Unit filename="BotonGUI.h" />
+		<Unit filename="Campeon.cpp" />
+		<Unit filename="Campeon.h" />
+		<Unit filename="Conjunto_cabecera.cpp" />
+		<Unit filename="Conjunto_cabecera.h" />
+		<Unit filename="Conjunto_detalle.cpp" />
+		<Unit filename="Conjunto_detalle.h" />
+		<Unit filename="GUI.cpp" />
+		<Unit filename="GUI.h" />
+		<Unit filename="Item.cpp" />
+		<Unit filename="Item.h" />
+		<Unit filename="Leyenda.h" />
+		<Unit filename="Registro.cpp" />
+		<Unit filename="Registro.h" />
+		<Unit filename="Stat.cpp" />
+		<Unit filename="Stat.h" />
+		<Unit filename="Textos.cpp" />
+		<Unit filename="Textos.h" />
+		<Unit filename="claseIngresoTxt.h" />
+		<Unit filename="clsMouse.h" />
+		<Unit filename="devmenu.cpp" />
+		<Unit filename="devmenu.h" />
+		<Unit filename="enums.h" />
+		<Unit filename="headerGUI.cpp" />
+		<Unit filename="headerGUI.h" />
+		<Unit filename="iconosListado.cpp" />
+		<Unit filename="iconosListado.h" />
+		<Unit filename="inputGUI.cpp" />
+		<Unit filename="inputGUI.h" />
+		<Unit filename="main.cpp" />
+		<Unit filename="outputGUI.cpp" />
+		<Unit filename="outputGUI.h" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

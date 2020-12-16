@@ -68,9 +68,13 @@ Menu::Menu()
 	cantidadPagListado = 0;
 	actualPage = 1;
 
+	nombconj = new sf::Text;
+    idconj = new sf::Text;
+    idchamp = new sf::Text;
+
 	ventana = new sf::RenderWindow;
 	mouse = new clsMouse;
-	StateMenu = EstadoMenu::MENUPRINCIPAL;
+	StateMenu = MENUPRINCIPAL;
 
 	bordes = new sf::RectangleShape;
 	check = new bool[14]{ false };
@@ -144,76 +148,76 @@ void Menu::run()
 		{
 			if (evento.type == sf::Event::Closed) ventana->close();
 
-			for (int i = 0; i < 20; i++) if (lastIngreso == NULL) inputWindow[i].setSelected(false);
+			for (int i = 0; i < 20; i++) if (lastIngreso == 0) inputWindow[i].setSelected(false);
 
-			if (evento.type == sf::Event::TextEntered && StateMenu == EstadoMenu::MENUALTA_ITEM) inputWindow[lastIngreso - 1].callEventoIngreso(evento);
-			if (evento.type == sf::Event::TextEntered && StateMenu == EstadoMenu::MENUALTA_CHAMP) inputWindow[lastIngreso - 1].callEventoIngreso(evento);
-			if (evento.type == sf::Event::TextEntered && StateMenu == EstadoMenu::MENUALTA_CONJ) inputWindow[lastIngreso - 1].callEventoIngreso(evento);
-			if (evento.type == sf::Event::TextEntered && StateMenu == EstadoMenu::MENUMOD_ITEM) inputWindow[lastIngreso - 1].callEventoIngreso(evento);
-			if (evento.type == sf::Event::TextEntered && StateMenu == EstadoMenu::MENUMOD_CHAMP) inputWindow[lastIngreso - 1].callEventoIngreso(evento);
-			if (evento.type == sf::Event::TextEntered && StateMenu == EstadoMenu::MENUMOD_CONJ) inputWindow[lastIngreso - 1].callEventoIngreso(evento);
+			if (evento.type == sf::Event::TextEntered && StateMenu == MENUALTA_ITEM) inputWindow[lastIngreso - 1].callEventoIngreso(evento);
+			if (evento.type == sf::Event::TextEntered && StateMenu == MENUALTA_CHAMP) inputWindow[lastIngreso - 1].callEventoIngreso(evento);
+			if (evento.type == sf::Event::TextEntered && StateMenu == MENUALTA_CONJ) inputWindow[lastIngreso - 1].callEventoIngreso(evento);
+			if (evento.type == sf::Event::TextEntered && StateMenu == MENUMOD_ITEM) inputWindow[lastIngreso - 1].callEventoIngreso(evento);
+			if (evento.type == sf::Event::TextEntered && StateMenu == MENUMOD_CHAMP) inputWindow[lastIngreso - 1].callEventoIngreso(evento);
+			if (evento.type == sf::Event::TextEntered && StateMenu == MENUMOD_CONJ) inputWindow[lastIngreso - 1].callEventoIngreso(evento);
 
 		}
-		//INICIALIZACIONES PARA EL MENU PRINCIPAL, CUENTA CON UN BOOL QUE PROTEGE A LA FUNCION PARA QUE SE LLAME SOLO UNA VEZ 
+		//INICIALIZACIONES PARA EL MENU PRINCIPAL, CUENTA CON UN BOOL QUE PROTEGE A LA FUNCION PARA QUE SE LLAME SOLO UNA VEZ
 		switch (StateMenu)
 		{
-		case EstadoMenu::MENUPRINCIPAL:
+		case MENUPRINCIPAL:
 			menuPrincipal();
 			break;
-		case EstadoMenu::MENUDEV:
+		case MENUDEV:
 
 			ventana->clear(sf::Color(14, 22, 33, 255));
 			devmenu->menuPrincipal();
 			system("cls");
-			if(devmenu->menuPrincipal() == 0) StateMenu = EstadoMenu::MENUPRINCIPAL;
+			if(devmenu->menuPrincipal() == 0) StateMenu = MENUPRINCIPAL;
 
 			break;
-		case EstadoMenu::MENUALTA_CHAMP:
+		case MENUALTA_CHAMP:
 			menualtaChamps();
 			break;
-		case EstadoMenu::MENUMOSTRAR_CHAMP:
+		case MENUMOSTRAR_CHAMP:
 			menumostrarChamps();
 			break;
-		case EstadoMenu::MENUBAJA_CHAMP:
+		case MENUBAJA_CHAMP:
 			menubajaChamp();
 			break;
-		case EstadoMenu::MENUMOD_CHAMP:
+		case MENUMOD_CHAMP:
 			menumodChamp();
 			break;
-		case EstadoMenu::MENUCHAMP:
+		case MENUCHAMP:
 			menuCampeones();
 			break;
-		case EstadoMenu::MENUMASOPCIONES_CHAMP:
+		case MENUMASOPCIONES_CHAMP:
 			menumasopcionesChamps();
 			break;
-		case EstadoMenu::MENUITEM:
+		case MENUITEM:
 			menuItems();
 			break;
-		case EstadoMenu::MENUALTA_ITEM:
+		case MENUALTA_ITEM:
 			menualtaItems();
 			break;
-		case EstadoMenu::MENUBAJA_ITEM:
+		case MENUBAJA_ITEM:
 			menubajaItem();
 			break;
-		case EstadoMenu::MENUMOD_ITEM:
+		case MENUMOD_ITEM:
 			menumodItem();
 			break;
-		case EstadoMenu::MENUMOSTRAR_ITEM:
+		case MENUMOSTRAR_ITEM:
 			menumostrarItems();
 			break;
-		case EstadoMenu::MENUMASOPCIONES_ITEM:
+		case MENUMASOPCIONES_ITEM:
 			menumasopcionesItems();
 			break;
-		case EstadoMenu::MENUCONJ:
+		case MENUCONJ:
 			menuConjuntos();
 			break;
-		case EstadoMenu::MENUBKP:
+		case MENUBKP:
 			menuBackup();
 			break;
-		case EstadoMenu::MENUALTA_CONJ:
+		case MENUALTA_CONJ:
 			menualtaConj();
 			break;
-		case EstadoMenu::MENUBKP_CREATE:
+		case MENUBKP_CREATE:
 			if (bkpCreate()) {
 				std::cout << "Backups creados con exito" << std::endl;
 			}
@@ -221,9 +225,9 @@ void Menu::run()
 				std::cout << "Error creando backups" << std::endl;
 			}
 			protegido = false;
-			StateMenu = EstadoMenu::MENUBKP;
+			StateMenu = MENUBKP;
 			break;
-		case EstadoMenu::MENUBKP_RESTORE:
+		case MENUBKP_RESTORE:
 			if (bkpRestore()) {
 				std::cout << "Archivos restaurados con exito" << std::endl;
 			}
@@ -231,21 +235,21 @@ void Menu::run()
 				std::cout << "Error restaurando archivos" << std::endl;
 			}
 			protegido = false;
-			StateMenu = EstadoMenu::MENUBKP;
+			StateMenu = MENUBKP;
 			break;
-		case EstadoMenu::MENUMOSTRAR_CONJ:
+		case MENUMOSTRAR_CONJ:
 			menumostrarConjuntos();
 			break;
-		case EstadoMenu::MENUMASOPCIONES_CONJ:
+		case MENUMASOPCIONES_CONJ:
 			menumasopcionesConjuntos();
 			break;
-		case EstadoMenu::MENUMOD_CONJ:
+		case MENUMOD_CONJ:
 			menumodConj();
 			break;
-		case EstadoMenu::MENUBAJA_CONJ:
+		case MENUBAJA_CONJ:
 			menubajaConj();
 			break;
-		case EstadoMenu::MENUDET_CONJ:
+		case MENUDET_CONJ:
 			menudetallesConj();
 			break;
 		default:
@@ -261,18 +265,18 @@ void Menu::menudetallesConj()
 {
 	mostrarDetalle();
 
-	btn[2].setBtnType(btnType::BTN_VOLVER);
+	btn[2].setBtnType(BTN_VOLVER);
 	btn[2].setbothPos(50, 520);
 	btn[2].settxtPos(90, 528);
 	btn[2].setTextoString("Volver");
 	btn[2].setSize(150.0f, 40.0f);
 
-	
+
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift))
 	{
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::V))
 		{
-			StateMenu = EstadoMenu::MENUMOSTRAR_CONJ;
+			StateMenu = MENUMOSTRAR_CONJ;
 			protegido = false;
 		}
 	}
@@ -310,7 +314,10 @@ void Menu::mostrarDetalle()
 	if(!protegido)
 	{
 
-		delete[] infoEarly, infoMid, infoLate, subtitulos;
+		delete[] infoEarly;
+		delete[] infoMid;
+		delete[] infoLate;
+		delete[] subtitulos;
 
 		titulo.setString("MOSTRANDO DETALLES DEL CONJUNTO");
 		titulo.setCharacterSize(23);
@@ -339,7 +346,7 @@ void Menu::mostrarDetalle()
 
 		Conjunto_detalle* con_aux;
 		con_aux = new Conjunto_detalle;
-	
+
 		Conjunto_cabecera* con_cab;
 		con_cab = new Conjunto_cabecera;
 
@@ -361,7 +368,7 @@ void Menu::mostrarDetalle()
 				subtitulos[i].setOutlineColor(sf::Color::Black);
 				subtitulos[i].setOutlineThickness(1.3f);
 			}
-			
+
 		}
 		float y = 230.0f;
 		for (int i = 0; i < 6; i++)
@@ -387,9 +394,9 @@ void Menu::mostrarDetalle()
 			infoLate[i].setFillColor(sf::Color::White);
 			y += 20.0f;
 		}
-			
 
-		//STRING DE SUBTITULOS 
+
+		//STRING DE SUBTITULOS
 		subtitulos[0].setString("EARLY GAME");
 		subtitulos[0].setPosition({ 70, 190 });
 
@@ -440,9 +447,9 @@ void Menu::mostrarDetalle()
 			}
 		}
 
-	
 
-		//Costo 
+
+		//Costo
 		ss.str("");
 		ss << con_cab->getcostoTotal();
 		stringAux = ss.str();
@@ -505,14 +512,14 @@ void Menu::menuCampeones()
 		titulo.setPosition(60.0f, 200.0f);
 		if (!protegido) titulo.setString("MENU DE CAMPEONES");
 		champsaMostrar = contarRegistrosTrueC();
-	
+
 
 		ley = new Leyenda;
 		ley->leyendaini(fuente);
 		ley->setPosition();
-		
+
 	}
-	
+
 
 	inicializacionBotones();
 
@@ -559,7 +566,7 @@ void Menu::menualtaChamps()
 		inputWindow[i].comandoInput(mouse, &lastIngreso);
 	}
 
-	//1 nombre 2 ataque 3 velocidad de ataque 4 vida 
+	//1 nombre 2 ataque 3 velocidad de ataque 4 vida
 	//5 armadura 6 resistencia magica 7 mana 8 estilo 9 tipo danio
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
@@ -580,8 +587,8 @@ void Menu::menualtaChamps()
 		else {
 			std::cout << "Error agregando campeon" << std::endl;
 		}
-		 
-		StateMenu = EstadoMenu::MENUCHAMP;
+
+		StateMenu = MENUCHAMP;
 		protegido = false;
 	}
 
@@ -608,7 +615,7 @@ void Menu::menumodChamp()
 		inputWindow[i].comandoInput(mouse, &lastIngreso);
 	}
 
-	//1 nombre 2 ataque 3 velocidad de ataque 4 vida 
+	//1 nombre 2 ataque 3 velocidad de ataque 4 vida
 	//5 armadura 6 resistencia magica 7 mana 8 estilo 9 tipo danio
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
@@ -624,7 +631,7 @@ void Menu::menumodChamp()
 
 		arch.grabarRegistro(*champ, stoi(auxid) - 1, LecturaEscritura);
 
-		StateMenu = EstadoMenu::MENUCHAMP;
+		StateMenu = MENUCHAMP;
 		protegido = false;
 	}
 
@@ -673,12 +680,12 @@ void Menu::menumostrarChamps()
 	{
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::V))
 		{
-			StateMenu = EstadoMenu::MENUCHAMP;
+			StateMenu = MENUCHAMP;
 			protegido = false;
 		}
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
-		StateMenu = EstadoMenu::MENUCHAMP;
+		StateMenu = MENUCHAMP;
 		protegido = false;
 	}
 	//COMANDOS
@@ -767,8 +774,8 @@ void Menu::menubajaChamp()
 	int pos = std::stoi(auxid) - 1;
 	champ->BajaVirtual(pos);
 	champsaMostrar--;
-	if (champsaMostrar != 0) StateMenu = EstadoMenu::MENUMOSTRAR_CHAMP;
-	else StateMenu = EstadoMenu::MENUCHAMP;
+	if (champsaMostrar != 0) StateMenu = MENUMOSTRAR_CHAMP;
+	else StateMenu = MENUCHAMP;
 }
 
 //MENU DE ITEMS
@@ -837,7 +844,7 @@ void Menu::menualtaItems()
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::V))
 		{
 			protegido = false;
-			StateMenu = EstadoMenu::MENUITEM;
+			StateMenu = MENUITEM;
 		}
 	}
 
@@ -849,7 +856,7 @@ void Menu::menualtaItems()
 		{
 			std::cout << "Registro agregado" << std::endl;
 		}
-		StateMenu = EstadoMenu::MENUITEM;
+		StateMenu = MENUITEM;
 		protegido = false;
 	}
 
@@ -887,7 +894,7 @@ void Menu::menumodItem()
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::V))
 		{
 			protegido = false;
-			StateMenu = EstadoMenu::MENUITEM;
+			StateMenu = MENUITEM;
 		}
 	}
 
@@ -900,7 +907,7 @@ void Menu::menumodItem()
 		item->setID(stoi(auxid));
 		arch.grabarRegistro(*item, stoi(auxid) - 1, LecturaEscritura);
 		protegido = false;
-		StateMenu = EstadoMenu::MENUITEM;
+		StateMenu = MENUITEM;
 	}
 
 	//DIBUJADOS
@@ -921,8 +928,8 @@ void Menu::menubajaItem()
 	int pos = stoi(auxid) - 1;
 	item->BajaVirtual(pos);
 	itemsaMostrar--;
-	if (itemsaMostrar != 0) StateMenu = EstadoMenu::MENUMOSTRAR_ITEM;
-	else StateMenu = EstadoMenu::MENUITEM;
+	if (itemsaMostrar != 0) StateMenu = MENUMOSTRAR_ITEM;
+	else StateMenu = MENUITEM;
 }
 
 void Menu::menumostrarItems()
@@ -945,7 +952,7 @@ void Menu::menumostrarItems()
 	{
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::V))
 		{
-			StateMenu = EstadoMenu::MENUITEM;
+			StateMenu = MENUITEM;
 			protegido = false;
 		}
 	}
@@ -997,7 +1004,7 @@ void Menu::menumostrarItems()
 	//DIBUJOS ---------------------
 	ventana->clear(sf::Color(14, 22, 33, 255));
 
-	
+
 
 	//DIBUJADO DE LOS EGRESOS DE LA LISTA
 	if (itemsaMostrar <= 13)
@@ -1048,7 +1055,7 @@ void Menu::menumasopcionesItems()
 
 	ventana->draw(titulo);
 	ventana->draw(*bordes);
-	
+
 }
 
 //MENU DE BKP
@@ -1075,12 +1082,12 @@ void Menu::menuBackup()
 	{
 		btn[i].dibujarBotoncito(*ventana);
 	}
-	
+
 	ventana->draw(headerMenu->getHeader());
 	ventana->draw(cajaTitulo);
 	ventana->draw(titulo);
 	ventana->draw(*bordes);
-	
+
 }
 
 bool Menu::bkpRestore() {
@@ -1175,6 +1182,7 @@ void Menu::menuConjuntos()
 
 void Menu::menualtaConj() {
 	inicializacionaltaConj();
+
 	ventana->clear(sf::Color(14, 22, 33, 255));
 
 	//Boton volver
@@ -1186,7 +1194,7 @@ void Menu::menualtaConj() {
 
 	btn[2].cmd(*mouse, *ventana, &StateMenu, &protegido);
 	btn[2].update(*ventana);
-	
+
 
 	//COMANDOS
 
@@ -1218,7 +1226,7 @@ void Menu::menualtaConj() {
 			archcab.grabarRegistro(*conjcab, -1, Agregar);
 			std::cout << "Conjunto agregado" << std::endl;
 		}
-		StateMenu = EstadoMenu::MENUCONJ;
+		StateMenu = MENUCONJ;
 		protegido = false;
 
 	}
@@ -1243,8 +1251,8 @@ void Menu::menubajaConj()
 	conjcab->BajaVirtual(pos);
 
 	conjsaMostrar--;
-	if (conjsaMostrar != 0) StateMenu = EstadoMenu::MENUMOSTRAR_CONJ;
-	else StateMenu = EstadoMenu::MENUCONJ;
+	if (conjsaMostrar != 0) StateMenu = MENUMOSTRAR_CONJ;
+	else StateMenu = MENUCONJ;
 }
 
 void Menu::menumodConj()
@@ -1270,10 +1278,10 @@ void Menu::menumodConj()
 
 		std::string auxid = outputWindow[lastIngresoOutput - 1].getId().getString();
 
-		//Seteo el ID 
+		//Seteo el ID
 		conjcab->setID(stoi(auxid));
 		conjdet->setDetalle(stoi(auxid));
-		
+
 		conjcab->setEstado(true);
 		conjdet->setEstado(true);
 
@@ -1284,7 +1292,7 @@ void Menu::menumodConj()
 			archcab.grabarRegistro(*conjcab, stoi(auxid) - 1, LecturaEscritura);
 			std::cout << "Conjunto modificado" << std::endl;
 		}
-		StateMenu = EstadoMenu::MENUCONJ;
+		StateMenu = MENUCONJ;
 		protegido = false;
 
 	}
@@ -1298,7 +1306,7 @@ void Menu::menumodConj()
 
 void Menu::menumasopcionesConjuntos()
 {
-	
+
 	inicializacionBotones();
 	titulo.setString("MAS OPCIONES...");
 
@@ -1328,7 +1336,7 @@ void Menu::menumostrarConjuntos() {
 
 	leerArchivosConjuntos();
 
-	btn[2].setBtnType(btnType::BTN_VOLVER);
+	btn[2].setBtnType(BTN_VOLVER);
 	btn[2].setTextoString("Volver");
 	btn[2].setbothPos(50, 520);
 	btn[2].settxtPos(90, 528);
@@ -1400,7 +1408,7 @@ void Menu::menumostrarConjuntos() {
 
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
-		StateMenu = EstadoMenu::MENUCONJ;
+		StateMenu = MENUCONJ;
 		protegido = false;
 	}
 	btn[2].dibujarBotoncito(*ventana);
@@ -1416,9 +1424,9 @@ void Menu::leerArchivosConjuntos() {
 	if (!protegido) {
 		actualPage = 1;
 
-		delete(nombconj);
-		delete(idconj);
-		delete(idchamp);
+		delete nombconj;
+		delete idconj;
+		delete idchamp;
 
 		nombconj = new sf::Text;
 		idconj = new sf::Text;
@@ -1532,7 +1540,7 @@ void Menu::inicializacionmodificacionConj()
 		archcab->leerRegistro(*conjcab, lastIngresoOutput - 1);
 		archdet->leerRegistro(*conjdet, lastIngresoOutput - 1);
 
-		//btn[5].setBtnType(btnType::BTN_GUARDAR);
+		//btn[5].setBtnType(BTN_GUARDAR);
 		//btn[5].setbtnPos(510, 500);
 		//btn[5].setTextoString("GUARDAR");
 
@@ -1617,7 +1625,7 @@ void Menu::inicializacionmodificacionConj()
 		delete archcab;
 		delete archdet;
 	}
-	
+
 }
 
 void Menu::inicializacionmodificacionItems()
@@ -1756,7 +1764,7 @@ void Menu::verificacionInputConj() {
 		inputWindow[19].setColor(sf::Color::Green);
 	}
 	else inputWindow[19].setColor(sf::Color::Red);
-	//ID ITEMS EARLY 1 
+	//ID ITEMS EARLY 1
 	algo = inputWindow[1].getTextoIngreso();
 	if (!validarNum(algo)) {
 		inputWindow[1].setColor(sf::Color::Red);
@@ -2045,10 +2053,10 @@ void Menu::inicializacionaltaConj() {
 		//volver
 		btn[2].setbothPos(600.0f, 520.0f);
 		btn[2].settxtPos(640.0f, 530.0f);
-		btn[2].setBtnType(btnType::BTN_VOLVER);
+		btn[2].setBtnType(BTN_VOLVER);
 		btn[2].setTextoString("Volver");
 
-		//btn[5].setBtnType(btnType::BTN_GUARDAR);
+		//btn[5].setBtnType(BTN_GUARDAR);
 		//btn[5].setbtnPos(510, 500);
 		//btn[5].setTextoString("GUARDAR");
 
@@ -2155,7 +2163,7 @@ void Menu::leerArchivosItems()
 		//Variable j para leer todos los registros, variable k para leer el registro especifico
 		int j = 0, k = 0;
 
-		//Borro lo que habia antes en la clase 
+		//Borro lo que habia antes en la clase
 		if (cantidadPagListado == 0) delete outputWindow;
 		else delete[] outputWindow;
 		//Consulto cuantos registros de item hay con true
@@ -2256,7 +2264,7 @@ void Menu::leerArchivosChamps()
 		//Variable j para leer todos los registros, variable k para leer el registro especifico
 		int j = 0, k = 0;
 
-		//Borro lo que habia antes en la clase 
+		//Borro lo que habia antes en la clase
 		if (cantidadPagListado == 0) delete outputWindow;
 		else delete[] outputWindow;
 
@@ -2529,7 +2537,7 @@ void Menu::verificacionInput()
 	float auxf = 0;
 	int auxi = 0;
 	//voy poniendolos true mientras se vayan validando y se va a poder guardar cuando los 14 esten en true;
-	//1 nombre //inputWindow[num-1] 
+	//1 nombre //inputWindow[num-1]
 	//2 ataque
 	//3 vel de ataque
 	//4 ap
@@ -2785,7 +2793,7 @@ void Menu::inicializacionaltaChamps()
 
 		btn[2].setbothPos(510.0f, 500.0f);
 		btn[2].settxtPos(550.0f, 510.0f);
-		btn[2].setBtnType(btnType::BTN_VOLVER);
+		btn[2].setBtnType(BTN_VOLVER);
 		btn[2].setTextoString("Volver");
 
 		//BORDES PARA EL MENU
@@ -2854,10 +2862,10 @@ void Menu::inicializacionaltaItems()
 
 		btn[2].setbothPos(510.0f, 500.0f);
 		btn[2].settxtPos(550.0f, 510.0f);
-		btn[2].setBtnType(btnType::BTN_VOLVER);
+		btn[2].setBtnType(BTN_VOLVER);
 		btn[2].setTextoString("Volver");
 
-		//btn[5].setBtnType(btnType::BTN_GUARDAR);
+		//btn[5].setBtnType(BTN_GUARDAR);
 		//btn[5].setbtnPos(510, 500);
 		//btn[5].setTextoString("GUARDAR");
 
@@ -3001,48 +3009,48 @@ void Menu::inicializacionBotones()
 
 		switch (StateMenu)
 		{
-		case EstadoMenu::MENUPRINCIPAL:
+		case MENUPRINCIPAL:
 			//0: MENU CHAMPS
 			btn[0].setbothPos(80.0f, 280.0f);
 			btn[0].settxtPos(100.0f, 290.0f);
-			btn[0].setBtnEstado(Estado::NINGUNO);
-			btn[0].setBtnType(btnType::BTN_CHAMPS);
+			btn[0].setBtnEstado(NINGUNO);
+			btn[0].setBtnType(BTN_CHAMPS);
 			btn[0].setTextoString("Menu Campeones");
 			//1: MENU ITEMS
 			btn[1].setbothPos(80.0f, 380.0f);
 			btn[1].settxtPos(110.0f, 390.0f);
 			btn[1].setBtnEstado(Estado::NINGUNO);
-			btn[1].setBtnType(btnType::BTN_ITEMS);
+			btn[1].setBtnType(BTN_ITEMS);
 			btn[1].setTextoString("Menu Items");
 			//2: MENU CONJUNTOS
 			btn[2].setbothPos(80.0f, 480.0f);
 			btn[2].settxtPos(100.0f, 490.0f);
 			btn[2].setBtnEstado(Estado::NINGUNO);
-			btn[2].setBtnType(btnType::BTN_CONJ);
+			btn[2].setBtnType(BTN_CONJ);
 			btn[2].setTextoString("Menu Conjuntos");
 			//3: BACKUP
 			btn[3].setbothPos(480.0f, 280.0f);
 			btn[3].settxtPos(510.0f, 290.0f);
 			btn[3].setBtnEstado(Estado::NINGUNO);
-			btn[3].setBtnType(btnType::BTN_BACKUP);
+			btn[3].setBtnType(BTN_BACKUP);
 			btn[3].setTextoString("Menu Backups");
 			//4: DEVMENU
 			btn[4].setbothPos(480.0f, 380.0f);
 			btn[4].settxtPos(525.0f, 390.0f);
 			btn[4].setBtnEstado(Estado::NINGUNO);
-			btn[4].setBtnType(btnType::BTN_DEVMENU);
+			btn[4].setBtnType(BTN_DEVMENU);
 			btn[4].setTextoString("DevMenu");
 			//5: SALIR
 			btn[5].setbothPos(480.0f, 480.0f);
 			btn[5].settxtPos(540.0f, 490.0f);
-			btn[5].setBtnType(btnType::BTN_SALIR);
+			btn[5].setBtnType(BTN_SALIR);
 			btn[5].setTextoString("Salir");
 			break;
 
-		case EstadoMenu::MENUCHAMP:
+		case MENUCHAMP:
 			//0 Agregar campeon
 			btn[0].setbothPos(80.0f, 280.0f);
-			btn[0].setBtnType(btnType::BTN_ADD_CHAMP);
+			btn[0].setBtnType(BTN_ADD_CHAMP);
 			btn[0].setTextoString("Agregar Campeon");
 			//1 Mostrar campeones
 
@@ -3052,110 +3060,112 @@ void Menu::inicializacionBotones()
 			else btn[1].setBtnEstado(Estado::NINGUNO);
 
 			btn[1].setbothPos(80.0f, 390.0f);
-			btn[1].setBtnType(btnType::BTN_LIST_CHAMP);
+			btn[1].setBtnType(BTN_LIST_CHAMP);
 			btn[1].setTextoString("Listar Campeones");
 
 			//2 Volver
 			btn[2].setbothPos(80.0f, 480.0f);
 			btn[2].settxtPos(140.0f, 490.0f);
-			btn[2].setBtnType(btnType::BTN_VOLVER);
+			btn[2].setBtnType(BTN_VOLVER);
 			btn[2].setTextoString("Volver");
 			break;
 
-		case EstadoMenu::MENUITEM:
+		case MENUITEM:
 			//0 Agregar item
 			btn[0].setbothPos(80.0f, 280.0f);
-			btn[0].setBtnType(btnType::BTN_ADD_ITEM);
+			btn[0].setBtnType(BTN_ADD_ITEM);
 			btn[0].setTextoString("Agregar Items");
 			//1 Mostrar items
 			if (itemsaMostrar == 0) btn[1].setBtnEstado(Estado::DESHABILITADO);
 			else btn[1].setBtnEstado(Estado::NINGUNO);
 			btn[1].setbothPos(480.0f, 280.0f);
-			btn[1].setBtnType(btnType::BTN_LIST_ITEM);
+			btn[1].setBtnType(BTN_LIST_ITEM);
 			btn[1].setTextoString("Mostrar Items");
 			//2 Volver
 			btn[2].setbothPos(80.0f, 480.0f);
 			btn[2].settxtPos(140.0f, 490.0f);
-			btn[2].setBtnType(btnType::BTN_VOLVER);
+			btn[2].setBtnType(BTN_VOLVER);
 			btn[2].setTextoString("Volver");
 			break;
-		case EstadoMenu::MENUMASOPCIONES_ITEM:
+		case MENUMASOPCIONES_ITEM:
 			//1 Borrar item
 			btn[0].setbothPos(50.0f, 300.0f);
-			btn[0].setBtnType(btnType::BTN_DEL_ITEM);
+			btn[0].setBtnType(BTN_DEL_ITEM);
 			btn[0].setTextoString("Borrar Item");
 			//2 Editar item
 			btn[1].setbothPos(250.0f, 300.0f);
-			btn[1].setBtnType(btnType::BTN_MOD_ITEM);
+			btn[1].setBtnType(BTN_MOD_ITEM);
 			btn[1].setTextoString("Editar Item");
 			//2 Volver
 			btn[2].setbothPos(500.0f, 300.0f);
-			btn[2].setBtnType(btnType::BTN_VOLVER);
+			btn[2].setBtnType(BTN_VOLVER);
 			btn[2].setTextoString("Volver");
 			break;
-		case EstadoMenu::MENUMASOPCIONES_CHAMP:
+		case MENUMASOPCIONES_CHAMP:
 			//1 Borrar item
 			btn[0].setbothPos(50.0f, 300.0f);
-			btn[0].setBtnType(btnType::BTN_DEL_CHAMP);
+			btn[0].setBtnType(BTN_DEL_CHAMP);
 			btn[0].setTextoString("Borrar Campeon");
 			//2 Editar item
 			btn[1].setbothPos(250.0f, 300.0f);
-			btn[1].setBtnType(btnType::BTN_MOD_CHAMP);
+			btn[1].setBtnType(BTN_MOD_CHAMP);
 			btn[1].setTextoString("Editar Campeon");
 			//2 Volver
 			btn[2].setbothPos(500.0f, 300.0f);
-			btn[2].setBtnType(btnType::BTN_VOLVER);
+			btn[2].setBtnType(BTN_VOLVER);
 			btn[2].setTextoString("Volver");
 			break;
-		case EstadoMenu::MENUMASOPCIONES_CONJ:
+		case MENUMASOPCIONES_CONJ:
 			btn[0].setbothPos(80.0f, 300.0f);
-			btn[0].setBtnType(btnType::BTN_DET_CONJ);
+			btn[0].setBtnType(BTN_DET_CONJ);
 			btn[0].setTextoString("Mostrar Detalles");
-			//1 Borrar 
+			//1 Borrar
 			btn[1].setbothPos(500.0f, 420.0f);
-			btn[1].setBtnType(btnType::BTN_DEL_CONJ);
+			btn[1].setBtnType(BTN_DEL_CONJ);
 			btn[1].setTextoString("Borrar conjunto");
 			//2 Editar
 			btn[2].setbothPos(500.0f, 300.0f);
-			btn[2].setBtnType(btnType::BTN_MOD_CONJ);
+			btn[2].setBtnType(BTN_MOD_CONJ);
 			btn[2].setTextoString("Editar conjunto");
 			//2 Volver
 			btn[3].setbothPos(80.0f, 420.0f);
-			btn[3].setBtnType(btnType::BTN_VOLVER);
+			btn[3].setBtnType(BTN_VOLVER);
 			btn[3].setTextoString("Volver");
 			break;
-		case EstadoMenu::MENUCONJ:
+		case MENUCONJ:
 
 			btn[0].setbothPos(80.0f, 280.0f);
-			btn[0].setBtnType(btnType::BTN_ADD_CONJ);
+			btn[0].setBtnType(BTN_ADD_CONJ);
 			btn[0].setTextoString("Agregar Conjunto");
 
 			if (conjsaMostrar == 0) btn[1].setBtnEstado(Estado::DESHABILITADO);
 			else btn[1].setBtnEstado(Estado::NINGUNO);
 
 			btn[1].setbothPos(480.0f, 280.0f);
-			btn[1].setBtnType(btnType::BTN_LIST_CONJ);
+			btn[1].setBtnType(BTN_LIST_CONJ);
 			btn[1].setTextoString("Mostrar Conjunto");
 
 			btn[2].setbothPos(80.0f, 480.0f);
 			btn[2].settxtPos(140.0f, 490.0f);
-			btn[2].setBtnType(btnType::BTN_VOLVER);
+			btn[2].setBtnType(BTN_VOLVER);
 			btn[2].setTextoString("Volver");
 			break;
 
-		case EstadoMenu::MENUBKP:
+		case MENUBKP:
 			btn[0].setbothPos(80.0f, 320.0f);
-			btn[0].setBtnType(btnType::BTN_CREATE_BKP);
+			btn[0].setBtnType(BTN_CREATE_BKP);
 			btn[0].setTextoString("Crear Backup");
 
 			btn[1].setbothPos(80.0f, 400.0f);
-			btn[1].setBtnType(btnType::BTN_RESTORE_BKP);
+			btn[1].setBtnType(BTN_RESTORE_BKP);
 			btn[1].setTextoString("Restaurar Backup");
 
 			btn[2].setbothPos(80.0f, 480.0f);
-			btn[2].setBtnType(btnType::BTN_VOLVER);
+			btn[2].setBtnType(BTN_VOLVER);
 			btn[2].setTextoString("Volver");
 			break;
+        default:
+            break;
 		}
 		protegido = true;
 

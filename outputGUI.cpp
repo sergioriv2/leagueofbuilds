@@ -3,7 +3,6 @@
 outputGUI::outputGUI(sf::Font* fuente)
 {
 	idOutput = 0;
-	float posYTexto = 127.0f;
 	float posYCuadro = 120.0f;
 
 	moreOpc.setRadius(10.0f);
@@ -14,7 +13,7 @@ outputGUI::outputGUI(sf::Font* fuente)
 	moreOpcTxt.setCharacterSize(15);
 	moreOpcTxt.setStyle(sf::Text::Bold);
 	moreOpcTxt.setString("...");
-	moreOpcTxt.setColor(sf::Color::White);
+	moreOpcTxt.setFillColor(sf::Color::White);
 
 	cajaOutput.setSize({ 700, 30 });
 	cajaOutput.setFillColor(sf::Color(11, 17, 26, 255));
@@ -23,7 +22,7 @@ outputGUI::outputGUI(sf::Font* fuente)
 	cajaOutput.setPosition(50.0f, posYCuadro);
 
 	//Texto --------------
-	
+
 	//Fuente
 	id.setFont(*fuente);
 	nombre.setFont(*fuente);
@@ -111,7 +110,6 @@ outputGUI::outputGUI(sf::Font* fuente)
 outputGUI::outputGUI(sf::Font* fuente, int size)
 {
 	idOutput = 0;
-	float posYTexto = 127.0f;
 	float posYCuadro = 120.0f;
 
 	moreOpc.setRadius(10.0f);
@@ -122,7 +120,7 @@ outputGUI::outputGUI(sf::Font* fuente, int size)
 	moreOpcTxt.setCharacterSize(15);
 	moreOpcTxt.setStyle(sf::Text::Bold);
 	moreOpcTxt.setString("...");
-	moreOpcTxt.setColor(sf::Color::White);
+	moreOpcTxt.setFillColor(sf::Color::White);
 
 	cajaOutput.setSize({ 700, 30 });
 	cajaOutput.setFillColor(sf::Color(11, 17, 26, 255));
@@ -209,7 +207,7 @@ void outputGUI::cmd(clsMouse *mouse, bool* p ,EstadoMenu* state ,int* lastI)
 			lifeSteal.setPosition(643.0f, 127.0f);
 			cdr.setPosition(675.0f, 127.0f);
 			costo.setPosition(702.0f, 127.0f);
-			*state = EstadoMenu::MENUMASOPCIONES_ITEM;
+			*state = MENUMASOPCIONES_ITEM;
 			*p = false;
 
 		}
@@ -222,7 +220,7 @@ void outputGUI::cmdC(clsMouse* mouse, bool* p, EstadoMenu* state, int* lastI)
 	{
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 		{
-			
+
 			*lastI = idOutput;
 			cajaOutput.setPosition(50.0f, 120.0f);
 			id.setPosition(62.0f, 127.0f);
@@ -235,7 +233,7 @@ void outputGUI::cmdC(clsMouse* mouse, bool* p, EstadoMenu* state, int* lastI)
 			mana.setPosition(547.0f, 127.0f);
 			dmg.setPosition(597.0f, 127.0f);
 			estilo.setPosition(692.0f, 127.0f);
-			*state = EstadoMenu::MENUMASOPCIONES_CHAMP;
+			*state = MENUMASOPCIONES_CHAMP;
 			*p = false;
 
 		}
@@ -255,7 +253,7 @@ void outputGUI::cmdConjuntos(clsMouse* mouse, bool* p, EstadoMenu* state, int* l
 			id.setPosition(300.0f, 127.0f);
 			idch.setPosition(500.0f, 127.0f);
 
-			*state = EstadoMenu::MENUMASOPCIONES_CONJ;
+			*state = MENUMASOPCIONES_CONJ;
 			*p = false;
 
 		}
@@ -302,9 +300,9 @@ void outputGUI::setPosicion(float y, bool champ)
 		cdr.setPosition(675.0f, y);
 		costo.setPosition(702.0f, y);
 	}
-	
 
-	
+
+
 }
 void outputGUI::setPosicionConj(float y) {
 

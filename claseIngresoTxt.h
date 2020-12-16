@@ -1,5 +1,4 @@
 #pragma once
-#pragma warning(disable : 4996)
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <sstream>
@@ -22,7 +21,7 @@ private:
 		{
 			texto << static_cast<char>(charTyped);
 		}
-		else 
+		else
 		{
 			if (charTyped == DELETE_KEY)
 			{
@@ -71,9 +70,9 @@ public:
 			textbox.setString("");
 		}
 	}
-	void setTexto(std::string texto) { 
+	void setTexto(std::string texto) {
 		sf::String aux = texto;
-		textbox.setString(aux); 
+		textbox.setString(aux);
 	}
 	void setFuente(sf::Font &fuente) { textbox.setFont(fuente); }
 	void setPosition(sf::Vector2f pos) {textbox.setPosition(pos); }

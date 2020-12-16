@@ -1,5 +1,6 @@
 #pragma once
-#pragma warning(disable : 4996)
+
+#include <cstring>
 
 class Stat
 {
@@ -84,5 +85,6 @@ public:
 	bool validarRegvida(float regvida);
 	bool validarCDR(float cdr);
 	bool validarRobovida(float lifesteal);
+
 };
 

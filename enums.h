@@ -1,13 +1,13 @@
 #pragma once
 
-enum class Estado
+enum Estado
 {
 	NINGUNO,
 	DESHABILITADO,
 	SELECCION,
 };
 
-enum class btnType
+enum btnType
 {
 	BTN_DEFAULT,
 	BTN_CHAMPS,
@@ -35,7 +35,7 @@ enum class btnType
 	BTN_VOLVER,
 };
 
-enum class EstadoMenu
+enum EstadoMenu
 {
 	MENUPRINCIPAL,
 	MENUDEV,

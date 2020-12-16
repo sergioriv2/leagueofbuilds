@@ -1,6 +1,4 @@
 #pragma once
-#pragma warning(disable : 4996)
-#include <SFML/Graphics.hpp>
 #include "GUI.h"
 
 
@@ -33,8 +31,8 @@ public:
 	void setFuente(sf::Font& fuente) { texto.setFont(fuente); }
 
 	void drawText(sf::RenderWindow& window, EstadoMenu stateMenu);
-	void setStringTexto(const char* c) { 
-		stringTexto = c; 
+	void setStringTexto(const char* c) {
+		stringTexto = c;
 		texto.setString(stringTexto);
 	}
 	void setPosicion(float x, float y)

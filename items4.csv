@@ -1,0 +1,14 @@
+﻿Nombre,Hidra Voraz,Hoja de Draktharr,Huracan de Runaan,Cuchilla Oscura,La Sanguinaria,Maldicion del Liche,Manamune,Mazo del Hielo,Morellonomicon,Muramana,Pebetero Ardiente,Protocinturon Hextech,Recordatorio Mortal,Recuerdos de Lord Dominik,Robaalmas Mejai,Sablepistola Hextech,Saqueador de Esencias,Sombras Gemelas,Tabi de Ninja,Vara de las Edades,Velo de Banshee,Yelmo Adaptable,Canion de Fuego Rapido
+Ataque,80,55,0,40,80,0,35,30,0,35,0,0,45,45,0,40,70,0,0,0,0,0,0
+Vel de ataq,0,0,1.4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1.3
+AP,0,0,0,0,0,80,0,0,70,0,60,60,0,0,20,80,0,70,0,60,45,0,0
+Vida,0,0,0,400,0,0,0,700,300,0,0,300,0,0,0,0,0,0,0,300,0,350,0
+Armor,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,25,0,0,0,0
+RM,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,60,55,0
+Prob critico,0,0,1.25,0,0,0,0,0,0,0,0,0,0,0,0,0,1.25,0,0,0,0,0,1.25
+Mana,0,0,0,0,0,250,250,0,0,1000,0,0,0,0,200,0,0,0,0,300,0,0,0
+Reg. Vida,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0
+Reg. Mana,0,0,0,0,0,0,0,0,0,0,1.5,0,0,0,0,0,0,0,0,0,0,0,0
+Robo de Vida,1.18,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+CDR,0,0.1,0,0.2,0,0.1,0,0,0,0,0.1,0.1,0,0,0,0,0.2,0.1,0,0,0.1,0.1,0
+Costo,3500,2900,2600,3000,3500,3200,2400,3100,3000,1680,2300,2500,2800,2800,1400,3400,3200,2400,1100,2700,3000,2800,2600
