@@ -21,6 +21,7 @@ const char* HEADER_MENUCAMPEONES = "resources/gui/header_champs.jpg";
 const char* HEADER_MENUPRINCIPAL = "resources/gui/header_menuprincipal.jpg";
 const char* HEADER_MENUITEMS = "resources/gui/header_items.jpg";
 const char* HEADER_MENUCONJUNTOS = "resources/gui/header_conjuntos.jpg";
+const char* HEADER_MENUBACKUP = "resources/gui/header_menubackup.jpg";
 
 
 int contarRegistrosTrueConj() {
@@ -1055,6 +1056,10 @@ void Menu::menuBackup()
 {
 	if (!protegido)
 	{
+		delete headerMenu;
+		headerMenu = new headerGUI;
+		headerMenu->setTexture(HEADER_MENUBACKUP);
+		cajaTitulo.setPosition(40.0f, 190.0f);
 		titulo.setPosition(60.0f, 200.0f);
 		titulo.setString("MENU DE BACKUP");
 	}
@@ -1070,7 +1075,12 @@ void Menu::menuBackup()
 	{
 		btn[i].dibujarBotoncito(*ventana);
 	}
+	
+	ventana->draw(headerMenu->getHeader());
+	ventana->draw(cajaTitulo);
+	ventana->draw(titulo);
 	ventana->draw(*bordes);
+	
 }
 
 bool Menu::bkpRestore() {
@@ -3134,15 +3144,15 @@ void Menu::inicializacionBotones()
 			break;
 
 		case EstadoMenu::MENUBKP:
-			btn[0].setbothPos(80.0f, 280.0f);
+			btn[0].setbothPos(80.0f, 320.0f);
 			btn[0].setBtnType(btnType::BTN_CREATE_BKP);
 			btn[0].setTextoString("Crear Backup");
 
-			btn[1].setbothPos(480.0f, 480.0f);
+			btn[1].setbothPos(80.0f, 400.0f);
 			btn[1].setBtnType(btnType::BTN_RESTORE_BKP);
 			btn[1].setTextoString("Restaurar Backup");
 
-			btn[2].setbothPos(500.0f, 300.0f);
+			btn[2].setbothPos(80.0f, 480.0f);
 			btn[2].setBtnType(btnType::BTN_VOLVER);
 			btn[2].setTextoString("Volver");
 			break;
