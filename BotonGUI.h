@@ -19,6 +19,9 @@ private:
 	sf::Text texto;
 	sf::Clock _Reloj;
 
+	sf::SoundBuffer buffer; //Donde se carga el sonido
+	sf::Sound sound; //Desde donde reproduzco el sonido 
+
 public:
 
 	//CONSTRUCTORES

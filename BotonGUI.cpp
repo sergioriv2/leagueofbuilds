@@ -1,3 +1,4 @@
+
 #include "BotonGUI.h"
 #include "Singleton.h"
 
@@ -37,6 +38,16 @@ BotonGUI::BotonGUI()
 	cordBtn.x = 0;
 	cordBtn.y = 0;
 	_Reloj.restart();
+
+	//Sound
+	if (!buffer.loadFromFile("resources/Button-SFX.wav")) {
+		std::cout << "Error cargando efecto de sonido." << std::endl;
+	}
+	sound.setBuffer(buffer);
+	sound.setVolume(25);
+	
+	//sound.play(); Cada vez que se necesite usar el sonido
+	
 }
 
 void BotonGUI::cmd(clsMouse& mouse)
@@ -53,6 +64,7 @@ void BotonGUI::cmd(clsMouse& mouse)
 			if (mouse.getCircleShape().getGlobalBounds().intersects(this->getButton().getGlobalBounds()))
 			{
 				estadoBtn = SELECCION;
+				
 				if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 				{
 					if (_Reloj.getElapsedTime().asSeconds() > 0.5)
@@ -363,6 +375,7 @@ void BotonGUI::update()
 	case SELECCION:
 		button.setFillColor(sf::Color(22, 26, 29, 255));
 		button.setOutlineColor(sf::Color(6, 200, 170, 255));
+		sound.play();
 		estadoBtn = NINGUNO;
 		break;
 	case NINGUNO:
