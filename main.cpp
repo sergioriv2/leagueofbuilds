@@ -1,38 +1,33 @@
 #pragma warning(disable : 4996)
 
 #include <SFML/Graphics.hpp>
-#include "Campeon.h"
-#include "Archivo.h"
-#include <iostream>
-#include <fstream>
-#include <vector>
-#include <cstdio>
-#include <cstring>
-#include <sstream>
+#include "Singleton.h"
+#include "SubMenu_Principal.h"
 
 using namespace std;
 
 #include "devmenu.h"
-#include "GUI.h"
+
+sf::Font* _FUENTE;
+
+void cargarFuente()
+{
+    _FUENTE = new sf::Font;
+    _FUENTE->loadFromFile("resources/fuentes/Roboto-Medium.ttf");
+}
 
 
 int main()
 {
-    bool DEV_MENU = false;
+    cargarFuente();
 
-    if (DEV_MENU) {
-        Menu_Desarrollador menu;
+    SubMenu_Principal* _menu = new SubMenu_Principal();
 
-        while (menu.menuPrincipal() != 0) {};
-    }
-    else
-    {
-        Menu MenuGUI;
-        MenuGUI.init();
-    }
+    //pantalla y escena
+    Singleton& _sg = Singleton::create(sf::VideoMode(800, 600), _menu, "League of Builds");
 
+    //empieza la cola de eventos
+    _sg.run();
 
-    return 0;
-
+	return 0;
 }
-

@@ -23,7 +23,7 @@ private:
 public:
 	Leyenda() {
 	}
-	void leyendaini(sf::Font &fuente)
+	void leyendaini(sf::Font& fuente)
 	{
 		renglon1.setFont(fuente);
 		renglon2.setFont(fuente);
@@ -36,7 +36,6 @@ public:
 		renglon1.setFillColor(sf::Color::White);
 		renglon2.setFillColor(sf::Color::White);
 		renglon3.setFillColor(sf::Color::White);
-
 	}
 	void draw(sf::RenderWindow* ventana)
 	{
@@ -52,17 +51,13 @@ public:
 		cajita.setOutlineColor(sf::Color::White);
 		cajita.setOutlineThickness(1.0f);
 		cajita.setPosition(330.0f, 350.0f);
-	
-
 
 		renglon1.setString("TIPOS DE DANIO: 1.AD, 2.AP");
 		renglon2.setString("TIPOS DE ESTILO: 1.LUCHADOR 2.MAGO");
 		renglon3.setString("3.ASESINO 4.SOPORTE 5.TANQUE 6.TIRADOR");
 
-
 		renglon1.setPosition(340.0f, 380.0f);
-		renglon2.setPosition(340.0f,440.0f);
-		renglon3.setPosition(340.0f,460.0f);
+		renglon2.setPosition(340.0f, 440.0f);
+		renglon3.setPosition(340.0f, 460.0f);
 	}
 };
-

@@ -1,129 +1,240 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Archivos de origen">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    <Filter Include=".h Generales">
+      <UniqueIdentifier>{cc014e19-2759-4acc-b9ba-3b8357c2bfd3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Archivos de encabezado">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="Archivos de recursos">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="Archivos de encabezado\Archivos GUI">
+    <Filter Include="Archivos GUI">
       <UniqueIdentifier>{d5f6aac8-a8ad-46a9-98ec-66e6abe3e8c8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Archivos de origen\Archivos GUI">
-      <UniqueIdentifier>{ec600545-dfc5-46e4-ab55-96d640a3fb1e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de origen\Archivos generales">
+    <Filter Include=".cpp Generales">
       <UniqueIdentifier>{42074837-81c0-443a-b3b2-aea795446f7a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Archivos de encabezado\Archivos generales">
-      <UniqueIdentifier>{64b4682f-f4d3-4bd3-88d8-55022aba6cc3}</UniqueIdentifier>
+    <Filter Include="SubMenus">
+      <UniqueIdentifier>{fc0b5258-c4db-4af2-8c3a-6d070c376efb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SubMenus\Campeon">
+      <UniqueIdentifier>{cf7acf47-dc7e-4c48-af26-b3311126d524}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SubMenus\Item">
+      <UniqueIdentifier>{699553e3-0073-42b9-8b16-920ddd80b2f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SubMenus\Conjuntos">
+      <UniqueIdentifier>{6ab1d4af-d064-44fe-b766-d75149ec5cae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SubMenus\Backup">
+      <UniqueIdentifier>{0f6333bf-b139-43db-b41f-1d776a82c53f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="BotonGUI.cpp">
-      <Filter>Archivos de origen\Archivos GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="GUI.cpp">
-      <Filter>Archivos de origen\Archivos GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="outputGUI.cpp">
-      <Filter>Archivos de origen\Archivos GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="iconosListado.cpp">
-      <Filter>Archivos de origen\Archivos GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="inputGUI.cpp">
-      <Filter>Archivos de origen\Archivos GUI</Filter>
-    </ClCompile>
     <ClCompile Include="Archivo.cpp">
-      <Filter>Archivos de origen\Archivos generales</Filter>
+      <Filter>.cpp Generales</Filter>
     </ClCompile>
     <ClCompile Include="Campeon.cpp">
-      <Filter>Archivos de origen\Archivos generales</Filter>
+      <Filter>.cpp Generales</Filter>
     </ClCompile>
     <ClCompile Include="Conjunto_cabecera.cpp">
-      <Filter>Archivos de origen\Archivos generales</Filter>
+      <Filter>.cpp Generales</Filter>
     </ClCompile>
     <ClCompile Include="Conjunto_detalle.cpp">
-      <Filter>Archivos de origen\Archivos generales</Filter>
+      <Filter>.cpp Generales</Filter>
     </ClCompile>
     <ClCompile Include="devmenu.cpp">
-      <Filter>Archivos de origen\Archivos generales</Filter>
+      <Filter>.cpp Generales</Filter>
     </ClCompile>
     <ClCompile Include="Item.cpp">
-      <Filter>Archivos de origen\Archivos generales</Filter>
+      <Filter>.cpp Generales</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
-      <Filter>Archivos de origen\Archivos generales</Filter>
+      <Filter>.cpp Generales</Filter>
     </ClCompile>
     <ClCompile Include="Registro.cpp">
-      <Filter>Archivos de origen\Archivos generales</Filter>
+      <Filter>.cpp Generales</Filter>
     </ClCompile>
     <ClCompile Include="Stat.cpp">
-      <Filter>Archivos de origen\Archivos generales</Filter>
+      <Filter>.cpp Generales</Filter>
+    </ClCompile>
+    <ClCompile Include="BotonGUI.cpp">
+      <Filter>SubMenus</Filter>
+    </ClCompile>
+    <ClCompile Include="SubMenu.cpp">
+      <Filter>SubMenus</Filter>
+    </ClCompile>
+    <ClCompile Include="SubMenu_Principal.cpp">
+      <Filter>SubMenus</Filter>
+    </ClCompile>
+    <ClCompile Include="Singleton.cpp">
+      <Filter>SubMenus</Filter>
+    </ClCompile>
+    <ClCompile Include="SubMenu_Campeones.cpp">
+      <Filter>SubMenus\Campeon</Filter>
+    </ClCompile>
+    <ClCompile Include="Campeones_Listado.cpp">
+      <Filter>SubMenus\Campeon</Filter>
+    </ClCompile>
+    <ClCompile Include="Campeones_Alta.cpp">
+      <Filter>SubMenus\Campeon</Filter>
+    </ClCompile>
+    <ClCompile Include="Campeones_Opc.cpp">
+      <Filter>SubMenus\Campeon</Filter>
+    </ClCompile>
+    <ClCompile Include="SubMenu_Items.cpp">
+      <Filter>SubMenus\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Items_Alta.cpp">
+      <Filter>SubMenus\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Items_Listado.cpp">
+      <Filter>SubMenus\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Items_Opc.cpp">
+      <Filter>SubMenus\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Item_Mod.cpp">
+      <Filter>SubMenus\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Campeones_Mod.cpp">
+      <Filter>SubMenus\Campeon</Filter>
+    </ClCompile>
+    <ClCompile Include="SubMenu_Conjuntos.cpp">
+      <Filter>SubMenus\Conjuntos</Filter>
+    </ClCompile>
+    <ClCompile Include="Conjuntos_Alta.cpp">
+      <Filter>SubMenus\Conjuntos</Filter>
+    </ClCompile>
+    <ClCompile Include="Conjuntos_Listado.cpp">
+      <Filter>SubMenus\Conjuntos</Filter>
+    </ClCompile>
+    <ClCompile Include="Conjuntos_Opc.cpp">
+      <Filter>SubMenus\Conjuntos</Filter>
+    </ClCompile>
+    <ClCompile Include="Conjuntos_Mod.cpp">
+      <Filter>SubMenus\Conjuntos</Filter>
+    </ClCompile>
+    <ClCompile Include="SubMenu_Backup.cpp">
+      <Filter>SubMenus\Backup</Filter>
+    </ClCompile>
+    <ClCompile Include="iconosListado.cpp">
+      <Filter>Archivos GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="inputGUI.cpp">
+      <Filter>Archivos GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="outputGUI.cpp">
+      <Filter>Archivos GUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BotonGUI.h">
-      <Filter>Archivos de encabezado\Archivos GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="GUI.h">
-      <Filter>Archivos de encabezado\Archivos GUI</Filter>
-    </ClInclude>
     <ClInclude Include="headerGUI.h">
-      <Filter>Archivos de encabezado\Archivos GUI</Filter>
+      <Filter>Archivos GUI</Filter>
     </ClInclude>
     <ClInclude Include="inputGUI.h">
-      <Filter>Archivos de encabezado\Archivos GUI</Filter>
+      <Filter>Archivos GUI</Filter>
     </ClInclude>
     <ClInclude Include="iconosListado.h">
-      <Filter>Archivos de encabezado\Archivos GUI</Filter>
+      <Filter>Archivos GUI</Filter>
     </ClInclude>
     <ClInclude Include="outputGUI.h">
-      <Filter>Archivos de encabezado\Archivos GUI</Filter>
+      <Filter>Archivos GUI</Filter>
     </ClInclude>
     <ClInclude Include="enums.h">
-      <Filter>Archivos de encabezado\Archivos GUI</Filter>
+      <Filter>Archivos GUI</Filter>
     </ClInclude>
     <ClInclude Include="clsMouse.h">
-      <Filter>Archivos de encabezado\Archivos GUI</Filter>
+      <Filter>Archivos GUI</Filter>
     </ClInclude>
     <ClInclude Include="claseIngresoTxt.h">
-      <Filter>Archivos de encabezado\Archivos GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="Archivo.h">
-      <Filter>Archivos de encabezado\Archivos generales</Filter>
-    </ClInclude>
-    <ClInclude Include="Campeon.h">
-      <Filter>Archivos de encabezado\Archivos generales</Filter>
-    </ClInclude>
-    <ClInclude Include="Conjunto_cabecera.h">
-      <Filter>Archivos de encabezado\Archivos generales</Filter>
-    </ClInclude>
-    <ClInclude Include="Conjunto_detalle.h">
-      <Filter>Archivos de encabezado\Archivos generales</Filter>
-    </ClInclude>
-    <ClInclude Include="devmenu.h">
-      <Filter>Archivos de encabezado\Archivos generales</Filter>
-    </ClInclude>
-    <ClInclude Include="Item.h">
-      <Filter>Archivos de encabezado\Archivos generales</Filter>
-    </ClInclude>
-    <ClInclude Include="Registro.h">
-      <Filter>Archivos de encabezado\Archivos generales</Filter>
-    </ClInclude>
-    <ClInclude Include="Stat.h">
-      <Filter>Archivos de encabezado\Archivos generales</Filter>
+      <Filter>Archivos GUI</Filter>
     </ClInclude>
     <ClInclude Include="Leyenda.h">
-      <Filter>Archivos de encabezado\Archivos GUI</Filter>
+      <Filter>Archivos GUI</Filter>
     </ClInclude>
+    <ClInclude Include="BotonGUI.h">
+      <Filter>SubMenus</Filter>
+    </ClInclude>
+    <ClInclude Include="SubMenu.h">
+      <Filter>SubMenus</Filter>
+    </ClInclude>
+    <ClInclude Include="SubMenu_Principal.h">
+      <Filter>SubMenus</Filter>
+    </ClInclude>
+    <ClInclude Include="Singleton.h">
+      <Filter>SubMenus</Filter>
+    </ClInclude>
+    <ClInclude Include="SubMenu_Campeones.h">
+      <Filter>SubMenus\Campeon</Filter>
+    </ClInclude>
+    <ClInclude Include="Campeones_Listado.h">
+      <Filter>SubMenus\Campeon</Filter>
+    </ClInclude>
+    <ClInclude Include="Campeones_Alta.h">
+      <Filter>SubMenus\Campeon</Filter>
+    </ClInclude>
+    <ClInclude Include="Campeones_Opc.h">
+      <Filter>SubMenus\Campeon</Filter>
+    </ClInclude>
+    <ClInclude Include="SubMenu_Items.h">
+      <Filter>SubMenus\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Items_Alta.h">
+      <Filter>SubMenus\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Items_Listado.h">
+      <Filter>SubMenus\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Items_Opc.h">
+      <Filter>SubMenus\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Item_Mod.h">
+      <Filter>SubMenus\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Campeones_Mod.h">
+      <Filter>SubMenus\Campeon</Filter>
+    </ClInclude>
+    <ClInclude Include="SubMenu_Conjuntos.h">
+      <Filter>SubMenus\Conjuntos</Filter>
+    </ClInclude>
+    <ClInclude Include="Conjuntos_Alta.h">
+      <Filter>SubMenus\Conjuntos</Filter>
+    </ClInclude>
+    <ClInclude Include="Conjuntos_Listado.h">
+      <Filter>SubMenus\Conjuntos</Filter>
+    </ClInclude>
+    <ClInclude Include="Conjuntos_Opc.h">
+      <Filter>SubMenus\Conjuntos</Filter>
+    </ClInclude>
+    <ClInclude Include="Conjuntos_Mod.h">
+      <Filter>SubMenus\Conjuntos</Filter>
+    </ClInclude>
+    <ClInclude Include="SubMenu_Backup.h">
+      <Filter>SubMenus\Backup</Filter>
+    </ClInclude>
+    <ClInclude Include="Archivo.h">
+      <Filter>.h Generales</Filter>
+    </ClInclude>
+    <ClInclude Include="Campeon.h">
+      <Filter>.h Generales</Filter>
+    </ClInclude>
+    <ClInclude Include="Conjunto_cabecera.h">
+      <Filter>.h Generales</Filter>
+    </ClInclude>
+    <ClInclude Include="Conjunto_detalle.h">
+      <Filter>.h Generales</Filter>
+    </ClInclude>
+    <ClInclude Include="devmenu.h">
+      <Filter>.h Generales</Filter>
+    </ClInclude>
+    <ClInclude Include="Item.h">
+      <Filter>.h Generales</Filter>
+    </ClInclude>
+    <ClInclude Include="Registro.h">
+      <Filter>.h Generales</Filter>
+    </ClInclude>
+    <ClInclude Include="Stat.h">
+      <Filter>.h Generales</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
 </Project>

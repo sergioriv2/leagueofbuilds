@@ -33,7 +33,6 @@ void Item::setCosto()
 		cout << "Costo: ";
 		cin >> costo;
 	} while (!validarCosto(costo));
-
 }
 
 bool Item::Cargar()
@@ -60,7 +59,6 @@ void Item::Mostrar()
 		cout << "-------------------------" << endl << endl;
 	}
 }
-
 
 bool Item::BajaVirtual(int ID)
 {
@@ -149,4 +147,3 @@ bool Item::validarCosto(int costo) {
 	}
 	return true;
 }
-

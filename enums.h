@@ -1,13 +1,13 @@
 #pragma once
 
-enum class Estado
+enum Estado
 {
 	NINGUNO,
 	DESHABILITADO,
 	SELECCION,
 };
 
-enum class btnType
+enum btnType
 {
 	BTN_DEFAULT,
 	BTN_CHAMPS,
@@ -33,9 +33,10 @@ enum class btnType
 	BTN_CREATE_BKP,
 	BTN_RESTORE_BKP,
 	BTN_VOLVER,
+	BTN_ADDCHAMP_CONJ,
 };
 
-enum class EstadoMenu
+enum EstadoMenu
 {
 	MENUPRINCIPAL,
 	MENUDEV,
@@ -61,5 +62,5 @@ enum class EstadoMenu
 	MENUBKP,
 	MENUBKP_CREATE,
 	MENUBKP_RESTORE,
+	MENU_NEWWINDOW_CONJ,
 };
-

@@ -1,4 +1,3 @@
-
 #pragma warning(disable : 4996)
 #include <iostream>
 #include <cstdlib>
@@ -6,7 +5,6 @@
 #include "Conjunto_detalle.h"
 #include "Item.h"
 #include "Archivo.h"
-
 
 Conjunto_detalle::Conjunto_detalle()
 {
@@ -24,31 +22,25 @@ void Conjunto_detalle::imprimirEarly()
 	Archivo architem("resources/items/itemsdata.dat", sizeof(Item));
 	Item it;
 	for (int i = 0; i < 6; i++) {
-
 		if (idEarly[i] > 0)
 		{
 			architem.leerRegistro(it, idEarly[i] - 1);
 			std::cout << i + 1 << "." << it.getNombre() << std::endl;
 		}
 	}
-
 }
-	
+
 void Conjunto_detalle::imprimirMid()
 {
 	Archivo architem("resources/items/itemsdata.dat", sizeof(Item));
 	Item it;
 	for (int i = 0; i < 6; i++) {
-
-
 		if (idMid[i] > 0)
 		{
 			architem.leerRegistro(it, idMid[i] - 1);
 			std::cout << i + 1 << "." << it.getNombre() << std::endl;
 		}
-	
 	}
-	
 }
 
 void Conjunto_detalle::imprimirLate()
@@ -56,20 +48,17 @@ void Conjunto_detalle::imprimirLate()
 	Archivo architem("resources/items/itemsdata.dat", sizeof(Item));
 	Item it;
 	for (int i = 0; i < 6; i++) {
-
 		if (idLate[i] > 0)
 		{
 			architem.leerRegistro(it, idLate[i] - 1);
 			std::cout << i + 1 << "." << it.getNombre() << std::endl;
 		}
-
 	}
-
 }
 
 void Conjunto_detalle::Mostrar()
 {
-	std::cout << "Early:" <<std::endl;
+	std::cout << "Early:" << std::endl;
 	imprimirEarly();
 
 	std::cout << std::endl;
@@ -79,7 +68,6 @@ void Conjunto_detalle::Mostrar()
 	std::cout << "Late:" << std::endl;
 	imprimirLate();
 }
-
 
 bool Conjunto_detalle::Cargar()
 {
@@ -91,7 +79,6 @@ bool Conjunto_detalle::Cargar()
 }
 
 void Conjunto_detalle::setitemsEarly() {
-
 	for (int i = 0; i < 6; i++)
 	{
 		idEarly[i] = 0;
@@ -107,7 +94,6 @@ void Conjunto_detalle::setitemsEarly() {
 }
 
 void Conjunto_detalle::setItemsMid() {
-
 	for (int i = 0; i < 6; i++)
 	{
 		idMid[i] = 0;
@@ -123,7 +109,6 @@ void Conjunto_detalle::setItemsMid() {
 }
 
 void Conjunto_detalle::setItemsLate() {
-
 	for (int i = 0; i < 6; i++)
 	{
 		idLate[i] = 0;
@@ -139,18 +124,16 @@ void Conjunto_detalle::setItemsLate() {
 }
 
 int Conjunto_detalle::contarRegistros() {
-		
-		FILE* pf;
-		int c = 0;
-		pf = fopen("resources/conjuntos/conjunto_detalle.dat", "rb");
-		if (pf == NULL)
-		{
-			return 0;
-		}
-		while (fread(this, sizeof(*this), 1, pf) == 1) c++;
-		fclose(pf);
-		return c;
-	
+	FILE* pf;
+	int c = 0;
+	pf = fopen("resources/conjuntos/conjunto_detalle.dat", "rb");
+	if (pf == NULL)
+	{
+		return 0;
+	}
+	while (fread(this, sizeof(*this), 1, pf) == 1) c++;
+	fclose(pf);
+	return c;
 }
 bool Conjunto_detalle::iditemcheck(int iditem) {
 	Archivo architems("resources/items/itemsdata.dat", sizeof(Item));

@@ -52,16 +52,13 @@ public:
 
 	void setFuente(sf::Font* fuente)
 	{
-
 		id.setFont(*fuente);
 		costo.setFont(*fuente);
 		nombre.setFont(*fuente);
 		dmg.setFont(*fuente);
 		estilo.setFont(*fuente);
-
 	}
 	void setPosY(float posY);
 	void dibujarIconos(sf::RenderWindow* ventana);
 	void dibujarIconosC(sf::RenderWindow* ventana);
 };
-

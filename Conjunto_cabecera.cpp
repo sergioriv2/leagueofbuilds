@@ -36,14 +36,12 @@ void Conjunto_cabecera::MostrarCabecera()
 	while (arch.leerRegistro(con, i) == 1)
 	{
 		if (con.getEstado()) {
-
 			arch2.leerRegistro(champ, con.getidCampeon() - 1);
 
 			std::cout << "ID: " << con.getidConjunto() << "\t\t" << "Campeon: " << champ.getNombre() << "\t\t" << "Nombre conjunto: " << con.getNombre() << std::endl;
 		}
 		i++;
 	}
-
 }
 
 bool Conjunto_cabecera::Cargar()
@@ -66,10 +64,10 @@ bool Conjunto_cabecera::Cargar()
 	do
 	{
 		system("cls");
-		//Detalle: Cargo el array 
+		//Detalle: Cargo el array
 		detalle.Cargar();
 		system("cls");
-		//Cuando se termina de cargar, muestro 
+		//Cuando se termina de cargar, muestro
 		std::cout << "Detalles del conjunto: " << nombre << std::endl << std::endl;
 		detalle.Mostrar();
 		std::cout << std::endl << std::endl;
@@ -94,7 +92,6 @@ bool Conjunto_cabecera::Cargar()
 		setCostototal();
 		system("cls");
 		return true;
-
 	}
 	else
 	{
@@ -173,14 +170,11 @@ bool Conjunto_cabecera::Modificar(int ID)
 		system("pause");
 		return false;
 	}
-
-
 }
 
 //Metodos
 
 void Conjunto_cabecera::setidConjunto() {
-
 	Archivo arch(UB_CABECERA, sizeof(Conjunto_cabecera));
 	idConjunto = arch.getCantidadRegistros() + 1;
 }
@@ -220,9 +214,6 @@ void Conjunto_cabecera::setidCampeon() {
 		}
 		std::cout << "ID Incorrecto, ingresa otro" << std::endl;
 	}
-
-
-
 }
 
 void Conjunto_cabecera::setCostototal()
@@ -232,7 +223,6 @@ void Conjunto_cabecera::setCostototal()
 }
 
 void Conjunto_cabecera::setNombre() {
-
 	std::cin.ignore();
 	std::cout << "Nombre del conjunto: " << std::endl;
 
@@ -272,7 +262,6 @@ bool Conjunto_cabecera::BajaVirtual(int ID)
 }
 
 int Conjunto_cabecera::getCosto() {
-
 	//Creo objeto item, para saber el precio
 	Item it;
 	int		costoT = 0;
@@ -286,7 +275,6 @@ int Conjunto_cabecera::getCosto() {
 	archdet.leerRegistro(conDet, idConjunto - 1);
 
 	for (int i = 0; i < 6; i++) {
-
 		if (conDet.getidEarly(i) > 0)
 		{
 			if (architem.leerRegistro(it, conDet.getidEarly(i) - 1) == 1) {
@@ -309,7 +297,6 @@ int Conjunto_cabecera::getCosto() {
 				std::cout << "X2";
 			}
 		}
-
 	}
 	for (int i = 0; i < 6; i++) {
 		if (conDet.getidLate(i) > 0)
@@ -322,9 +309,6 @@ int Conjunto_cabecera::getCosto() {
 				std::cout << "X3";
 			}
 		}
-
 	}
 	return costoT;
 }
-
-

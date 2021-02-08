@@ -19,7 +19,6 @@ const char* UB_ITEMS = "resources/items/itemsdata.dat";
 const char* UB_CONDET = "resources/conjuntos/conjunto_detalle.dat";
 const char* UB_CONCAB = "resources/conjuntos/conjunto_cabecera.dat";
 
-
 int Menu_Desarrollador::menuPrincipal()
 {
 	system("cls");
@@ -49,7 +48,6 @@ int Menu_Desarrollador::menuPrincipal()
 	case 4:	menuBackup();
 		break;
 	}
-	return opc;
 }
 
 //CAMPEONES
@@ -87,7 +85,6 @@ void Menu_Desarrollador::menuCampeones()
 		menuPrincipal();
 		break;
 	}
-
 }
 
 void Menu_Desarrollador::agregarCampeones()
@@ -118,11 +115,9 @@ void Menu_Desarrollador::mostrarCampeones()
 
 	system("pause");
 	return;
-
 }
 
 void Menu_Desarrollador::modificarCampeon() {
-
 	Archivo campeones(UB_CAMPEONES, sizeof(Campeon));
 	Campeon champ;
 	int i = 0;
@@ -135,7 +130,7 @@ void Menu_Desarrollador::modificarCampeon() {
 		if (champ.getEstado())
 		{
 			cout << "ID: " << champ.getID() << "\t\t" << "Nombre: " << champ.getNombre() << endl;
-		}	
+		}
 		i++;
 	}
 	cout << endl << endl;
@@ -459,8 +454,7 @@ void Menu_Desarrollador::menuConjuntos()
 	}
 }
 
-void Menu_Desarrollador::bajaConjunto(){
-
+void Menu_Desarrollador::bajaConjunto() {
 	Archivo archcab(UB_CONCAB, sizeof(Conjunto_cabecera));
 	Archivo archdet(UB_CONDET, sizeof(Conjunto_detalle));
 
@@ -486,7 +480,7 @@ void Menu_Desarrollador::bajaConjunto(){
 
 	if (opc == -1) return;
 
-	//Creo un objeto dinamico solo para la verificacion 
+	//Creo un objeto dinamico solo para la verificacion
 	Conjunto_cabecera* nc;
 	nc = new Conjunto_cabecera;
 	nc->setID(opc);
@@ -519,11 +513,8 @@ void Menu_Desarrollador::bajaConjunto(){
 		{
 			cout << "Baja exitosa" << endl;
 			system("pause");
-			
-
 		}
 		cout << "Error al dar de baja " << endl;
-		
 	}
 	else if (opc2 == 'n' || opc2 == 'N') {
 		return;
@@ -557,7 +548,7 @@ void Menu_Desarrollador::editarConjunto()
 
 	if (opc == -1) return;
 
-	//Creo un objeto dinamico solo para la verificacion 
+	//Creo un objeto dinamico solo para la verificacion
 	Conjunto_cabecera* nc;
 	nc = new Conjunto_cabecera;
 	nc->setID(opc);
@@ -584,14 +575,13 @@ void Menu_Desarrollador::editarConjunto()
 	cout << "PRECIO TOTAL: " << c.getcostoTotal() << "g" << endl << endl;
 	cd.Mostrar();
 	c.Modificar(opc);
-
 }
 
 void Menu_Desarrollador::agregarConjunto()
 {
 	Conjunto_cabecera conjunto;
 	Archivo arch(UB_CONCAB, sizeof(Conjunto_cabecera));
-	
+
 	//Cargo cabecera, si se carga correctamente se guarda detalle
 	if (conjunto.Cargar())
 	{
@@ -610,7 +600,6 @@ void Menu_Desarrollador::agregarConjunto()
 	}
 	system("pause");
 	return;
-
 }
 
 void Menu_Desarrollador::mostrarConjunto()
@@ -639,7 +628,7 @@ void Menu_Desarrollador::mostrarConjunto()
 
 	if (opc == -1) return;
 
-	//Creo un objeto dinamico solo para la verificacion 
+	//Creo un objeto dinamico solo para la verificacion
 
 	Conjunto_cabecera* nc;
 	nc = new Conjunto_cabecera;
@@ -672,11 +661,9 @@ void Menu_Desarrollador::mostrarConjunto()
 	archdet.leerRegistro(cd, opc - 1);
 	cd.Mostrar();
 	system("pause");
-	
 }
 
 void Menu_Desarrollador::menuBackup() {
-
 	int opc;
 	system("cls");
 	cout << "--------------------------------" << endl;
@@ -705,18 +692,15 @@ void Menu_Desarrollador::menuBackup() {
 		else {
 			cout << "Hubo un error al restaurar el archivo, regresando a menu principal" << endl;
 		}
-		  break;
+		break;
 	case 0:
 		menuPrincipal();
 		break;
 	}
 	system("pause");
-
 }
 
-
 bool Menu_Desarrollador::backupFiles() {
-	
 	char opc;
 
 	cout << "Desea hacer una copia de seguridad completa? presione 'S'" << endl;
@@ -743,16 +727,14 @@ bool Menu_Desarrollador::backupFiles() {
 		Item item;
 		Conjunto_cabecera CCAB;
 		Conjunto_detalle CDET;
-		
+
 		if (archChamp.crearBackup(champ, archChampbkp) == false)return false;
-			
-		if (archItem.crearBackup(item, archItembkp)==false)return false;
 
-		if (archCab.crearBackup(CCAB, archCabbkp)==false)return false;
+		if (archItem.crearBackup(item, archItembkp) == false)return false;
 
-		if (archDet.crearBackup(CDET, archDetbkp)==false)return false;
+		if (archCab.crearBackup(CCAB, archCabbkp) == false)return false;
 
-
+		if (archDet.crearBackup(CDET, archDetbkp) == false)return false;
 
 		return true;
 	}
@@ -761,11 +743,11 @@ bool Menu_Desarrollador::backupFiles() {
 		//files
 		Archivo archItem(UB_ITEMS, sizeof(Item));
 		//bkp file
-		
+
 		Archivo archItembkp("resources/backups/itemsdata.bkp", sizeof(Item));
 
 		Item item;
-		 
+
 		if (archItem.crearBackup(item, archItembkp) == false)return false;
 
 		return true;
@@ -776,13 +758,12 @@ bool Menu_Desarrollador::backupFiles() {
 		Archivo archChamp(UB_CAMPEONES, sizeof(Campeon));
 		//bkp file
 		Archivo archChampbkp("resources/backups/champsdata.bkp", sizeof(Campeon));
-		
+
 		Campeon champ;
 
 		if (archChamp.crearBackup(champ, archChampbkp) == false)return false;
 
 		return true;
-
 	}
 	else if (opc == 'd' || opc == 'D')
 	{
@@ -802,14 +783,12 @@ bool Menu_Desarrollador::backupFiles() {
 
 		return true;
 	}
-	
-	
+
 	return false;
 }
 
 bool Menu_Desarrollador::restoreFiles()
 {
-
 	char opc;
 
 	cout << "Desea hacer una restauracion completa? presione 'S'" << endl;
@@ -844,7 +823,6 @@ bool Menu_Desarrollador::restoreFiles()
 		if (archCabbkp.restoreBackup(CCAB, archCab) == false)return false;
 
 		if (archDetbkp.restoreBackup(CDET, archDet) == false)return false;
-
 
 		return true;
 	}
@@ -894,8 +872,6 @@ bool Menu_Desarrollador::restoreFiles()
 		return true;
 	}
 	else return false;
-
-
 }
 /*
 bool Menu_Desarrollador::backupFiles() {
@@ -911,7 +887,6 @@ bool Menu_Desarrollador::backupFiles() {
 	cin >> opcion;
 	if (opcion == 's' || opcion == 'S')
 	{
-
 		pIt = fopen("resources/items/itemsdata.dat", "rb");
 		pCa = fopen("resources/campeones/champsdata.dat", "rb");
 		pCo1 = fopen("resources/conjuntos/conjunto_cabecera.dat", "rb");
@@ -1033,7 +1008,6 @@ bool Menu_Desarrollador::backupFiles() {
 		return true;
 	}
 	return false;
-
 }
 
 bool Menu_Desarrollador::restoreFiles()
@@ -1140,7 +1114,6 @@ bool Menu_Desarrollador::restoreFiles()
 			return false;
 		}
 
-
 		//Mientras pueda leer los .dat escribo en los .bkp
 		while (fread(&champ, sizeof(Campeon), 1, pbCa))
 		{
@@ -1161,7 +1134,6 @@ bool Menu_Desarrollador::restoreFiles()
 		{
 			fwrite(&Cdet, sizeof(Conjunto_detalle), 1, pCo2);
 		}
-
 
 		fclose(pCa);
 		fclose(pbCa);

@@ -49,7 +49,7 @@ public:
 	void setEstilo();
 	void setdmgType();
 	void setEstadoFalse();
-	void setEstado(bool estado){this->estado = estado; }
+	void setEstado(bool estado) { this->estado = estado; }
 	void setID(int _id) { id = _id; }
 	//sobrecarga sets
 	void setEstilo(int estilo) { this->estilo = estilo; }
@@ -61,9 +61,6 @@ public:
 	int getSize() { return sizeof * this; }
 	bool getEstado() { return estado; }
 
-
 	bool validarEstilo(int estilo);
 	bool validarTipodmg(int tipodmg);
-
 };
-

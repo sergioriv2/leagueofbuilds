@@ -23,7 +23,7 @@ void Stat::setStats(bool basicStats)
 {
 	if (basicStats)
 	{
-		if(!(setNombre())) return;
+		if (!(setNombre())) return;
 		setAtaque();
 		setVel_ataque();
 		setVida();
@@ -46,12 +46,7 @@ void Stat::setStats(bool basicStats)
 		setregMana();
 		setlifeSteal();
 		setCDR();
-
 	}
-
-
-
-
 }
 
 void Stat::getStats(bool basicStats)
@@ -82,7 +77,6 @@ void Stat::getStats(bool basicStats)
 		cout << "CDR: " << CDR << endl;
 		cout << "Robo de vida: " << lifeSteal << endl;
 	}
-
 }
 
 bool Stat::setNombre()
@@ -107,7 +101,6 @@ bool Stat::setNombre()
 		if (nombre[0] == '0') return false;;
 	} while (!Stat::validarNombre(nombre));
 	return true;
-
 }
 
 void Stat::setAtaque()
@@ -211,7 +204,6 @@ bool Stat::validarNombre(char* nombre) {
 	return true;
 }
 bool Stat::validarAtaque(float ataque) {
-
 	if (ataque > 200 || ataque < 0) {
 		cout << "Checkear que el ataque ingresado no mayor a 200 ni menor a 0" << endl;
 		return false;

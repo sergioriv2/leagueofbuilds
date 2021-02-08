@@ -17,7 +17,7 @@ private:
 
 public:
 	inputGUI() {};
-	inputGUI(sf::Font* fuente, float posY = 80);
+	inputGUI(float posY);
 
 	//GETS
 
@@ -53,7 +53,4 @@ public:
 	void setColor(sf::Color colorcito);
 	void callEventoIngreso(sf::Event evento);
 	void comandoInput(clsMouse* mouse, int*);
-
-
 };
-

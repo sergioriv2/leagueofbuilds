@@ -18,6 +18,4 @@ public:
 		header.setTexture(&headerTexture);
 	}
 	sf::RectangleShape getHeader() { return header; }
-
 };
-

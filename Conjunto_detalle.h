@@ -45,7 +45,7 @@ public:
 	void setidMid(int iditem, int pos) { idMid[pos] = iditem; }
 	void setidLate(int iditem, int pos) { idLate[pos] = iditem; }
 	//Recibo id en la pos del vec
-	int getidEarly(int pos) { return idEarly[pos];}
+	int getidEarly(int pos) { return idEarly[pos]; }
 	int getidMid(int pos) { return idMid[pos]; }
 	int getidLate(int pos) { return idLate[pos]; }
 	//set
@@ -64,5 +64,4 @@ public:
 	//
 	int contarRegistros();
 	bool iditemcheck(int iditem);
-	
 };

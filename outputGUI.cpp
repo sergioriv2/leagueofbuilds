@@ -1,6 +1,12 @@
 #include "outputGUI.h"
+#include "Singleton.h"
+#include "Campeones_Opc.h"
+#include "Items_Opc.h"
+#include "Conjuntos_Opc.h"
 
-outputGUI::outputGUI(sf::Font* fuente)
+extern sf::Font* _FUENTE;
+
+outputGUI::outputGUI()
 {
 	idOutput = 0;
 	float posYTexto = 127.0f;
@@ -10,7 +16,7 @@ outputGUI::outputGUI(sf::Font* fuente)
 	moreOpc.setFillColor(sf::Color::Black);
 	moreOpc.setPointCount(20);
 
-	moreOpcTxt.setFont(*fuente);
+	moreOpcTxt.setFont(*_FUENTE);
 	moreOpcTxt.setCharacterSize(15);
 	moreOpcTxt.setStyle(sf::Text::Bold);
 	moreOpcTxt.setString("...");
@@ -23,25 +29,25 @@ outputGUI::outputGUI(sf::Font* fuente)
 	cajaOutput.setPosition(50.0f, posYCuadro);
 
 	//Texto --------------
-	
+
 	//Fuente
-	id.setFont(*fuente);
-	nombre.setFont(*fuente);
-	ataque.setFont(*fuente);
-	velAtaque.setFont(*fuente);
-	poderHabilidad.setFont(*fuente);
-	regVida.setFont(*fuente);
-	vida.setFont(*fuente);
-	armor.setFont(*fuente);
-	resMagica.setFont(*fuente);
-	critChance.setFont(*fuente);
-	mana.setFont(*fuente);
-	regMana.setFont(*fuente);
-	lifeSteal.setFont(*fuente);
-	cdr.setFont(*fuente);
-	costo.setFont(*fuente);
-	dmg.setFont(*fuente);
-	estilo.setFont(*fuente);
+	id.setFont(*_FUENTE);
+	nombre.setFont(*_FUENTE);
+	ataque.setFont(*_FUENTE);
+	velAtaque.setFont(*_FUENTE);
+	poderHabilidad.setFont(*_FUENTE);
+	regVida.setFont(*_FUENTE);
+	vida.setFont(*_FUENTE);
+	armor.setFont(*_FUENTE);
+	resMagica.setFont(*_FUENTE);
+	critChance.setFont(*_FUENTE);
+	mana.setFont(*_FUENTE);
+	regMana.setFont(*_FUENTE);
+	lifeSteal.setFont(*_FUENTE);
+	cdr.setFont(*_FUENTE);
+	costo.setFont(*_FUENTE);
+	dmg.setFont(*_FUENTE);
+	estilo.setFont(*_FUENTE);
 
 	//Ch. Size
 	id.setCharacterSize(12);
@@ -100,15 +106,13 @@ outputGUI::outputGUI(sf::Font* fuente)
 	dmg.setString("NULL");
 	estilo.setString("NULL");
 
-
-	idch.setFont(*fuente);
+	idch.setFont(*_FUENTE);
 	idch.setCharacterSize(12);
 	idch.setFillColor(colorDefault);
 	idch.setString("NULL");
-
 }
 
-outputGUI::outputGUI(sf::Font* fuente, int size)
+outputGUI::outputGUI(int size)
 {
 	idOutput = 0;
 	float posYTexto = 127.0f;
@@ -118,7 +122,7 @@ outputGUI::outputGUI(sf::Font* fuente, int size)
 	moreOpc.setFillColor(sf::Color::Black);
 	moreOpc.setPointCount(20);
 
-	moreOpcTxt.setFont(*fuente);
+	moreOpcTxt.setFont(*_FUENTE);
 	moreOpcTxt.setCharacterSize(15);
 	moreOpcTxt.setStyle(sf::Text::Bold);
 	moreOpcTxt.setString("...");
@@ -132,17 +136,17 @@ outputGUI::outputGUI(sf::Font* fuente, int size)
 
 	//Texto --------------
 
-	//Fuente
-	id.setFont(*fuente);
-	nombre.setFont(*fuente);
-	ataque.setFont(*fuente);
-	velAtaque.setFont(*fuente);
-	vida.setFont(*fuente);
-	armor.setFont(*fuente);
-	resMagica.setFont(*fuente);
-	mana.setFont(*fuente);
-	dmg.setFont(*fuente);
-	estilo.setFont(*fuente);
+	//*_FUENTE
+	id.setFont(*_FUENTE);
+	nombre.setFont(*_FUENTE);
+	ataque.setFont(*_FUENTE);
+	velAtaque.setFont(*_FUENTE);
+	vida.setFont(*_FUENTE);
+	armor.setFont(*_FUENTE);
+	resMagica.setFont(*_FUENTE);
+	mana.setFont(*_FUENTE);
+	dmg.setFont(*_FUENTE);
+	estilo.setFont(*_FUENTE);
 
 	//Ch. Size
 	id.setCharacterSize(size);
@@ -155,7 +159,7 @@ outputGUI::outputGUI(sf::Font* fuente, int size)
 	mana.setCharacterSize(size);
 	dmg.setCharacterSize(size);
 	estilo.setCharacterSize(size);
-;
+	;
 
 	//Color
 	sf::Color colorDefault(127, 127, 127, 255);
@@ -184,15 +188,13 @@ outputGUI::outputGUI(sf::Font* fuente, int size)
 	estilo.setString("NULL");
 }
 
-
-void outputGUI::cmd(clsMouse *mouse, bool* p ,EstadoMenu* state ,int* lastI)
+void outputGUI::cmd(clsMouse& mouse, int& lastI)
 {
-	if (moreOpc.getGlobalBounds().intersects(mouse->getCircleShape().getGlobalBounds()))
+	if (moreOpc.getGlobalBounds().intersects(mouse.getCircleShape().getGlobalBounds()))
 	{
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 		{
-			*lastI = idOutput;
-
+			lastI = idOutput;
 			cajaOutput.setPosition(50.0f, 120.0f);
 			id.setPosition(62.0f, 127.0f);
 			nombre.setPosition(95.0f, 127.0f);
@@ -200,30 +202,27 @@ void outputGUI::cmd(clsMouse *mouse, bool* p ,EstadoMenu* state ,int* lastI)
 			velAtaque.setPosition(312.0f, 127.0f);
 			poderHabilidad.setPosition(342.0f, 127.0f);
 			vida.setPosition(375.0f, 127.0f);
-			regVida.setPosition(412.0f, 127.0f);
-			armor.setPosition(452.0f, 127.0f);
+			regVida.setPosition(415.0f, 127.0f);
+			armor.setPosition(455.0f, 127.0f);
 			resMagica.setPosition(495.0f, 127.0f);
 			critChance.setPosition(535.0f, 127.0f);
 			mana.setPosition(575.0f, 127.0f);
 			regMana.setPosition(615.0f, 127.0f);
 			lifeSteal.setPosition(643.0f, 127.0f);
 			cdr.setPosition(675.0f, 127.0f);
-			costo.setPosition(702.0f, 127.0f);
-			*state = EstadoMenu::MENUMASOPCIONES_ITEM;
-			*p = false;
-
+			costo.setPosition(705.0f, 127.0f);
+			Singleton::getInstancia().cambiar_Menu(new Items_Opc(*this));
 		}
 	}
 }
 
-void outputGUI::cmdC(clsMouse* mouse, bool* p, EstadoMenu* state, int* lastI)
+void outputGUI::cmdC(clsMouse& mouse, int& lastI)
 {
-	if (moreOpc.getGlobalBounds().intersects(mouse->getCircleShape().getGlobalBounds()))
+	if (moreOpc.getGlobalBounds().intersects(mouse.getCircleShape().getGlobalBounds()))
 	{
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 		{
-			
-			*lastI = idOutput;
+			lastI = idOutput;
 			cajaOutput.setPosition(50.0f, 120.0f);
 			id.setPosition(62.0f, 127.0f);
 			nombre.setPosition(95.0f, 127.0f);
@@ -233,31 +232,24 @@ void outputGUI::cmdC(clsMouse* mouse, bool* p, EstadoMenu* state, int* lastI)
 			armor.setPosition(417.0f, 127.0f);
 			resMagica.setPosition(482.0f, 127.0f);
 			mana.setPosition(547.0f, 127.0f);
-			dmg.setPosition(597.0f, 127.0f);
-			estilo.setPosition(692.0f, 127.0f);
-			*state = EstadoMenu::MENUMASOPCIONES_CHAMP;
-			*p = false;
-
+			dmg.setPosition(610.0f, 127.0f);
+			estilo.setPosition(682.0f, 127.0f);
+			Singleton::getInstancia().cambiar_Menu(new Campeones_Opc(*this));
 		}
 	}
 }
 
-void outputGUI::cmdConjuntos(clsMouse* mouse, bool* p, EstadoMenu* state, int* lastI) {
-
-	if (moreOpc.getGlobalBounds().intersects(mouse->getCircleShape().getGlobalBounds()))
+void outputGUI::cmdConjuntos(clsMouse& mouse, int& lastI) {
+	if (moreOpc.getGlobalBounds().intersects(mouse.getCircleShape().getGlobalBounds()))
 	{
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 		{
-			Sleep(150);
-			*lastI = idOutput;
+			lastI = idOutput;
 			cajaOutput.setPosition(50.0f, 120.0f);
 			nombre.setPosition(62.0f, 127.0f);
 			id.setPosition(300.0f, 127.0f);
 			idch.setPosition(500.0f, 127.0f);
-
-			*state = EstadoMenu::MENUMASOPCIONES_CONJ;
-			*p = false;
-
+			Singleton::getInstancia().cambiar_Menu(new Conjuntos_Opc(*this));
 		}
 	}
 }
@@ -292,22 +284,18 @@ void outputGUI::setPosicion(float y, bool champ)
 		velAtaque.setPosition(312.0f, y);
 		poderHabilidad.setPosition(342.0f, y);
 		vida.setPosition(375.0f, y);
-		regVida.setPosition(412.0f, y);
-		armor.setPosition(452.0f, y);
+		regVida.setPosition(415.0f, y);
+		armor.setPosition(455.0f, y);
 		resMagica.setPosition(495.0f, y);
 		critChance.setPosition(535.0f, y);
 		mana.setPosition(575.0f, y);
 		regMana.setPosition(615.0f, y);
 		lifeSteal.setPosition(643.0f, y);
 		cdr.setPosition(675.0f, y);
-		costo.setPosition(702.0f, y);
+		costo.setPosition(705.0f, y);
 	}
-	
-
-	
 }
 void outputGUI::setPosicionConj(float y) {
-
 	cajaOutput.setSize({ 600, 30 });
 	cajaOutput.setPosition(50.0f, y);
 	moreOpc.setPosition(655.0f, y + 2.0f);

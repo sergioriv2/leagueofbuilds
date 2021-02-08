@@ -1,6 +1,8 @@
 #include "inputGUI.h"
 
-inputGUI::inputGUI(sf::Font* fuente, float posY)
+extern sf::Font* _FUENTE;
+
+inputGUI::inputGUI(float posY)
 {
 	cajaInput.setSize({ 160, 30 });
 	cajaInput.setFillColor(sf::Color(11, 17, 26, 255));
@@ -12,9 +14,9 @@ inputGUI::inputGUI(sf::Font* fuente, float posY)
 	subtitulo.setCharacterSize(12);
 	subtitulo.setFillColor(sf::Color::White);
 	subtitulo.setString("NULL");
-	subtitulo.setFont(*fuente);
+	subtitulo.setFont(*_FUENTE);
 
-	ingreso.setFuente(*fuente);
+	ingreso.setFuente(*_FUENTE);
 	ingreso.setSelected(false);
 }
 
@@ -33,7 +35,7 @@ void inputGUI::callEventoIngreso(sf::Event evento)
 	ingreso.typedOn(&evento);
 }
 
-void inputGUI::comandoInput(clsMouse *mouse, int* lastingreso)
+void inputGUI::comandoInput(clsMouse* mouse, int* lastingreso)
 {
 	if (*lastingreso != id) ingreso.setSelected(false);
 
@@ -44,14 +46,7 @@ void inputGUI::comandoInput(clsMouse *mouse, int* lastingreso)
 			ingreso.setSelected(true);
 			*lastingreso = id;
 		}
-		
 	}
-	
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) *lastingreso = NULL;
-
-
-	
 }
-
-

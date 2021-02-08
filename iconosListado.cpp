@@ -27,10 +27,16 @@ iconosListado::iconosListado()
 
 	id.setPosition(62.0f, 90.0f);
 	nombre.setPosition(95.0f, 90.0f);
-	costo.setPosition(692.0f, 90.0f);
-	dmg.setPosition(0.0f, 90.0f);
-	estilo.setPosition(0.0f, 90.0f);
-	
+
+	this->setposxAtaque(222.0f);
+	this->setposxvelAtaque(287.0f);
+	this->setposxVida(352.0f);
+	this->setposxArmor(417.0f);
+	this->setposxresMagica(482.0f);
+	this->setposxMana(547.0f);
+	this->setposxDmg(597.0f);
+	this->setposxEstilo(692.0f);
+
 	//Iconos -------
 
 	ataque.setTexture(textura);
@@ -71,13 +77,10 @@ iconosListado::iconosListado()
 	resMagica.setTextureRect(sf::IntRect(40 * 3, 40 * 1, 40, 40));
 	armadura.setTextureRect(sf::IntRect(40 * 4, 40 * 1, 40, 40));
 	critico.setTextureRect(sf::IntRect(40 * 5, 40 * 1, 40, 40));
-
 }
 
 void iconosListado::setPosY(float posY)
 {
-	
-
 	ataque.setPosition(275.0f, posY);
 	velocidadAtaque.setPosition(302.0f, posY);
 	ap.setPosition(342.0f, posY);

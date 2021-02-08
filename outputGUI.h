@@ -42,9 +42,8 @@ private:
 
 	int idOutput;
 public:
-	outputGUI() {};
-	outputGUI(sf::Font* fuente);
-	outputGUI(sf::Font* fuente, int size);
+	outputGUI();
+	outputGUI(int size);
 
 	sf::Text getId() { return id; }
 	sf::Text getNombre() { return nombre; }
@@ -68,18 +67,19 @@ public:
 		std::string stringAux;
 		std::stringstream ss;
 
-
 		Campeon* c;
 		c = new Campeon;
 		int i = 0;
 		Archivo arch("resources/campeones/champsdata.dat", sizeof(Campeon));
-		while(arch.leerRegistro(*c, i++))
+		while (arch.leerRegistro(*c, i++))
 		{
 			if (c->getID() == aux.getidCampeon() && c->getEstado())
 			{
-				idch.setString(c->getNombre());
+				stringAux = c->getNombre();
 			}
 		}
+
+		idch.setString(stringAux);
 
 		ss.str("");
 		//Copio el int/float al buffer del string
@@ -98,13 +98,13 @@ public:
 		nombre.setString(stringAux);
 		delete c;
 		return *this;
-
-		
 	}
+
 	outputGUI operator=(Item aux)
 	{
 		std::string stringAux;
 		std::stringstream ss;
+	
 		nombre.setString(aux.getNombre());
 
 		//Copio el int/float al buffer del string
@@ -179,6 +179,7 @@ public:
 		ss << aux.getCosto();
 		stringAux = ss.str();
 		costo.setString(stringAux);
+
 		return *this;
 	}
 	outputGUI operator=(Campeon aux)
@@ -220,39 +221,39 @@ public:
 		ss << aux.getResistencia_magica();
 		stringAux = ss.str();
 		resMagica.setString(stringAux);
-		
+
 		ss.str("");
 		ss << aux.getMana();
 		stringAux = ss.str();
 		mana.setString(stringAux);
-		
+
 		ss.str("");
 		if (aux.getDmg() == 1) ss.str("AD");
 		else ss.str("AP");
 		stringAux = ss.str();
 		dmg.setString(stringAux);
-		
+
 		ss.str("");
-		 switch (aux.getEstilo())
-		 {
-		 case 1: ss.str("LUCHADOR");
-			 break;
-		 case 2:
-			 ss.str("MAGO");
-			 break;
-		 case 3:
-			 ss.str("ASESINO");
-			 break;
-		 case 4:
-			 ss.str("SOPORTE");
-			 break;
-		 case 5:
-			 ss.str("TANQUE");
-			 break;
-		 case 6:
-			 ss.str("TIRADOR");
-			 break;
-		 }
+		switch (aux.getEstilo())
+		{
+		case 1: ss.str("LUCHADOR");
+			break;
+		case 2:
+			ss.str("MAGO");
+			break;
+		case 3:
+			ss.str("ASESINO");
+			break;
+		case 4:
+			ss.str("SOPORTE");
+			break;
+		case 5:
+			ss.str("TANQUE");
+			break;
+		case 6:
+			ss.str("TIRADOR");
+			break;
+		}
 
 		stringAux = ss.str();
 		estilo.setString(stringAux);
@@ -352,11 +353,10 @@ public:
 		ventana->draw(nombre);
 	}
 
-	void cmd(clsMouse* mouse,bool*,EstadoMenu*, int*);
-	void cmdC(clsMouse* mouse, bool* p, EstadoMenu* state, int* lastI);
-	void cmdConjuntos(clsMouse* mouse, bool* p, EstadoMenu*, int*);
+	void cmd(clsMouse& mouse, int& lastI);		// PARA ITEMS
+	void cmdC(clsMouse& mouse, int& lastI);		// PARA CAMPEONES
+	void cmdConjuntos(clsMouse& mouse, int& lastI);
 	void setPosicion(float y, bool);
 	void setPosicionConj(float y);
 	void setidOutput(int _id) { idOutput = _id; }
 };
-

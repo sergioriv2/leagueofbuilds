@@ -9,7 +9,6 @@ using namespace std;
 
 Campeon::Campeon(int _estilo, int _dmgtype) :Stat()
 {
-
 	this->estilo = _estilo;
 	this->dmg_type = _dmgtype;
 	id = 0;
@@ -37,7 +36,7 @@ bool Campeon::Cargar()
 	setEstilo();
 	setdmgType();
 
-	id = arch.getCantidadRegistros()+1;
+	id = arch.getCantidadRegistros() + 1;
 
 	estado = true;
 	return true;
@@ -94,7 +93,6 @@ bool Campeon::BajaVirtual(int ID)
 	else return false;
 }
 
-
 bool Campeon::Modificar(int ID) {
 	int opc, b;
 	Archivo arch("resources/campeones/champsdata.dat", sizeof(Campeon));
@@ -144,7 +142,6 @@ bool Campeon::Modificar(int ID) {
 	case 9:
 		champ.setMana();
 		break;
-
 	}
 	b = arch.grabarRegistro(champ, ID, LecturaEscritura);
 	if (b == -1) return false;
@@ -154,7 +151,6 @@ bool Campeon::Modificar(int ID) {
 		else return false;
 	}
 }
-
 
 void Campeon::setdmgType()
 {
@@ -178,4 +174,3 @@ bool Campeon::validarTipodmg(int tipodmg) {
 	}
 	return true;
 }
-

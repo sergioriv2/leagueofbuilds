@@ -22,7 +22,7 @@ private:
 		{
 			texto << static_cast<char>(charTyped);
 		}
-		else 
+		else
 		{
 			if (charTyped == DELETE_KEY)
 			{
@@ -31,8 +31,11 @@ private:
 					borrarultimoChar();
 				}
 			}
+			if (charTyped == ESCAPE_KEY) return;
 		}
+
 		textbox.setString(texto.str() + "_");
+		
 	}
 	void borrarultimoChar()
 	{
@@ -53,7 +56,7 @@ public:
 	{
 		limit = 30;
 		textbox.setCharacterSize(12);
-		textbox.setFillColor(sf::Color(127,127,127,255));
+		textbox.setFillColor(sf::Color(127, 127, 127, 255));
 		textbox.setString("_");
 	}
 	TextBox(int size, sf::Color Color, bool sel)
@@ -71,17 +74,17 @@ public:
 			textbox.setString("");
 		}
 	}
-	void setTexto(std::string texto) { 
+	void setTexto(std::string texto) {
 		sf::String aux = texto;
-		textbox.setString(aux); 
+		textbox.setString(aux);
 	}
-	void setFuente(sf::Font &fuente) { textbox.setFont(fuente); }
-	void setPosition(sf::Vector2f pos) {textbox.setPosition(pos); }
+	void setFuente(sf::Font& fuente) { textbox.setFont(fuente); }
+	void setPosition(sf::Vector2f pos) { textbox.setPosition(pos); }
 	void setLimit(bool ToF) { hasLimit = ToF; }
 	void setLimit(bool ToF, int lim)
 	{
 		hasLimit = ToF;
-		limit = lim -1;
+		limit = lim - 1;
 	}
 	void setSelected(bool sel)
 	{
@@ -95,7 +98,6 @@ public:
 				newT += t[i];
 			}
 			textbox.setString(newT);
-
 		}
 		else
 		{

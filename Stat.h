@@ -85,4 +85,3 @@ public:
 	bool validarCDR(float cdr);
 	bool validarRobovida(float lifesteal);
 };
-
