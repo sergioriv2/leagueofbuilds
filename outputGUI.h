@@ -42,8 +42,14 @@ private:
 
 	int idOutput;
 public:
-	outputGUI();
+	//Constructor para mostrar items
+	outputGUI();	
+
+	//Constructor para mostrar campeones
 	outputGUI(int size);
+
+	//Constructor para mostrar campeones en conjuntos
+	outputGUI(sf::Vector2f tam, bool champ = true);
 
 	sf::Text getId() { return id; }
 	sf::Text getNombre() { return nombre; }
@@ -261,6 +267,7 @@ public:
 		return *this;
 	}
 
+	//Dibuja items
 	void draw(sf::RenderWindow* ventana)
 	{
 		ventana->draw(cajaOutput);
@@ -283,6 +290,7 @@ public:
 		ventana->draw(moreOpcTxt);
 	}
 
+	//Dibuja Campeones
 	void drawC(sf::RenderWindow* ventana)
 	{
 		ventana->draw(cajaOutput);
@@ -300,6 +308,7 @@ public:
 		ventana->draw(moreOpcTxt);
 	}
 
+	//Dibuja items opc
 	void drawMenuMoreOPC(sf::RenderWindow* ventana)
 	{
 		ventana->draw(cajaOutput);
@@ -320,6 +329,7 @@ public:
 		ventana->draw(costo);
 	}
 
+	//Dibuja campeones opc
 	void drawMenuMoreOPC_C(sf::RenderWindow* ventana)
 	{
 		ventana->draw(cajaOutput);
@@ -335,6 +345,7 @@ public:
 		ventana->draw(estilo);
 	}
 
+	//Dibuja conjuntos opc
 	void drawConjuntoOPC(sf::RenderWindow* ventana)
 	{
 		ventana->draw(cajaOutput);
@@ -343,6 +354,7 @@ public:
 		ventana->draw(nombre);
 	}
 
+	//Dibuja conjuntos
 	void drawConjunto(sf::RenderWindow* ventana)
 	{
 		ventana->draw(cajaOutput);
@@ -353,10 +365,12 @@ public:
 		ventana->draw(nombre);
 	}
 
+	void drawChConj(sf::RenderWindow* ventana);
+
 	void cmd(clsMouse& mouse, int& lastI);		// PARA ITEMS
 	void cmdC(clsMouse& mouse, int& lastI);		// PARA CAMPEONES
 	void cmdConjuntos(clsMouse& mouse, int& lastI);
-	void setPosicion(float y, bool);
+	void setPosicion(float y, bool champ, float x = 0.0f);
 	void setPosicionConj(float y);
 	void setidOutput(int _id) { idOutput = _id; }
 };

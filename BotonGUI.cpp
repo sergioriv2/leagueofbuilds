@@ -1,4 +1,3 @@
-
 #include "BotonGUI.h"
 #include "Singleton.h"
 
@@ -23,7 +22,6 @@ BotonGUI::BotonGUI()
 	tipoBtn = btnType::BTN_DEFAULT;
 	estadoBtn = Estado::NINGUNO;
 
-
 	texto.setFont(*_FUENTE);
 	texto.setFillColor(sf::Color::White);
 	texto.setCharacterSize(18);
@@ -39,18 +37,21 @@ BotonGUI::BotonGUI()
 	cordBtn.y = 0;
 	_Reloj.restart();
 
+
 	//Sound
 	if (!buffer.loadFromFile("resources/Button-SFX.wav")) {
 		std::cout << "Error cargando efecto de sonido." << std::endl;
 	}
 	sound.setBuffer(buffer);
 	sound.setVolume(25);
-	
+
+
 	//sound.play(); Cada vez que se necesite usar el sonido
-	
 }
 
-void BotonGUI::cmd(clsMouse& mouse)
+//sound.play(); Cada vez que se necesite usar el sonido
+
+void BotonGUI::cmd(clsMouse & mouse)
 {
 	//Animaciones e inputs de los botones
 	//Dependiendo que tipo de boton va a mostrar distintos comportamientos
@@ -59,12 +60,16 @@ void BotonGUI::cmd(clsMouse& mouse)
 		switch (tipoBtn)
 		{
 		case BTN_DEFAULT:
+			if (mouse.getCircleShape().getGlobalBounds().intersects(this->getButton().getGlobalBounds()))
+			{
+				estadoBtn = SELECCION;
+			}
 			break;
 		case BTN_CHAMPS:
 			if (mouse.getCircleShape().getGlobalBounds().intersects(this->getButton().getGlobalBounds()))
 			{
+			
 				estadoBtn = SELECCION;
-				
 				if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 				{
 					if (_Reloj.getElapsedTime().asSeconds() > 0.5)
@@ -348,19 +353,6 @@ void BotonGUI::cmd(clsMouse& mouse)
 				}
 			}
 			break;
-		case BTN_ADDCHAMP_CONJ:
-		{
-			if (mouse.getCircleShape().getGlobalBounds().intersects(this->getButton().getGlobalBounds()))
-			{
-				estadoBtn = SELECCION;
-				//CLIC DEL MOUSE
-
-				if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
-				{
-				
-				}
-			}
-		}
 		break;
 		default:
 			break;
@@ -389,12 +381,12 @@ void BotonGUI::update()
 	}
 }
 
-void BotonGUI::setTextoString(const sf::String& string)
+void BotonGUI::setTextoString(const sf::String & string)
 {
 	texto.setString(string);
 }
 
 BotonGUI::~BotonGUI()
 {
-	
+
 }

@@ -188,6 +188,47 @@ outputGUI::outputGUI(int size)
 	estilo.setString("NULL");
 }
 
+outputGUI::outputGUI(sf::Vector2f tam, bool champ)
+{
+	idOutput = 0;
+	float posYTexto = 127.0f;
+	float posYCuadro = 120.0f;
+
+	cajaOutput.setSize(tam);
+	cajaOutput.setFillColor(sf::Color(11, 17, 26, 255));
+	cajaOutput.setOutlineColor(sf::Color::White);
+	cajaOutput.setOutlineThickness(1.0f);
+	cajaOutput.setPosition(50.0f, posYCuadro);
+
+	//Texto --------------
+
+	//*_FUENTE
+	id.setFont(*_FUENTE);
+	nombre.setFont(*_FUENTE);
+
+	//Ch. Size
+	id.setCharacterSize(12);
+	nombre.setCharacterSize(12);
+
+	//Color
+	sf::Color colorDefault(127, 127, 127, 255);
+
+	id.setFillColor(colorDefault);
+	nombre.setFillColor(colorDefault);
+
+	//Texto default
+	id.setString("NULL");
+	nombre.setString("NULL");
+
+}
+
+void outputGUI::drawChConj(sf::RenderWindow* ventana)
+{
+	ventana->draw(cajaOutput);
+	ventana->draw(id);
+	ventana->draw(nombre);
+}
+
 void outputGUI::cmd(clsMouse& mouse, int& lastI)
 {
 	if (moreOpc.getGlobalBounds().intersects(mouse.getCircleShape().getGlobalBounds()))
@@ -254,45 +295,45 @@ void outputGUI::cmdConjuntos(clsMouse& mouse, int& lastI) {
 	}
 }
 
-void outputGUI::setPosicion(float y, bool champ)
+void outputGUI::setPosicion(float y, bool champ, float x)
 {
-	cajaOutput.setPosition(50.0f, y);
-	moreOpc.setPosition(755.0f, y + 2.0f);
-	moreOpcTxt.setPosition(758.0f, y - 1.0f);
+	cajaOutput.setPosition(50.0f + x, y);
+	moreOpc.setPosition(755.0f + x, y + 2.0f);
+	moreOpcTxt.setPosition(758.0f + x, y - 1.0f);
 	y += 7.0f;
 
 	if (champ)
 	{
-		id.setPosition(62.0f, y);
-		nombre.setPosition(95.0f, y);
-		ataque.setPosition(222.0f, y);
-		velAtaque.setPosition(287.0f, y);
-		vida.setPosition(352.0f, y);
-		armor.setPosition(417.0f, y);
-		resMagica.setPosition(482.0f, y);
-		mana.setPosition(547.0f, y);
-		dmg.setPosition(610.0f, y);
-		estilo.setPosition(682.0f, y);
+		id.setPosition(62.0f + x, y);
+		nombre.setPosition(95.0f + x, y);
+		ataque.setPosition(222.0f + x, y);
+		velAtaque.setPosition(287.0f + x, y);
+		vida.setPosition(352.0f + x, y);
+		armor.setPosition(417.0f + x, y);
+		resMagica.setPosition(482.0f + x, y);
+		mana.setPosition(547.0f + x, y);
+		dmg.setPosition(610.0f + x, y);
+		estilo.setPosition(682.0f + x, y);
 	}
 	else
 	{
 		//Texto --------------
 
-		id.setPosition(62.0f, y);
-		nombre.setPosition(95.0f, y);
-		ataque.setPosition(282.0f, y);
-		velAtaque.setPosition(312.0f, y);
-		poderHabilidad.setPosition(342.0f, y);
-		vida.setPosition(375.0f, y);
-		regVida.setPosition(415.0f, y);
-		armor.setPosition(455.0f, y);
-		resMagica.setPosition(495.0f, y);
-		critChance.setPosition(535.0f, y);
-		mana.setPosition(575.0f, y);
-		regMana.setPosition(615.0f, y);
-		lifeSteal.setPosition(643.0f, y);
-		cdr.setPosition(675.0f, y);
-		costo.setPosition(705.0f, y);
+		id.setPosition(62.0f + x, y);
+		nombre.setPosition(95.0f + x, y);
+		ataque.setPosition(282.0f + x, y);
+		velAtaque.setPosition(312.0f + x, y);
+		poderHabilidad.setPosition(342.0f + x, y);
+		vida.setPosition(375.0f + x, y);
+		regVida.setPosition(415.0f + x, y);
+		armor.setPosition(455.0f + x, y);
+		resMagica.setPosition(495.0f + x, y);
+		critChance.setPosition(535.0f + x, y);
+		mana.setPosition(575.0f + x, y);
+		regMana.setPosition(615.0f + x, y);
+		lifeSteal.setPosition(643.0f + x, y);
+		cdr.setPosition(675.0f + x, y);
+		costo.setPosition(705.0f + x, y);
 	}
 }
 void outputGUI::setPosicionConj(float y) {

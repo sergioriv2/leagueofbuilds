@@ -125,7 +125,6 @@ void Campeones_Alta::update(sf::RenderWindow& _Ventana)
 		}
 	}
 
-	//TODO: Falta el process event
 }
 
 void Campeones_Alta::dibujarEnVentana(sf::RenderWindow& _Ventana)

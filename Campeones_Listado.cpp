@@ -63,10 +63,6 @@ void Campeones_Listado::cargarArchivos()
 	//Variable j para leer todos los registros, variable k para leer el registro especifico
 	int j = 0, k = 0;
 
-	//Borro lo que habia antes en la clase 
-	if (_CantidadPaginas == 0) delete outputWindow;
-	else delete[] outputWindow;
-
 	//Consulto cuantos registros de item hay con true
 
 	//Tambien veo cuantas paginas voy a tener

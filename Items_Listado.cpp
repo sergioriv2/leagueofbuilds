@@ -61,7 +61,7 @@ void Items_Listado::cargarArchivos()
 		outputWindow[i] = outputGUI();
 	}
 	//Seteos de la posicion
-	//TODO: Faltaria fixear la posicion en cada pagina (Listo)
+
 	for (int i = 0; i < _ItemsAMostrar; i++)
 	{
 		outputWindow[i].setidOutput(i + 1);
