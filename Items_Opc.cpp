@@ -66,6 +66,14 @@ void Items_Opc::update(sf::RenderWindow& _Ventana)
 	{
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) Singleton::getInstancia().cambiar_Menu(new Item_Mod(*_ItemAux));
 	}
+	//volver
+	if (_Botones[2].getButton().getGlobalBounds().intersects(_Mouse->getCircleShape().getGlobalBounds()))
+	{
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && _Reloj->getElapsedTime().asSeconds() > 0.5)
+		{
+			Singleton::getInstancia().cambiar_Menu(new Items_Listado);
+		}
+	}
 
 	for (int i = 0; i < 3; i++) _Botones[i].update();
 

@@ -115,7 +115,13 @@ void Conjuntos_Opc::update(sf::RenderWindow& _Ventana)
 		}
 	
 	}
-
+	if (_Botones[3].getButton().getGlobalBounds().intersects(_Mouse->getCircleShape().getGlobalBounds()))
+	{
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && _Reloj->getElapsedTime().asSeconds() > 0.5)
+		{
+			Singleton::getInstancia().cambiar_Menu(new Conjuntos_Listado);
+		}
+	}
 	for (int i = 0; i < 4; i++) _Botones[i].update();
 }
 

@@ -177,7 +177,7 @@ void BotonGUI::cmd(clsMouse & mouse)
 				estadoBtn = SELECCION;
 				if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 				{
-					//window.close();
+					Singleton::getInstancia().close();
 				}
 			}
 			break;

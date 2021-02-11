@@ -75,6 +75,14 @@ void SubMenu_Conjuntos::update(sf::RenderWindow& _Ventana)
 		}
 	}
 
+	//volver
+	if (_Botones[2].getButton().getGlobalBounds().intersects(_Mouse->getCircleShape().getGlobalBounds()))
+	{
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && _Reloj->getElapsedTime().asSeconds() > 0.5)
+		{
+			Singleton::getInstancia().cambiar_Menu(new SubMenu_Principal);
+		}
+	}
 }
 
 void SubMenu_Conjuntos::dibujarEnVentana(sf::RenderWindow& _Ventana)

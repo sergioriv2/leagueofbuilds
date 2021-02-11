@@ -151,8 +151,15 @@ void SubMenu_Backup::update(sf::RenderWindow& _Ventana)
 			_Reloj->restart();
 		}
 	}
-
-
+	//Volver
+	if (_Botones[2].getButton().getGlobalBounds().intersects(_Mouse->getCircleShape().getGlobalBounds()))
+	{
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && _Reloj->getElapsedTime().asSeconds() > 0.5)
+		{
+			Singleton::getInstancia().cambiar_Menu(new SubMenu_Principal);
+		}
+	}
+	
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
 	{
 		if (_Reloj->getElapsedTime().asSeconds() > 0.5)

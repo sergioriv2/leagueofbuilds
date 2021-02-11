@@ -77,6 +77,15 @@ void Campeones_Opc::update(sf::RenderWindow& _Ventana)
 		}
 		
 	}
+
+	//Volver
+	if (_Botones[2].getButton().getGlobalBounds().intersects(_Mouse->getCircleShape().getGlobalBounds()))
+	{
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && _Reloj->getElapsedTime().asSeconds() > 0.5)
+		{
+			Singleton::getInstancia().cambiar_Menu(new Campeones_Listado);
+		}
+	}
 }
 
 void Campeones_Opc::dibujarEnVentana(sf::RenderWindow& _Ventana)
